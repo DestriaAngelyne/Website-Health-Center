@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dokter;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 class DokterController extends Controller
 {
@@ -42,41 +39,24 @@ class DokterController extends Controller
             'no_hp'      => 'nullable|string|max:20',
             'str_number' => 'nullable|string|max:50',
             'is_active'  => 'boolean',
-            // Akun user dokter
-            'email'      => 'required|email|unique:users,email',
-            'password'   => 'required|string|min:6',
         ]);
 
-        return DB::transaction(function () use ($request) {
-            // Buat user
-            $user = User::create([
-                'name'      => $request->nama,
-                'email'     => $request->email,
-                'username'  => strtolower(str_replace(' ', '.', $request->nama)) . rand(100, 999),
-                'password'  => Hash::make($request->password),
-                'role'      => 'dokter',
-                'is_active' => true,
-            ]);
+        $dokter = Dokter::create([
+            'poli_id'    => $request->poli_id,
+            'nip'        => $request->nip,
+            'nama'       => $request->nama,
+            'spesialis'  => $request->spesialis,
+            'str_number' => $request->str_number,
+            'no_hp'      => $request->no_hp,
+            'is_active'  => $request->is_active ?? true,
+        ]);
 
-            // Buat dokter
-            $dokter = Dokter::create([
-                'user_id'    => $user->id,
-                'poli_id'    => $request->poli_id,
-                'nip'        => $request->nip,
-                'nama'       => $request->nama,
-                'spesialis'  => $request->spesialis,
-                'str_number' => $request->str_number,
-                'no_hp'      => $request->no_hp,
-                'is_active'  => $request->is_active ?? true,
-            ]);
-
-            return response()->json(['message' => 'Dokter berhasil ditambahkan.', 'data' => $dokter], 201);
-        });
+        return response()->json(['message' => 'Dokter berhasil ditambahkan.', 'data' => $dokter], 201);
     }
 
     public function show($id)
     {
-        $dokter = Dokter::with(['poli', 'user', 'jadwalDokter'])->findOrFail($id);
+        $dokter = Dokter::with(['poli', 'jadwalDokter'])->findOrFail($id);
         return response()->json(['data' => $dokter]);
     }
 
@@ -103,9 +83,6 @@ class DokterController extends Controller
             'no_hp'      => $request->no_hp,
             'is_active'  => $request->is_active ?? $dokter->is_active,
         ]);
-
-        // Update nama di user juga
-        $dokter->user?->update(['name' => $request->nama]);
 
         return response()->json(['message' => 'Dokter berhasil diperbarui.', 'data' => $dokter]);
     }

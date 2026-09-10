@@ -21,10 +21,6 @@ use App\Http\Controllers\Api\Master\JadwalController;
 // Loket
 use App\Http\Controllers\Api\Loket\AntrianController as LoketAntrianController;
 
-// Dokter
-use App\Http\Controllers\Api\Dokter\AntrianController as DokterAntrianController;
-use App\Http\Controllers\Api\Dokter\KunjunganController as DokterKunjunganController;
-
 // Perawat
 use App\Http\Controllers\Api\Perawat\DashboardController as PerawatDashboardController;
 use App\Http\Controllers\Api\Perawat\AntrianController as PerawatAntrianController;
@@ -144,24 +140,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post ('antrian/mulai/{id}',     [PerawatAntrianController::class,   'mulai']);
         Route::patch('antrian/{id}/selesai',   [PerawatAntrianController::class,   'selesai']);
         Route::post ('antrian/tutup-sesi',     [PerawatAntrianController::class,   'tutupSesi']);
-    });
-
-    // ── Dokter ────────────────────────────────────────────────────────────────
-    Route::middleware('role:dokter')->prefix('dokter')->group(function () {
-        Route::get  ('dashboard',                        [DokterAntrianController::class,   'dashboard']);
-        Route::get  ('antrian',                          [DokterAntrianController::class,   'index']);
-        Route::patch('antrian/{id}/panggil',             [DokterAntrianController::class,   'panggil']);
-        Route::patch('antrian/{id}/mulai',               [DokterAntrianController::class,   'mulai']);
-        Route::patch('antrian/{id}/lewati',              [DokterAntrianController::class,   'lewati']);
-
-        Route::get  ('kunjungan/{antrian_id}',           [DokterKunjunganController::class, 'show']);
-        Route::post ('kunjungan/{antrian_id}/simpan',    [DokterKunjunganController::class, 'simpan']);
-        Route::post ('kunjungan/{antrian_id}/selesai',   [DokterKunjunganController::class, 'selesai']);
-        Route::post ('kunjungan/{kunjungan_id}/resep',   [DokterKunjunganController::class, 'simpanResep']);
-        Route::post ('kunjungan/{kunjungan_id}/rujukan', [DokterKunjunganController::class, 'simpanRujukan']);
-        Route::get  ('riwayat',                          [DokterKunjunganController::class, 'riwayat']);
-
-        Route::get  ('obat',                             [ObatController::class,            'index']);
     });
 
     // ── Pasien ────────────────────────────────────────────────────────────────

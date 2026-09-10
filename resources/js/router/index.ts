@@ -117,23 +117,6 @@ const routes: Array<RouteRecordRaw> = [
         ],
     },
 
-    // ── Dokter Routes ─────────────────────────────────────────────────────
-    {
-        path: "/dokter",
-        redirect: "/dokter/dashboard",
-        component: () => import("@/layouts/default-layout/DefaultLayout.vue"),
-        meta: { requiresAuth: true, role: "dokter" },
-        children: [
-            { path: "dashboard",               name: "dokter-dashboard",   component: () => import("@/pages/dokter/Dashboard.vue"),           meta: { pageTitle: "Dashboard Dokter" } },
-            { path: "antrian",                 name: "dokter-antrian",     component: () => import("@/pages/dokter/antrian/Index.vue"),       meta: { pageTitle: "Pasien Hari Ini" } },
-            { path: "rekam-medis/:id",         name: "dokter-rekam",       component: () => import("@/pages/dokter/rekam-medis/Input.vue"),   meta: { pageTitle: "Rekam Medis" } },
-            { path: "rekam-medis/:id/resep",   name: "dokter-resep",       component: () => import("@/pages/dokter/rekam-medis/Resep.vue"),   meta: { pageTitle: "Tulis Resep" } },
-            { path: "rekam-medis/:id/rujukan", name: "dokter-rujukan",     component: () => import("@/pages/dokter/rekam-medis/Rujukan.vue"), meta: { pageTitle: "Buat Rujukan" } },
-            { path: "riwayat",                 name: "dokter-riwayat",     component: () => import("@/pages/dokter/riwayat/Index.vue"),       meta: { pageTitle: "Riwayat Pasien" } },
-            { path: "profil/edit",             name: "dokter-profil-edit", component: () => import("@/pages/dokter/profil/Edit.vue"),         meta: { pageTitle: "Edit Profil" } },
-        ],
-    },
-
     // ── Pasien Routes ─────────────────────────────────────────────────────
     {
         path: "/pasien",
@@ -167,6 +150,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: { pageTitle: "Halaman Tidak Ditemukan" },
     },
     {
+
         path: "/:pathMatch(.*)*",
         redirect: "/404",
     },

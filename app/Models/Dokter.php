@@ -14,7 +14,7 @@ class Dokter extends Model
     protected $table = 'dokter';
 
     protected $fillable = [
-        'user_id', 'poli_id', 'nip', 'nama',
+        'poli_id', 'nip', 'nama',
         'spesialis', 'str_number', 'no_hp', 'foto', 'is_active',
     ];
 
@@ -23,11 +23,6 @@ class Dokter extends Model
     public function poli(): BelongsTo
     {
         return $this->belongsTo(Poli::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function jadwalDokter(): HasMany

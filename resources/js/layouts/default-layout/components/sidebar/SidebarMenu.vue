@@ -95,7 +95,6 @@ import { sidebarMenuIcons } from "@/layouts/default-layout/config/helper";
 import AdminMenuConfig   from "@/layouts/default-layout/config/menu/AdminMenuConfig";
 import LoketMenuConfig   from "@/layouts/default-layout/config/menu/LoketMenuConfig";
 import PerawatMenuConfig from "@/layouts/default-layout/config/menu/PerawatMenuConfig";
-import DokterMenuConfig  from "@/layouts/default-layout/config/menu/DokterMenuConfig";
 import PasienMenuConfig  from "@/layouts/default-layout/config/menu/PasienMenuConfig";
 
 export default defineComponent({
@@ -109,7 +108,6 @@ export default defineComponent({
         case "admin"  : return AdminMenuConfig;
         case "loket"  : return LoketMenuConfig;
         case "perawat": return PerawatMenuConfig;
-        case "dokter" : return DokterMenuConfig;
         case "pasien" : return PasienMenuConfig;
         default       : return [];
       }
