@@ -12,8 +12,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,      // 1. user dulu (karena pasien butuh user_id)
             PoliSeeder::class,      // 2. poli (karena dokter butuh poli_id)
             DokterSeeder::class,    // 3. dokter
-            TindakanSeeder::class,  // 4. tindakan
-            PasienSeeder::class,    // 5. pasien
+            PasienSeeder::class,    // 4. pasien
         ]);
     }
 }
