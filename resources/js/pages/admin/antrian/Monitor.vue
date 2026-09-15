@@ -67,7 +67,7 @@
               <option value="">Semua Status</option>
               <option value="menunggu">Menunggu</option>
               <option value="dipanggil">Dipanggil</option>
-              <option value="dilayani">Dilayani</option>
+              <option value="skrining">Skrining</option>
               <option value="selesai">Selesai</option>
               <option value="batal">Batal</option>
             </select>
@@ -113,7 +113,7 @@
                     @change="updateStatus(a.id, ($event.target as HTMLSelectElement).value)">
                     <option value="">Ubah Status</option>
                     <option value="dipanggil">Dipanggil</option>
-                    <option value="dilayani">Dilayani</option>
+                    <option value="skrining">Skrining</option>
                     <option value="selesai">Selesai</option>
                     <option value="batal">Batal</option>
                   </select>
@@ -151,20 +151,18 @@ const statList = computed(() => [
   { label: 'Total',     value: statistik.value.total     ?? 0, color: 'text-gray-800' },
   { label: 'Menunggu',  value: statistik.value.menunggu  ?? 0, color: 'text-warning'  },
   { label: 'Dipanggil', value: statistik.value.dipanggil ?? 0, color: 'text-info'     },
-  { label: 'Dilayani',  value: statistik.value.dilayani  ?? 0, color: 'text-primary'  },
+  { label: 'Skrining',  value: statistik.value.skrining  ?? 0, color: 'text-primary'  },
   { label: 'Selesai',   value: statistik.value.selesai   ?? 0, color: 'text-success'  },
   { label: 'Batal',     value: statistik.value.batal     ?? 0, color: 'text-danger'   },
 ])
 
 const statusBadge = (s: string) => ({
-  menunggu             : 'badge-light-warning',
-  dipanggil            : 'badge-light-info',
-  skrining             : 'badge-light-info',
-  dalam_antrian_dokter : 'badge-light-primary',
-  dilayani             : 'badge-light-primary',
-  selesai              : 'badge-light-success',
-  dilewati             : 'badge-light-secondary',
-  batal                : 'badge-light-danger',
+  menunggu  : 'badge-light-warning',
+  dipanggil : 'badge-light-info',
+  skrining  : 'badge-light-primary',
+  selesai   : 'badge-light-success',
+  dilewati  : 'badge-light-secondary',
+  batal     : 'badge-light-danger',
 }[s] ?? 'badge-light-secondary')
 
 async function fetchData() {

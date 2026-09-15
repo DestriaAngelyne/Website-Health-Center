@@ -72,7 +72,7 @@ class AntrianController extends Controller
                 'statistik'    => [
                     'total'     => $antrian->count(),
                     'menunggu'  => $statusCount['menunggu'] ?? 0,
-                    'dilayani'  => $statusCount['dilayani'] ?? 0,
+                    'skrining'  => $statusCount['skrining'] ?? 0,
                     'selesai'   => $statusCount['selesai'] ?? 0,
                     'batal'     => $statusCount['batal'] ?? 0,
                     'dipanggil' => $statusCount['dipanggil'] ?? 0,
@@ -85,19 +85,17 @@ class AntrianController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:menunggu,dipanggil,skrining,dalam_antrian_dokter,dilayani,selesai,dilewati,batal',
+            'status' => 'required|in:menunggu,dipanggil,skrining,selesai,dilewati,batal',
         ]);
 
         $antrian = Antrian::findOrFail($id);
         $now     = Carbon::now();
 
         $timestamps = match($request->status) {
-            'dipanggil'             => ['waktu_dipanggil'        => $now],
-            'skrining'              => ['waktu_mulai_skrining'   => $now],
-            'dalam_antrian_dokter'  => ['waktu_selesai_skrining' => $now],
-            'dilayani'              => ['waktu_mulai_dilayani'   => $now],
-            'selesai'               => ['waktu_selesai'          => $now],
-            default                 => [],
+            'dipanggil' => ['waktu_dipanggil'        => $now],
+            'skrining'  => ['waktu_mulai_skrining'   => $now],
+            'selesai'   => ['waktu_selesai_skrining' => $now, 'waktu_selesai' => $now],
+            default     => [],
         };
 
         $antrian->update(array_merge(['status' => $request->status], $timestamps));

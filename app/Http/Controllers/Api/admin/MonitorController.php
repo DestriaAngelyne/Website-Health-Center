@@ -95,8 +95,8 @@ class MonitorController extends Controller
         $statistik = [
             'total'     => $base()->count(),
             'menunggu'  => $base()->where('status', 'menunggu')->count(),
-            'dipanggil' => $base()->whereIn('status', ['dipanggil', 'skrining', 'dalam_antrian_dokter'])->count(),
-            'dilayani'  => $base()->where('status', 'dilayani')->count(),
+            'dipanggil' => $base()->where('status', 'dipanggil')->count(),
+            'skrining'  => $base()->where('status', 'skrining')->count(),
             'selesai'   => $base()->where('status', 'selesai')->count(),
             'batal'     => $base()->where('status', 'batal')->count(),
         ];
@@ -117,7 +117,7 @@ class MonitorController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:dipanggil,skrining,dalam_antrian_dokter,dilayani,selesai,dilewati,batal',
+            'status' => 'required|in:dipanggil,skrining,selesai,dilewati,batal',
         ]);
 
         $antrian         = Antrian::findOrFail($id);

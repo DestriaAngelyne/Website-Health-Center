@@ -54,7 +54,7 @@
               <option value="">Semua Status</option>
               <option value="menunggu">Menunggu</option>
               <option value="dipanggil">Dipanggil</option>
-              <option value="dilayani">Dilayani</option>
+              <option value="skrining">Skrining</option>
               <option value="selesai">Selesai</option>
               <option value="batal">Batal</option>
             </select>
@@ -158,7 +158,7 @@ const quickStats = computed(() => {
   return [
     { label: 'Semua',     val: '',          total: all.length,                                               color: 'text-gray-800' },
     { label: 'Menunggu',  val: 'menunggu',  total: all.filter(a => a.status === 'menunggu').length,          color: 'text-warning'  },
-    { label: 'Dilayani',  val: 'dilayani',  total: all.filter(a => a.status === 'dilayani').length,          color: 'text-primary'  },
+    { label: 'Skrining',  val: 'skrining',  total: all.filter(a => a.status === 'skrining').length,          color: 'text-primary'  },
     { label: 'Selesai',   val: 'selesai',   total: all.filter(a => a.status === 'selesai').length,           color: 'text-success'  },
     { label: 'Batal',     val: 'batal',     total: all.filter(a => a.status === 'batal').length,             color: 'text-danger'   },
   ]
@@ -167,9 +167,7 @@ const quickStats = computed(() => {
 const statusBadge = (s: string) => ({
   menunggu : 'badge-light-warning',
   dipanggil: 'badge-light-info',
-  skrining : 'badge-light-info',
-  dalam_antrian_dokter: 'badge-light-primary',
-  dilayani : 'badge-light-primary',
+  skrining : 'badge-light-primary',
   selesai  : 'badge-light-success',
   dilewati : 'badge-light-secondary',
   batal    : 'badge-light-danger',

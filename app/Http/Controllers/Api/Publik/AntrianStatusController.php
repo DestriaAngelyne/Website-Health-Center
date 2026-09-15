@@ -62,7 +62,7 @@ class AntrianStatusController extends Controller
                 ->count();
 
             $sudahDilayani = Antrian::where('sesi_antrian_id', $sesi->id)
-                ->whereIn('status', ['selesai', 'dilayani'])
+                ->whereIn('status', ['selesai'])
                 ->count();
         }
 
