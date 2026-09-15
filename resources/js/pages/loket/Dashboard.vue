@@ -202,17 +202,17 @@ async function bukaSesiOtomatis() {
 }
 
 async function tutupSesi(id: number) {
-  if (!confirm('Tutup sesi ini?')) return
+  if (!confirm('Tutup sesi ini? Sisa antrian yang masih menunggu akan dibatalkan otomatis.')) return
   try {
-    await api.patch(`/loket/sesi/${id}/tutup`)
-    alertMsg.value  = 'Sesi berhasil ditutup.'
+    const res = await api.patch(`/loket/sesi/${id}/tutup`)
+    alertMsg.value  = res.data.message
     alertType.value = 'success'
     fetchAll()
   } catch (e: any) {
     alertMsg.value  = e.response?.data?.message ?? 'Gagal menutup sesi.'
     alertType.value = 'danger'
   }
-}6
+}
 
 onMounted(fetchAll)
 </script>

@@ -139,9 +139,10 @@ const formatJam = (timeString) => {
 }
 
 const handleTutupSesi = async () => {
-  if (confirm('Apakah Anda yakin ingin menutup sesi poli ini?')) {
+  if (confirm('Apakah Anda yakin ingin menutup sesi poli ini? Sisa antrian yang masih menunggu akan dibatalkan otomatis.')) {
     try {
-      await api.post('/perawat/antrian/tutup-sesi')
+      const res = await api.post('/perawat/antrian/tutup-sesi')
+      alert(res.data.message)
       fetchAntrian()
     } catch (err) {
       alert('Gagal menutup sesi')

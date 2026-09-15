@@ -164,13 +164,28 @@ class AntrianController extends Controller
      */
     public function tutupSesi()
     {
-        SesiAntrian::whereDate('tanggal', Carbon::today())
-            ->whereIn('status', ['aktif', 'buka'])
-            ->update(['status' => 'tutup']);
+        return \Illuminate\Support\Facades\DB::transaction(function () {
+            $sesiIds = SesiAntrian::whereDate('tanggal', Carbon::today())
+                ->whereIn('status', ['aktif', 'buka'])
+                ->pluck('id');
 
-        return response()->json([
-            'status'  => 'success',
-            'message' => 'Sesi berhasil ditutup.',
-        ]);
+            $dibatalkan = Antrian::whereIn('sesi_antrian_id', $sesiIds)
+                ->where('status', 'menunggu')
+                ->update([
+                    'status'  => 'batal',
+                    'catatan' => \Illuminate\Support\Facades\DB::raw("CONCAT(COALESCE(catatan, ''), IF(catatan IS NULL OR catatan = '', '', ' | '), 'Dibatalkan otomatis - sesi ditutup')"),
+                ]);
+
+            SesiAntrian::whereIn('id', $sesiIds)->update([
+                'status'       => 'ditutup',
+                'ditutup_oleh' => Auth::id(),
+            ]);
+
+            return response()->json([
+                'status'     => 'success',
+                'message'    => "Sesi berhasil ditutup. $dibatalkan antrian menunggu dibatalkan otomatis.",
+                'dibatalkan' => $dibatalkan,
+            ]);
+        });
     }
 }

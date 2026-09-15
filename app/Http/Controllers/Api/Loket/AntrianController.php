@@ -49,22 +49,23 @@ class AntrianController extends Controller
     public function getSesi()
     {
         $sesi = SesiAntrian::whereDate('tanggal', today())
-            ->with(['poli', 'dokter'])
+            ->with(['poli', 'dokter', 'dibukaOleh', 'ditutupOleh'])
             ->orderBy('jam_buka')
             ->get()
             ->map(function ($s) {
                 $terpakai = $s->antrian()->whereNotIn('status', ['batal'])->count();
                 return [
-                    'id'         => $s->id,
-                    'poli'       => $s->poli?->nama,
-                    'dokter'     => $s->dokter?->nama,
-                    'jam_buka'   => substr($s->jam_buka,  0, 5),
-                    'jam_tutup'  => substr($s->jam_tutup, 0, 5),
-                    'kuota'      => $s->kuota,
-                    'terpakai'   => $terpakai,
-                    'sisa'       => max(0, $s->kuota - $terpakai),
-                    'status'     => $s->status,
-                    'dibuka_oleh'=> $s->dibuka_oleh,
+                    'id'          => $s->id,
+                    'poli'        => $s->poli?->nama,
+                    'dokter'      => $s->dokter?->nama,
+                    'jam_buka'    => substr($s->jam_buka,  0, 5),
+                    'jam_tutup'   => substr($s->jam_tutup, 0, 5),
+                    'kuota'       => $s->kuota,
+                    'terpakai'    => $terpakai,
+                    'sisa'        => max(0, $s->kuota - $terpakai),
+                    'status'      => $s->status,
+                    'dibuka_oleh' => $s->dibukaOleh?->name,
+                    'ditutup_oleh'=> $s->ditutupOleh?->name,
                 ];
             });
 
@@ -101,7 +102,7 @@ class AntrianController extends Controller
             'kuota'         => $request->kuota,
             'nomor_terakhir'=> 0,
             'status'        => 'aktif',
-            'dibuka_oleh'   => Auth::user()->name,
+            'dibuka_oleh'   => Auth::id(),
         ]);
 
         return response()->json(['message' => 'Sesi antrian berhasil dibuka.', 'data' => $sesi], 201);
@@ -132,7 +133,7 @@ class AntrianController extends Controller
                     'kuota'          => $jadwal->kuota,
                     'nomor_terakhir' => 0,
                     'status'         => 'aktif',
-                    'dibuka_oleh'    => Auth::user()->name,
+                    'dibuka_oleh'    => Auth::id(),
                 ]);
                 $dibuka++;
             }
@@ -144,12 +145,26 @@ class AntrianController extends Controller
     // PATCH /api/loket/sesi/{id}/tutup
     public function tutupSesi($id)
     {
-        $sesi = SesiAntrian::findOrFail($id);
-        $sesi->update([
-            'status'      => 'ditutup',
-            'ditutup_oleh'=> Auth::user()->name,
-        ]);
-        return response()->json(['message' => 'Sesi antrian berhasil ditutup.']);
+        return DB::transaction(function () use ($id) {
+            $sesi = SesiAntrian::findOrFail($id);
+
+            $dibatalkan = Antrian::where('sesi_antrian_id', $sesi->id)
+                ->where('status', 'menunggu')
+                ->update([
+                    'status'   => 'batal',
+                    'catatan'  => DB::raw("CONCAT(COALESCE(catatan, ''), IF(catatan IS NULL OR catatan = '', '', ' | '), 'Dibatalkan otomatis - sesi ditutup')"),
+                ]);
+
+            $sesi->update([
+                'status'       => 'ditutup',
+                'ditutup_oleh' => Auth::id(),
+            ]);
+
+            return response()->json([
+                'message'    => "Sesi antrian berhasil ditutup. $dibatalkan antrian menunggu dibatalkan otomatis.",
+                'dibatalkan' => $dibatalkan,
+            ]);
+        });
     }
 
     // GET /api/loket/antrian - antrian hari ini

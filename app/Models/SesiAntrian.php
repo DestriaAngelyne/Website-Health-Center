@@ -42,6 +42,16 @@ class SesiAntrian extends Model
         return $this->hasMany(Antrian::class);
     }
 
+    public function dibukaOleh(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'dibuka_oleh');
+    }
+
+    public function ditutupOleh(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'ditutup_oleh');
+    }
+
     public function getSisaKuotaAttribute(): int
     {
         $terpakai = $this->antrian()->whereNotIn('status', ['batal'])->count();
