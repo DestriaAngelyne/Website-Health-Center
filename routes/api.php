@@ -33,6 +33,7 @@ use App\Http\Controllers\Api\Pasien\RiwayatController;
 
 // Publik
 use App\Http\Controllers\Api\Publik\AntrianStatusController;
+use App\Http\Controllers\Api\Display\DisplayController;
 
 // ── Public Routes ─────────────────────────────────────────────────────────────
 Route::prefix('auth')->group(function () {
@@ -51,6 +52,9 @@ Route::get('tanggal-tersedia/{dokter_id}', [PendaftaranController::class, 'getTa
 
 // Status Antrian Publik (untuk scan QR, tanpa login)
 Route::get('antrian/status', [AntrianStatusController::class, 'show']);
+
+// Display TV ruang tunggu (publik, tanpa login)
+Route::get('display/antrian', [DisplayController::class, 'antrian']);
 
 // ── Protected Routes ──────────────────────────────────────────────────────────
 Route::middleware('auth:sanctum')->group(function () {
