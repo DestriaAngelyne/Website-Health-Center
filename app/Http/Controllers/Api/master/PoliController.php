@@ -21,7 +21,7 @@ class PoliController extends Controller
                 'keterangan'   => $p->keterangan,
                 'is_active'    => $p->is_active,
                 'jumlah_dokter'=> $p->dokter_count,
-                'created_at'   => $p->created_at->format('d/m/Y'),
+                'created_at'   => $p->created_at,
             ]);
 
         return response()->json(['data' => $poli]);

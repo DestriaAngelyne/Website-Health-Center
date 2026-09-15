@@ -60,16 +60,6 @@ const AdminMenuConfig: Array<MenuItem> = [
           { heading: "Tambah Jadwal",  route: "/admin/master/jadwal/create" },
         ],
       },
-      {
-        sectionTitle   : "Obat",
-        route          : "/admin/master/obat",
-        keenthemesIcon : "capsule",        // ← icon valid keenthemes
-        bootstrapIcon  : "bi-capsule",
-        sub: [
-          { heading: "Daftar Obat",  route: "/admin/master/obat" },
-          { heading: "Tambah Obat",  route: "/admin/master/obat/create" },
-        ],
-      },
     ],
   },
   {

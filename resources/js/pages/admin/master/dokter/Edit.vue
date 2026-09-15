@@ -55,7 +55,7 @@ async function submit() {
   finally { saving.value = false }
 }
 </script>
-<style scoped>@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+<style scoped>
 :root{
   --bg:#0b1222;--surface:#152033;--surface2:#1a2a40;
   --border:#243450;--text:#e8f0f8;--text2:#8ba3bb;--text3:#4a6380;

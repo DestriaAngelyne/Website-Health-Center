@@ -68,12 +68,19 @@
               <td class="muted sm">{{ fmtDate(item.created_at) }}</td>
               <td>
                 <div class="actions">
-                  <router-link :to="`/admin/users/${item.id}/edit`" class="act act-yellow">Edit</router-link>
-                  <button @click="openReset(item)" class="act act-blue">Reset PW</button>
-                  <button @click="toggleActive(item)" class="act" :class="item.is_active ? 'act-gray' : 'act-green'">
-                    {{ item.is_active ? 'Nonaktif' : 'Aktifkan' }}
+                  <router-link :to="`/admin/users/${item.id}/edit`" class="act act-edit" title="Edit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                  </router-link>
+                  <button @click="openReset(item)" class="act act-neutral" title="Reset Password">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                   </button>
-                  <button @click="hapus(item)" class="act act-red">Hapus</button>
+                  <button @click="toggleActive(item)" class="act act-neutral" :title="item.is_active ? 'Nonaktifkan' : 'Aktifkan'">
+                    <svg v-if="item.is_active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/></svg>
+                    <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </button>
+                  <button @click="hapus(item)" class="act act-danger" title="Hapus">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </button>
                 </div>
               </td>
             </tr>
@@ -170,14 +177,16 @@ async function hapus(item) {
 }
 
 function fmtDate(d) {
-  return d ? new Date(d).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'
+  if (!d) return '—'
+  const date = new Date(d)
+  if (isNaN(date.getTime())) return '—'
+  return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
 onMounted(loadData)
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 :root {
   --bg:        #0b1222;
@@ -209,14 +218,14 @@ onMounted(loadData)
 .icon-btn{width:42px;height:42px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;box-shadow:var(--shadow);}
 .icon-btn svg{width:17px;height:17px;}.icon-btn:hover{border-color:#14b8a6;color:#14b8a6;background:rgba(20,184,166,.06);}
 
-.btn-primary{display:inline-flex;align-items:center;gap:.5rem;height:42px;padding:0 1.25rem;border-radius:10px;background:#0ea5e9;color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;font-family:inherit;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(14,165,233,.3);}
-.btn-primary svg{width:15px;height:15px;}.btn-primary:hover{background:#0284c7;transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,165,233,.4);}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;height:42px;padding:0 1.25rem;border-radius:10px;background:#0d9488;color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;font-family:inherit;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(13,148,136,.3);}
+.btn-primary svg{width:15px;height:15px;}.btn-primary:hover{background:#0f766e;transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,148,136,.4);}
 
 .btn-ghost{display:inline-flex;align-items:center;height:42px;padding:0 1.25rem;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-size:.9rem;font-weight:600;font-family:inherit;text-decoration:none;cursor:pointer;transition:all .18s;}
 .btn-ghost:hover{border-color:var(--text2);color:var(--text);}
 
-.btn-save{display:inline-flex;align-items:center;gap:.5rem;height:42px;padding:0 1.5rem;border-radius:10px;background:#0ea5e9;color:#fff;font-size:.9rem;font-weight:700;font-family:inherit;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(14,165,233,.3);}
-.btn-save:hover:not(:disabled){background:#0284c7;transform:translateY(-1px);}.btn-save:disabled{opacity:.55;cursor:not-allowed;}
+.btn-save{display:inline-flex;align-items:center;gap:.5rem;height:42px;padding:0 1.5rem;border-radius:10px;background:#0d9488;color:#fff;font-size:.9rem;font-weight:700;font-family:inherit;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(13,148,136,.3);}
+.btn-save:hover:not(:disabled){background:#0f766e;transform:translateY(-1px);}.btn-save:disabled{opacity:.55;cursor:not-allowed;}
 .btn-spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
 
 /* Filter bar */
@@ -259,27 +268,25 @@ onMounted(loadData)
 /* Badges */
 .pill{padding:.28rem .75rem;border-radius:7px;font-size:.78rem;font-weight:700;}
 .pill-green{background:rgba(34,197,94,.12);color:#16a34a;}.pill-red{background:rgba(239,68,68,.12);color:#dc2626;}
-.av{width:34px;height:34px;border-radius:50%;color:#fff;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.av-admin{background:#ef4444;}.av-loket{background:#3b82f6;}.av-dokter{background:#22c55e;}.av-perawat{background:#f59e0b;}.av-pasien{background:#a855f7;}
+.av{width:34px;height:34px;border-radius:50%;color:#fff;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#0d9488;}
+.av-admin{background:#0f766e;}
 .code-tag{background:var(--surface2);border:1px solid var(--border);padding:.22rem .6rem;border-radius:7px;font-family:"SF Mono","Fira Code",monospace;font-size:.8rem;font-weight:600;}
-.role-tag{padding:.28rem .75rem;border-radius:7px;font-size:.78rem;font-weight:700;text-transform:capitalize;}
-.r-admin{background:rgba(239,68,68,.12);color:#dc2626;}.r-loket{background:rgba(59,130,246,.12);color:#2563eb;}
-.r-dokter{background:rgba(34,197,94,.12);color:#16a34a;}.r-perawat{background:rgba(245,158,11,.12);color:#d97706;}.r-pasien{background:rgba(168,85,247,.12);color:#7c3aed;}
+.role-tag{padding:.28rem .75rem;border-radius:7px;font-size:.78rem;font-weight:700;text-transform:capitalize;background:rgba(13,148,136,.12);color:#0d9488;}
+.r-admin{background:rgba(15,118,110,.15);color:#0f766e;}
 
 /* Action buttons */
-.actions{display:flex;gap:.4rem;flex-wrap:wrap;}
-.act{padding:.32rem .75rem;border-radius:7px;border:none;cursor:pointer;font-size:.8rem;font-weight:700;text-decoration:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:.3rem;}
-.act-yellow{background:rgba(245,158,11,.12);color:#d97706;}.act-yellow:hover{background:rgba(245,158,11,.22);}
-.act-gray{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}.act-gray:hover{border-color:var(--text2);}
-.act-green{background:rgba(34,197,94,.12);color:#16a34a;}.act-green:hover{background:rgba(34,197,94,.22);}
-.act-red{background:rgba(239,68,68,.12);color:#dc2626;}.act-red:hover{background:rgba(239,68,68,.22);}
-.act-blue{background:rgba(59,130,246,.12);color:#2563eb;}.act-blue:hover{background:rgba(59,130,246,.22);}
+.actions{display:flex;gap:.4rem;flex-wrap:nowrap;}
+.act{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface2);color:var(--text2);text-decoration:none;}
+.act svg{width:15px;height:15px;}
+.act-edit:hover{border-color:#0d9488;color:#0d9488;background:rgba(13,148,136,.1);}
+.act-neutral:hover{border-color:var(--text2);color:var(--text);}
+.act-danger:hover{border-color:#dc2626;color:#dc2626;background:rgba(220,38,38,.1);}
 
 /* Pagination */
 .pager{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:1.1rem;border-top:1px solid var(--border);}
 .page-btn{min-width:36px;height:36px;padding:0 .7rem;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-size:.85rem;font-weight:600;cursor:pointer;color:var(--text2);font-family:inherit;transition:all .15s;display:flex;align-items:center;justify-content:center;}
 .page-btn:hover:not(:disabled){border-color:#14b8a6;color:#14b8a6;}.page-btn:disabled{opacity:.35;cursor:not-allowed;}
-.page-btn.active{background:#0ea5e9;color:#fff;border-color:#0ea5e9;}
+.page-btn.active{background:#0d9488;color:#fff;border-color:#0d9488;}
 
 /* Footer form */
 .footer{display:flex;align-items:center;justify-content:flex-end;gap:.75rem;padding:1.25rem 2rem;border-top:1px solid var(--border);background:var(--surface2);}

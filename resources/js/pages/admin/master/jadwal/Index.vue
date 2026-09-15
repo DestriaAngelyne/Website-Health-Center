@@ -27,7 +27,7 @@
               <td><span class="time-tag">{{ item.jam_tutup }}</span></td>
               <td class="center bold">{{ item.kuota }}</td>
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
-              <td><div class="actions"><router-link :to="`/admin/master/jadwal/${item.id}/edit`" class="act act-yellow">Edit</router-link><button @click="hapus(item)" class="act act-red">Hapus</button></div></td>
+              <td><div class="actions"><router-link :to="`/admin/master/jadwal/${item.id}/edit`" class="act act-edit" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></router-link><button @click="hapus(item)" class="act act-danger" title="Hapus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
             </tr>
           </tbody>
         </table>
@@ -54,11 +54,10 @@ onMounted(async () => {
 })
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap");
 :root,[data-theme="light"]{--bg:#f1f5f9;--surface:#fff;--surface2:#f8fafc;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--shadow:0 1px 3px rgba(0,0,0,.07)}
 [data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface2:#162032;--border:#334155;--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--shadow:0 1px 4px rgba(0,0,0,.4)}
 *{box-sizing:border-box}
-.page{padding:1.75rem 2rem;background:var(--bg);min-height:100vh;font-family:"DM Sans",system-ui,sans-serif;color:var(--text)}
+.page{padding:1.75rem 2rem;background:var(--bg);min-height:100vh;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text)}
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;gap:1rem}
 .topbar-left{display:flex;align-items:center;gap:.75rem}
 .topbar-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
@@ -93,8 +92,11 @@ onMounted(async () => {
 .pill-red{background:rgba(239,68,68,.12);color:#dc2626}
 .actions{display:flex;gap:.35rem;flex-wrap:wrap}
 .act{padding:.3rem .7rem;border-radius:.4rem;border:none;cursor:pointer;font-size:.79rem;font-weight:600;text-decoration:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center}
-.act-yellow{background:rgba(245,158,11,.12);color:#d97706}.act-yellow:hover{background:rgba(245,158,11,.22)}
-.act-red{background:rgba(239,68,68,.12);color:#dc2626}.act-red:hover{background:rgba(239,68,68,.22)}
+.actions{display:flex;gap:.4rem;flex-wrap:nowrap}
+.act{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface2);color:var(--text2);text-decoration:none}
+.act svg{width:15px;height:15px}
+.act-edit:hover{border-color:#0d9488;color:#0d9488;background:rgba(13,148,136,.1)}
+.act-danger:hover{border-color:#dc2626;color:#dc2626;background:rgba(220,38,38,.1)}
 .hari-tag{padding:.22rem .65rem;border-radius:.35rem;font-size:.75rem;font-weight:700}
 .h-senin{background:rgba(59,130,246,.12);color:#2563eb}
 .h-selasa{background:rgba(34,197,94,.12);color:#16a34a}

@@ -74,9 +74,6 @@ const routes: Array<RouteRecordRaw> = [
             { path: "master/jadwal",            name: "admin-jadwal",           component: () => import("@/pages/admin/master/jadwal/Index.vue"),           meta: { pageTitle: "Jadwal Dokter" } },
             { path: "master/jadwal/create",     name: "admin-jadwal-create",    component: () => import("@/pages/admin/master/jadwal/Create.vue"),          meta: { pageTitle: "Tambah Jadwal" } },
             { path: "master/jadwal/:id/edit",   name: "admin-jadwal-edit",      component: () => import("@/pages/admin/master/jadwal/Edit.vue"),            meta: { pageTitle: "Edit Jadwal" } },
-            { path: "master/obat",              name: "admin-obat",             component: () => import("@/pages/admin/master/obat/Index.vue"),             meta: { pageTitle: "Master Obat" } },
-            { path: "master/obat/create",       name: "admin-obat-create",      component: () => import("@/pages/admin/master/obat/Create.vue"),            meta: { pageTitle: "Tambah Obat" } },
-            { path: "master/obat/:id/edit",     name: "admin-obat-edit",        component: () => import("@/pages/admin/master/obat/Edit.vue"),              meta: { pageTitle: "Edit Obat" } },
             { path: "antrian/monitor",          name: "admin-monitor",          component: () => import("@/pages/admin/antrian/Monitor.vue"),               meta: { pageTitle: "Monitor Antrian" } },
             { path: "laporan/harian",           name: "admin-laporan-harian",   component: () => import("@/pages/admin/laporan/Harian.vue"),                meta: { pageTitle: "Laporan Harian" } },
             { path: "laporan/bulanan",          name: "admin-laporan-bulanan",  component: () => import("@/pages/admin/laporan/Bulanan.vue"),               meta: { pageTitle: "Laporan Bulanan" } },
@@ -150,7 +147,6 @@ const routes: Array<RouteRecordRaw> = [
         meta: { pageTitle: "Halaman Tidak Ditemukan" },
     },
     {
-
         path: "/:pathMatch(.*)*",
         redirect: "/404",
     },

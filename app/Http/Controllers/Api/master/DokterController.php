@@ -23,7 +23,7 @@ class DokterController extends Controller
                 'no_hp'      => $d->no_hp,
                 'str_number' => $d->str_number,
                 'is_active'  => $d->is_active,
-                'created_at' => $d->created_at->format('d/m/Y'),
+                'created_at' => $d->created_at,
             ]);
 
         return response()->json(['data' => $dokter]);

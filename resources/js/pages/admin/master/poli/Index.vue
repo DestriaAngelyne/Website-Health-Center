@@ -51,9 +51,16 @@
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
               <td>
                 <div class="actions">
-                  <router-link :to="`/admin/master/poli/${item.id}/edit`" class="act act-yellow">Edit</router-link>
-                  <button @click="toggleActive(item)" class="act" :class="item.is_active ? 'act-gray' : 'act-green'">{{ item.is_active ? 'Nonaktifkan' : 'Aktifkan' }}</button>
-                  <button @click="hapus(item)" class="act act-red">Hapus</button>
+                  <router-link :to="`/admin/master/poli/${item.id}/edit`" class="act act-edit" title="Edit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                  </router-link>
+                  <button @click="toggleActive(item)" class="act act-neutral" :title="item.is_active ? 'Nonaktifkan' : 'Aktifkan'">
+                    <svg v-if="item.is_active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/></svg>
+                    <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </button>
+                  <button @click="hapus(item)" class="act act-danger" title="Hapus">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </button>
                 </div>
               </td>
             </tr>
@@ -112,7 +119,6 @@ onMounted(loadData)
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 :root{
   --bg:#0b1222;--surface:#152033;--surface2:#1a2a40;
   --border:#243450;--text:#e8f0f8;--text2:#8ba3bb;--text3:#4a6380;
@@ -128,8 +134,8 @@ onMounted(loadData)
 .icon-btn { width: 38px; height: 38px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text2); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .18s; }
 .icon-btn svg { width: 17px; height: 17px; } .icon-btn:hover { border-color: #14b8a6; color: #14b8a6; }
 
-.btn-primary { display: inline-flex; align-items: center; gap: .4rem; gap:.5rem;height:42px;padding:0 1.25rem;border-radius:10px;background:#0ea5e9;color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;font-family:inherit;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(14,165,233,.28);}
-.btn-primary svg { width: 14px; height: 14px; } .btn-primary:hover { background: #0284c7; transform:translateY(-1px);}
+.btn-primary { display: inline-flex; align-items: center; gap: .4rem; gap:.5rem;height:42px;padding:0 1.25rem;border-radius:10px;background:#0d9488;color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;font-family:inherit;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(13,148,136,.28);}
+.btn-primary svg { width: 14px; height: 14px; } .btn-primary:hover { background: #0f766e; transform:translateY(-1px);}
 
 
 .filter-bar { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
@@ -160,16 +166,18 @@ onMounted(loadData)
 
 .actions { display: flex; gap: .35rem; flex-wrap: wrap; }
 .act { padding: .27rem .65rem; border-radius: .4rem; border: none; cursor: pointer; font-size: .8rem; font-weight: 700; text-decoration: none; font-family: inherit; transition: all .15s; display: inline-flex; align-items: center; }
-.act-yellow { background: rgba(245,158,11,.12); color: #d97706; } .act-yellow:hover { background: rgba(245,158,11,.22); }
-.act-gray   { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); } .act-gray:hover { border-color: var(--text2); }
-.act-green  { background: rgba(34,197,94,.12); color: #16a34a; } .act-green:hover { background: rgba(34,197,94,.22); }
-.act-red    { background: rgba(239,68,68,.12); color: #dc2626; } .act-red:hover { background: rgba(239,68,68,.22); }
+.actions{display:flex;gap:.4rem;flex-wrap:nowrap}
+.act{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface2);color:var(--text2);text-decoration:none}
+.act svg{width:15px;height:15px}
+.act-edit:hover{border-color:#0d9488;color:#0d9488;background:rgba(13,148,136,.1)}
+.act-neutral:hover{border-color:var(--text2);color:var(--text)}
+.act-danger:hover{border-color:#dc2626;color:#dc2626;background:rgba(220,38,38,.1)}
 
 .pager { display: flex; align-items: center; justify-content: center; gap: .4rem; padding: 1rem; border-top: 1px solid var(--border); }
 .page-btn { min-width: 32px; height: 32px; padding: 0 .6rem; border-radius: .45rem; border: 1.5px solid var(--border); background: var(--surface); font-size: .8rem; cursor: pointer; color: var(--text2); font-family: inherit; transition: all .15s; display: flex; align-items: center; justify-content: center; }
 .page-btn:hover:not(:disabled) { border-color: #14b8a6; color: #14b8a6; }
 .page-btn:disabled { opacity: .35; cursor: not-allowed; }
-.page-btn.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+.page-btn.active { background: #0d9488; color: #fff; border-color: #0d9488; }
 
 
 @keyframes spin { to { transform: rotate(360deg); } }

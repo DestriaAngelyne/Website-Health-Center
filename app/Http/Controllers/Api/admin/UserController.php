@@ -33,7 +33,7 @@ class UserController extends Controller
                 'role'       => $u->role,
                 'is_active'  => $u->is_active,
                 'no_hp'      => $u->no_hp,
-                'created_at' => $u->created_at->format('d/m/Y'),
+                'created_at' => $u->created_at,
             ]);
 
         return response()->json(['data' => $users]);

@@ -32,7 +32,7 @@
       <div class="panel">
         <div class="panel-head">
           <div class="panel-head-left">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="1.8" width="18" height="18"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.8" width="18" height="18"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
             <span class="panel-title">Antrian Per Poli</span>
           </div>
           <span class="badge badge-teal">Hari ini</span>
@@ -63,7 +63,7 @@
       <div class="panel">
         <div class="panel-head">
           <div class="panel-head-left">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8" width="18" height="18"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.8" width="18" height="18"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             <span class="panel-title">Menu Cepat</span>
           </div>
         </div>
@@ -86,7 +86,7 @@
     <div class="panel">
       <div class="panel-head">
         <div class="panel-head-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" width="18" height="18"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.8" width="18" height="18"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           <span class="panel-title">Tren Antrian 7 Hari Terakhir</span>
         </div>
         <span class="badge">Mingguan</span>
@@ -112,7 +112,7 @@
     <div class="panel" style="margin-bottom:0">
       <div class="panel-head">
         <div class="panel-head-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="18" height="18"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.8" width="18" height="18"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           <span class="panel-title">Antrian Aktif Terbaru</span>
         </div>
         <span class="badge">10 terbaru</span>
@@ -179,31 +179,30 @@ const tanggalHari = new Date().toLocaleDateString('id-ID', {
 })
 
 const statCards = computed(() => [
-  { label: 'Total Antrian', value: raw.value.total_antrian ?? 0, color: '#3b82f6',
+  { label: 'Total Antrian', value: raw.value.total_antrian ?? 0, color: '#0d9488',
     icon: '<rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>' },
-  { label: 'Dilayani',      value: raw.value.dilayani      ?? 0, color: '#22c55e',
+  { label: 'Dilayani',      value: raw.value.dilayani      ?? 0, color: '#16a34a',
     icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
-  { label: 'Menunggu',      value: raw.value.menunggu      ?? 0, color: '#f59e0b',
+  { label: 'Menunggu',      value: raw.value.menunggu      ?? 0, color: '#d97706',
     icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
-  { label: 'Dibatalkan',    value: raw.value.dibatal       ?? 0, color: '#ef4444',
+  { label: 'Dibatalkan',    value: raw.value.dibatal       ?? 0, color: '#dc2626',
     icon: '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>' },
-  { label: 'Sesi Aktif',    value: raw.value.sesi_aktif    ?? 0, color: '#14b8a6',
+  { label: 'Sesi Aktif',    value: raw.value.sesi_aktif    ?? 0, color: '#0d9488',
     icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
-  { label: 'Total Pasien',  value: raw.value.total_pasien  ?? 0, color: '#6366f1',
+  { label: 'Total Pasien',  value: raw.value.total_pasien  ?? 0, color: '#0d9488',
     icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
-  { label: 'Pasien Baru',   value: raw.value.pasien_baru   ?? 0, color: '#ec4899',
+  { label: 'Pasien Baru',   value: raw.value.pasien_baru   ?? 0, color: '#0d9488',
     icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/>' },
-  { label: 'Total Dokter',  value: raw.value.total_dokter  ?? 0, color: '#a855f7',
+  { label: 'Total Dokter',  value: raw.value.total_dokter  ?? 0, color: '#0d9488',
     icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
 ])
 
 const menus = [
-  { to: '/admin/master/poli',   label: 'Master Poli',   color: '#0ea5e9', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>' },
-  { to: '/admin/master/dokter', label: 'Master Dokter', color: '#6366f1', icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
-  { to: '/admin/master/jadwal', label: 'Jadwal Dokter', color: '#14b8a6', icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
-  { to: '/admin/users',         label: 'Kelola User',   color: '#f59e0b', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
-  { to: '/admin/master/obat',   label: 'Master Obat',   color: '#ec4899', icon: '<path d="M10.5 20H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H20a2 2 0 0 1 2 2v3"/><circle cx="18" cy="18" r="3"/><path d="M18 15v3l2 1"/>' },
-  { to: '/loket/dashboard',     label: 'Monitor Loket', color: '#22c55e', icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
+  { to: '/admin/master/poli',   label: 'Master Poli',   color: '#0d9488', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>' },
+  { to: '/admin/master/dokter', label: 'Master Dokter', color: '#0d9488', icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
+  { to: '/admin/master/jadwal', label: 'Jadwal Dokter', color: '#0d9488', icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
+  { to: '/admin/users',         label: 'Kelola User',   color: '#0d9488', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { to: '/loket/dashboard',     label: 'Monitor Loket', color: '#0d9488', icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
 ]
 
 async function loadData() {
@@ -229,7 +228,7 @@ const maxPoli = computed(() => Math.max(...antrianPerPoli.value.map(p => p.total
 function pctBar(total) { return Math.min(Math.round((total / maxPoli.value) * 100), 100) + '%' }
 function barColor(total) {
   const p = maxPoli.value ? (total / maxPoli.value) * 100 : 0
-  return p >= 80 ? '#ef4444' : p >= 50 ? '#f59e0b' : '#14b8a6'
+  return p >= 80 ? '#dc2626' : p >= 50 ? '#d97706' : '#0d9488'
 }
 
 function stCls(s) {
@@ -241,7 +240,6 @@ onUnmounted(() => clearInterval(timer))
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
   --bg:        #0b1222;
@@ -310,7 +308,7 @@ onUnmounted(() => clearInterval(timer))
 .panel-head-left { display: flex; align-items: center; gap: 0.6rem; }
 .panel-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
 .badge { font-size: 0.775rem; font-weight: 600; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 0.25rem 0.8rem; border-radius: 999px; }
-.badge-teal { background: rgba(20,184,166,.1); color: #14b8a6; border-color: rgba(20,184,166,.3); }
+.badge-teal { background: rgba(13,148,136,.1); color: #0d9488; border-color: rgba(13,148,136,.3); }
 .panel-body { padding: 1.35rem 1.5rem; }
 
 /* Skeleton */
@@ -336,11 +334,11 @@ onUnmounted(() => clearInterval(timer))
   padding: 1rem 1.1rem; border-radius: 11px; border: 1.5px solid var(--border);
   background: var(--surface2); text-decoration: none; color: var(--text); transition: all .2s;
 }
-.menu-card:hover { border-color: var(--mc, #14b8a6); background: var(--surface); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.menu-card:hover { border-color: var(--mc, #0d9488); background: var(--surface); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .menu-icon  { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 .menu-label { font-size: 0.9rem; font-weight: 600; flex: 1; }
 .menu-arrow { color: var(--text3); opacity: 0; transition: opacity .18s, transform .18s, color .18s; }
-.menu-card:hover .menu-arrow { opacity: 1; transform: translateX(3px); color: var(--mc, #14b8a6); }
+.menu-card:hover .menu-arrow { opacity: 1; transform: translateX(3px); color: var(--mc, #0d9488); }
 
 /* ══ CHART ══ */
 .chart-wrap { overflow-x: auto; }
@@ -348,12 +346,12 @@ onUnmounted(() => clearInterval(timer))
 .chart-col  { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
 .chart-val  { font-size: 0.775rem; font-weight: 700; color: var(--text2); }
 .chart-bar-wrap { flex: 1; width: 100%; display: flex; align-items: flex-end; }
-.chart-bar  { width: 100%; min-height: 4px; border-radius: 5px 5px 0 0; background: linear-gradient(to top, #0ea5e9, #14b8a6); transition: height .5s cubic-bezier(.4,0,.2,1); }
+.chart-bar  { width: 100%; min-height: 4px; border-radius: 5px 5px 0 0; background: linear-gradient(to top, #0f766e, #0d9488); transition: height .5s cubic-bezier(.4,0,.2,1); }
 .chart-label { font-size: 0.71rem; color: var(--text3); text-align: center; white-space: nowrap; font-weight: 500; }
 
 /* ══ TABLE ══ */
 .loading-row { display: flex; align-items: center; justify-content: center; gap: 0.875rem; padding: 3.5rem; color: var(--text3); font-size: 0.95rem; }
-.spinner { width: 24px; height: 24px; border: 2.5px solid var(--border); border-top-color: #14b8a6; border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
+.spinner { width: 24px; height: 24px; border: 2.5px solid var(--border); border-top-color: #0d9488; border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
 .table-wrap { overflow-x: auto; }
 .tbl { width: 100%; border-collapse: collapse; }
 .tbl th { background: var(--surface2); padding: 0.9rem 1.5rem; text-align: left; font-size: 0.75rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); white-space: nowrap; }
@@ -364,7 +362,7 @@ onUnmounted(() => clearInterval(timer))
 
 .num-badge { background: var(--surface2); border: 1.5px solid var(--border); padding: 0.28rem 0.75rem; border-radius: 7px; font-weight: 700; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
 .patient { display: flex; align-items: center; gap: 0.65rem; font-weight: 500; }
-.av { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #14b8a6, #0ea5e9); color: #fff; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.av { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); color: #fff; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .cell-muted { color: var(--text2); }
 .cell-mono  { font-variant-numeric: tabular-nums; font-size: 0.88rem; }
 

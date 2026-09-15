@@ -9,7 +9,6 @@ use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 // Admin
 use App\Http\Controllers\Api\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Api\Admin\UserController;
-use App\Http\Controllers\Api\Admin\ObatController;
 use App\Http\Controllers\Api\Admin\MonitorController;
 use App\Http\Controllers\Api\Admin\LaporanController;
 
@@ -99,15 +98,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get   ('jadwal/{id}',               [JadwalController::class, 'show']);
         Route::put   ('jadwal/{id}',               [JadwalController::class, 'update']);
         Route::delete('jadwal/{id}',               [JadwalController::class, 'destroy']);
-
-        // Obat
-        Route::get   ('master/obat/kategori-list', [ObatController::class, 'kategoriList']);
-        Route::get   ('master/obat',               [ObatController::class, 'index']);
-        Route::post  ('master/obat',               [ObatController::class, 'store']);
-        Route::get   ('master/obat/{id}',          [ObatController::class, 'show']);
-        Route::put   ('master/obat/{id}',          [ObatController::class, 'update']);
-        Route::delete('master/obat/{id}',          [ObatController::class, 'destroy']);
-        Route::patch ('master/obat/{id}/toggle',   [ObatController::class, 'toggle']);
 
         // Monitor Antrian
         Route::get   ('antrian/monitor',           [MonitorController::class, 'index']);
