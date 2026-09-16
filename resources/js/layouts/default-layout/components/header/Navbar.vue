@@ -2,6 +2,10 @@
   <!--begin::Navbar-->
   <div class="app-navbar flex-shrink-0">
 
+    <!--begin::Notifikasi (khusus Pasien)-->
+    <NotifikasiDropdown v-if="authStore.user?.role === 'pasien'" />
+    <!--end::Notifikasi-->
+
     <!--begin::Theme mode-->
     <div class="app-navbar-item ms-1 ms-md-3">
       <button
@@ -134,6 +138,7 @@
 import { computed, defineComponent } from "vue";
 import { useAuthStore } from "@/stores/auth.store";
 import KTThemeModeSwitcher from "@/layouts/default-layout/components/theme-mode/ThemeModeSwitcher.vue";
+import NotifikasiDropdown from "@/layouts/default-layout/components/header/NotifikasiDropdown.vue";
 import { ThemeModeComponent } from "@/assets/ts/layout";
 import { useThemeStore } from "@/stores/theme";
 
@@ -141,6 +146,7 @@ export default defineComponent({
   name: "header-navbar",
   components: {
     KTThemeModeSwitcher,
+    NotifikasiDropdown,
   },
   setup() {
     const themeStore = useThemeStore();

@@ -1,5 +1,8 @@
 <?php
 namespace App\Models;
+use App\Events\AntrianDilewati;
+use App\Events\AntrianDipanggil;
+use App\Events\AntrianSelesai;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Antrian extends Model
@@ -21,6 +24,27 @@ class Antrian extends Model
         'waktu_selesai_skrining'  => 'datetime',
         'waktu_selesai'           => 'datetime',
     ];
+
+    /**
+     * Auto-dispatch event notifikasi saat status berubah, terlepas dari
+     * controller/role mana yang mengubahnya (Perawat, Admin, Monitor).
+     * Satu tempat, konsisten, tidak perlu diulang di tiap controller.
+     */
+    protected static function booted(): void
+    {
+        static::updated(function (Antrian $antrian) {
+            if (!$antrian->wasChanged('status')) {
+                return;
+            }
+
+            match ($antrian->status) {
+                'dipanggil' => event(new AntrianDipanggil($antrian)),
+                'selesai'   => event(new AntrianSelesai($antrian)),
+                'dilewati'  => event(new AntrianDilewati($antrian)),
+                default     => null,
+            };
+        });
+    }
 
     // Relasi ke Pasien
     public function pasien(): BelongsTo

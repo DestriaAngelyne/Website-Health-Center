@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\Pasien\PendaftaranController;
 use App\Http\Controllers\Api\Pasien\DaftarAntrianController;
 use App\Http\Controllers\Api\Pasien\AntrianController as PasienAntrianController;
 use App\Http\Controllers\Api\Pasien\RiwayatController;
+use App\Http\Controllers\Api\Pasien\NotifikasiController;
 
 // Publik
 use App\Http\Controllers\Api\Publik\AntrianStatusController;
@@ -158,6 +159,11 @@ Route::middleware('auth:sanctum')->group(function () {
         // Riwayat Kunjungan
         Route::get('riwayat',      [RiwayatController::class, 'index']);
         Route::get('riwayat/{id}', [RiwayatController::class, 'show']);
+
+        // Notifikasi
+        Route::get  ('notifikasi',                  [NotifikasiController::class, 'index']);
+        Route::patch('notifikasi/{id}/baca',         [NotifikasiController::class, 'tandaiBaca']);
+        Route::patch('notifikasi/baca-semua',        [NotifikasiController::class, 'tandaiSemuaBaca']);
 
         Route::get('antrian/riwayat', [PendaftaranController::class, 'riwayatAntrian']);
         Route::get('antrian/{id}',    [PendaftaranController::class, 'detailAntrian']);
