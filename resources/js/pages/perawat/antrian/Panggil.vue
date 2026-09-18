@@ -73,6 +73,19 @@ const getDetailPasien = async () => {
 
     const response = await api.get(`/perawat/antrian/panggil/${id}`)
     antrian.value = response.data.data
+
+    // Begitu data pasien didapat dan statusnya masih "menunggu", ini artinya
+    // pasien BELUM benar-benar dipanggil di backend. Panggil sekarang juga
+    // (ubah status jadi 'dipanggil') + bunyikan suara otomatis, sekali saja.
+    if (antrian.value && antrian.value.status === 'menunggu') {
+      try {
+        await api.patch(`/perawat/antrian/${antrian.value.id}/panggil`)
+        antrian.value.status = 'dipanggil'
+      } catch (e) {
+        console.error('Gagal memanggil pasien:', e)
+      }
+      ulangiSuara()
+    }
   } catch (error) {
     console.error("Error Detail:", error)
     // Jangan munculkan Swal Error jika hanya karena antrean memang habis/kosong
