@@ -85,7 +85,7 @@ const statCards = computed(() => [
 async function fetchDashboardData() {
   loading.value = true
   try {
-    const res = await api.get('/perawat/dashboard')
+    const res = await api.get('/admin/dashboard')
     statistik.value = res.data.statistik || {}
     tanggalString.value = res.data.hari_ini || ''
     antrianPerPoli.value = res.data.antrian_per_poli || []

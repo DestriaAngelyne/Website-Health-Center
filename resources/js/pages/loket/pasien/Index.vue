@@ -164,7 +164,7 @@ function cariPasien() {
   timer = setTimeout(async () => {
     loading.value = true
     try {
-      const res = await api.get('/loket/pasien/cari', { params: { q: search.value } })
+      const res = await api.get('/admin/pasien/cari', { params: { q: search.value } })
       pasienList.value = res.data.data
     } finally { loading.value = false }
   }, 400)
@@ -175,7 +175,7 @@ async function daftarPasien(p: any) {
   modalForm.value   = { sesi_id: null, jenis_pasien: p.jenis_pasien ?? 'umum' }
   loadingSesi.value = true
   try {
-    const res = await api.get('/loket/sesi')
+    const res = await api.get('/admin/sesi')
     sesiList.value = res.data.data
   } finally { loadingSesi.value = false }
 }
@@ -185,7 +185,7 @@ async function submitModal() {
   loadingDaftar.value = true
   const sesi = sesiAktif.value.find(s => s.id === modalForm.value.sesi_id)
   try {
-    const res = await api.post('/loket/antrian/daftar', {
+    const res = await api.post('/admin/antrian/daftar', {
       pasien_id   : modalPasien.value.id,
       sesi_id     : modalForm.value.sesi_id,
       poli_id     : sesi?.poli_id,
@@ -193,7 +193,7 @@ async function submitModal() {
       jenis_pasien: modalForm.value.jenis_pasien,
     })
     modalPasien.value = null
-    router.push(`/loket/antrian/tiket?id=${res.data.antrian.id}`)
+    router.push(`/admin/antrian/tiket?id=${res.data.antrian.id}`)
   } catch (e: any) {
     alert(e.response?.data?.message ?? 'Gagal mendaftarkan.')
   } finally { loadingDaftar.value = false }
@@ -202,7 +202,7 @@ async function submitModal() {
 onMounted(async () => {
     loading.value = true
     try{
-        const res = await api.get('/loket/pasien/cari', { params: { q: '' } })
+        const res = await api.get('/admin/pasien/cari', { params: { q: '' } })
         pasienList.value = res.data.data
     } catch (e) {
         console.error("Gagal memuat data awal pasien:", e)

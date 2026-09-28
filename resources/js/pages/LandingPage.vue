@@ -482,11 +482,11 @@ const onScroll = () => {
 
 const userInitial = computed(() => authStore.user?.name?.charAt(0).toUpperCase() ?? 'U')
 const roleLabel   = computed(() => {
-  const m: Record<string,string> = { admin:'Admin', loket:'Loket', perawat:'Perawat', dokter:'Dokter', pasien:'Pasien' }
+  const m: Record<string,string> = { superadmin:'Superadmin', admin:'Administrator', dokter:'Dokter', pasien:'Pasien' }
   return m[authStore.user?.role ?? ''] ?? '-'
 })
 const dashRoute = computed(() => {
-  const m: Record<string,string> = { admin:'/admin/dashboard', loket:'/loket/dashboard', perawat:'/perawat/dashboard', dokter:'/dokter/dashboard', pasien:'/pasien/dashboard' }
+  const m: Record<string,string> = { superadmin:'/superadmin/dashboard', admin:'/admin/dashboard', dokter:'/dokter/dashboard', pasien:'/pasien/dashboard' }
   return m[authStore.user?.role ?? ''] ?? '/'
 })
 const doLogout = async () => { dropOpen.value = false; mobileOpen.value = false; await authStore.logout() }

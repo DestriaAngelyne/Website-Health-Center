@@ -2,7 +2,7 @@
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
-        <router-link to="/admin/master/dokter" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
+        <router-link to="/superadmin/master/dokter" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
         <div><h1 class="page-title">Tambah Dokter</h1><p class="page-sub">Tambah dokter baru ke sistem</p></div>
       </div>
 
@@ -34,7 +34,7 @@
           <div class="field" style="max-width:360px"><label class="label">Password <span class="req">*</span></label><input v-model="form.password" type="password" class="input" :class="{ err: errors.password }" placeholder="Min. 8 karakter" /><p v-if="errors.password" class="err-msg">{{ errors.password[0] }}</p></div>
         </div>
         <div class="footer">
-          <router-link to="/admin/master/dokter" class="btn-ghost">Batal</router-link>
+          <router-link to="/superadmin/master/dokter" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving"><span v-if="saving" class="btn-spin"></span>{{ saving ? 'Menyimpan...' : 'Simpan Dokter' }}</button>
         </div>
       </form>
@@ -48,10 +48,10 @@ import api from '@/services/api'
 const router = useRouter()
 const form = ref({ nip: '', nama: '', spesialis: '', poli_id: '', no_hp: '', str_number: '', is_active: true, username: '', email: '', password: '' })
 const errors = ref({}), saving = ref(false), poliList = ref([])
-onMounted(async () => { const r = await api.get('/admin/poli', { params: { per_page: 100 } }); poliList.value = r.data.data })
+onMounted(async () => { const r = await api.get('/superadmin/poli', { params: { per_page: 100 } }); poliList.value = r.data.data })
 async function submit() {
   saving.value = true; errors.value = {}
-  try { await api.post('/admin/dokter', form.value); router.push('/admin/master/dokter') }
+  try { await api.post('/superadmin/dokter', form.value); router.push('/superadmin/master/dokter') }
   catch (e) { if (e.response?.status === 422) errors.value = e.response.data.errors; else alert(e.response?.data?.message ?? 'Terjadi kesalahan') }
   finally { saving.value = false }
 }

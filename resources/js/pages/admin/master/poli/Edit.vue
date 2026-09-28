@@ -2,7 +2,7 @@
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
-        <router-link to="/admin/master/poli" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
+        <router-link to="/superadmin/master/poli" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
         <div><h1 class="page-title">Edit Poli</h1><p class="page-sub">Ubah data poliklinik</p></div>
       </div>
 
@@ -23,7 +23,7 @@
           <div class="field"><label class="label">Keterangan</label><textarea v-model="form.keterangan" class="input textarea" rows="3"></textarea></div>
         </div>
         <div class="footer">
-          <router-link to="/admin/master/poli" class="btn-ghost">Batal</router-link>
+          <router-link to="/superadmin/master/poli" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving"><span v-if="saving" class="btn-spin"></span>{{ saving ? 'Menyimpan...' : 'Update Poli' }}</button>
         </div>
       </form>
@@ -38,12 +38,12 @@ const route = useRoute(), router = useRouter()
 const form = ref({ kode: '', nama_poli: '', singkatan: '', keterangan: '', is_active: true })
 const errors = ref({}), saving = ref(false), loadingData = ref(true)
 onMounted(async () => {
-  try { const r = await api.get(`/admin/poli/${route.params.id}`); const d = r.data.data; form.value = { kode: d.kode, nama_poli: d.nama_poli, singkatan: d.singkatan ?? '', keterangan: d.keterangan ?? '', is_active: d.is_active } }
+  try { const r = await api.get(`/superadmin/poli/${route.params.id}`); const d = r.data.data; form.value = { kode: d.kode, nama_poli: d.nama_poli, singkatan: d.singkatan ?? '', keterangan: d.keterangan ?? '', is_active: d.is_active } }
   catch { alert('Gagal memuat data') } finally { loadingData.value = false }
 })
 async function submit() {
   saving.value = true; errors.value = {}
-  try { await api.put(`/admin/poli/${route.params.id}`, form.value); router.push('/admin/master/poli') }
+  try { await api.put(`/superadmin/poli/${route.params.id}`, form.value); router.push('/superadmin/master/poli') }
   catch (e) { if (e.response?.status === 422) errors.value = e.response.data.errors; else alert(e.response?.data?.message ?? 'Terjadi kesalahan') }
   finally { saving.value = false }
 }

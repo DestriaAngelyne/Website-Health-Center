@@ -71,7 +71,7 @@ const getDetailPasien = async () => {
     // Jika TIDAK ADA ID (klik dari sidebar), kirim string kosong agar Laravel cari antrean pertama.
     const id = route.params.id ? route.params.id : '';
 
-    const response = await api.get(`/perawat/antrian/panggil/${id}`)
+    const response = await api.get(`/admin/antrian/panggil/${id}`)
     antrian.value = response.data.data
 
     // Begitu data pasien didapat dan statusnya masih "menunggu", ini artinya
@@ -79,7 +79,7 @@ const getDetailPasien = async () => {
     // (ubah status jadi 'dipanggil') + bunyikan suara otomatis, sekali saja.
     if (antrian.value && antrian.value.status === 'menunggu') {
       try {
-        await api.patch(`/perawat/antrian/${antrian.value.id}/panggil`)
+        await api.patch(`/admin/antrian/${antrian.value.id}/panggil`)
         antrian.value.status = 'dipanggil'
       } catch (e) {
         console.error('Gagal memanggil pasien:', e)
@@ -101,14 +101,14 @@ watch(() => route.params.id, () => {
 
 const handleMulaiPeriksa = async () => {
   try {
-    await api.post(`/perawat/antrian/mulai/${antrian.value.id}`)
+    await api.post(`/admin/antrian/mulai/${antrian.value.id}`)
     Swal.fire({
       icon: 'success',
       title: 'Berhasil',
       text: 'Pasien siap dilakukan skrining.',
       timer: 1500
     })
-    router.push('/perawat/antrian')
+    router.push('/admin/antrian')
   } catch (error) {
     Swal.fire('Gagal', 'Gagal memperbarui status', 'error')
   }

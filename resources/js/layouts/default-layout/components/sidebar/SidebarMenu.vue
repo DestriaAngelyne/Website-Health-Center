@@ -87,15 +87,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, ref } from "vue";
+import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth.store";
 import { sidebarMenuIcons } from "@/layouts/default-layout/config/helper";
 
-import AdminMenuConfig   from "@/layouts/default-layout/config/menu/AdminMenuConfig";
-import LoketMenuConfig   from "@/layouts/default-layout/config/menu/LoketMenuConfig";
-import PerawatMenuConfig from "@/layouts/default-layout/config/menu/PerawatMenuConfig";
-import PasienMenuConfig  from "@/layouts/default-layout/config/menu/PasienMenuConfig";
+import SuperAdminMenuConfig from "@/layouts/default-layout/config/menu/SuperAdminMenuConfig";
+import AdminMenuConfig     from "@/layouts/default-layout/config/menu/AdminMenuConfig";
+import PasienMenuConfig    from "@/layouts/default-layout/config/menu/PasienMenuConfig";
 
 export default defineComponent({
   name: "sidebar-menu",
@@ -105,11 +104,10 @@ export default defineComponent({
 
     const currentMenuConfig = computed(() => {
       switch (authStore.user?.role) {
-        case "admin"  : return AdminMenuConfig;
-        case "loket"  : return LoketMenuConfig;
-        case "perawat": return PerawatMenuConfig;
-        case "pasien" : return PasienMenuConfig;
-        default       : return [];
+        case "superadmin": return SuperAdminMenuConfig;
+        case "admin"    : return AdminMenuConfig;
+        case "pasien"   : return PasienMenuConfig;
+        default         : return [];
       }
     });
 

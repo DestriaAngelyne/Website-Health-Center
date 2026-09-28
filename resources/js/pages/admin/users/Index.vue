@@ -6,7 +6,7 @@
         <p class="page-sub">Kelola akun pengguna sistem</p>
       </div>
       <div class="topbar-right">
-        <router-link to="/admin/users/create" class="btn-primary">
+        <router-link to="/superadmin/users/create" class="btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Tambah User
         </router-link>
@@ -20,9 +20,8 @@
       </div>
       <select v-model="roleFilter" class="filter-select" @change="loadData">
         <option value="">Semua Role</option>
-        <option value="admin">Admin</option>
-        <option value="loket">Loket</option>
-        <option value="perawat">Perawat</option>
+        <option value="superadmin">Superadmin</option>
+        <option value="admin">Administrator</option>
         <option value="dokter">Dokter</option>
         <option value="pasien">Pasien</option>
       </select>
@@ -68,7 +67,7 @@
               <td class="muted sm">{{ fmtDate(item.created_at) }}</td>
               <td>
                 <div class="actions">
-                  <router-link :to="`/admin/users/${item.id}/edit`" class="act act-edit" title="Edit">
+                  <router-link :to="`/superadmin/users/${item.id}/edit`" class="act act-edit" title="Edit">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
                   </router-link>
                   <button @click="openReset(item)" class="act act-neutral" title="Reset Password">
@@ -144,7 +143,7 @@ const pages = computed(() => {
 async function loadData() {
   loading.value = true
   try {
-    const r = await api.get('/admin/users', { params: { search: search.value, role: roleFilter.value, page: page.value } })
+    const r = await api.get('/superadmin/users', { params: { search: search.value, role: roleFilter.value, page: page.value } })
     data.value     = r.data.data
     lastPage.value = r.data.meta?.last_page ?? 1
     perPage.value  = r.data.meta?.per_page  ?? 15
@@ -159,20 +158,20 @@ function openReset(item) { selectedUser.value = item; newPw.value = ''; showRese
 
 async function doReset() {
   try {
-    await api.patch(`/admin/users/${selectedUser.value.id}/reset-password`, { password: newPw.value })
+    await api.patch(`/superadmin/users/${selectedUser.value.id}/reset-password`, { password: newPw.value })
     alert('Password berhasil direset')
     showReset.value = false
   } catch { alert('Gagal reset password') }
 }
 
 async function toggleActive(item) {
-  try { await api.patch(`/admin/users/${item.id}/toggle-active`); item.is_active = !item.is_active }
+  try { await api.patch(`/superadmin/users/${item.id}/toggle-active`); item.is_active = !item.is_active }
   catch { alert('Gagal mengubah status') }
 }
 
 async function hapus(item) {
   if (!confirm(`Hapus user "${item.name}"? Tindakan ini tidak dapat dibatalkan.`)) return
-  try { await api.delete(`/admin/users/${item.id}`); loadData() }
+  try { await api.delete(`/superadmin/users/${item.id}`); loadData() }
   catch (e) { alert(e.response?.data?.message ?? 'Gagal menghapus') }
 }
 

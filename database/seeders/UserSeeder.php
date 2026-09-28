@@ -11,6 +11,17 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $users = [
+            // Superadmin - mengelola sistem (users, master data, laporan)
+            [
+                'name'     => 'Superadmin',
+                'email'    => 'superadmin@puskesmas.com',
+                'username' => 'superadmin',
+                'password' => Hash::make('password'),
+                'role'     => 'superadmin',
+                'no_hp'    => '081200000000',
+                'is_active'=> true,
+            ],
+            // Admin Operasional - mengurus operasional (pendaftaran, sesi, antrian, skrining)
             [
                 'name'     => 'Administrator',
                 'email'    => 'admin@puskesmas.com',
@@ -20,24 +31,7 @@ class UserSeeder extends Seeder
                 'no_hp'    => '081200000001',
                 'is_active'=> true,
             ],
-            [
-                'name'     => 'Petugas Loket',
-                'email'    => 'loket@puskesmas.com',
-                'username' => 'loket',
-                'password' => Hash::make('password'),
-                'role'     => 'loket',
-                'no_hp'    => '081200000002',
-                'is_active'=> true,
-            ],
-            [
-                'name'     => 'Perawat Sari',
-                'email'    => 'perawat@puskesmas.com',
-                'username' => 'perawat',
-                'password' => Hash::make('password'),
-                'role'     => 'perawat',
-                'no_hp'    => '081200000003',
-                'is_active'=> true,
-            ],
+            // Pasien Demo
             [
                 'name'     => 'Pasien Demo',
                 'email'    => 'pasien@puskesmas.com',

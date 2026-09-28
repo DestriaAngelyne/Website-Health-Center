@@ -10,7 +10,7 @@
         <button class="btn btn-icon btn-light btn-sm" @click="fetchData" title="Refresh">
           <i class="ki-outline ki-arrows-circle fs-4" :class="{ 'spin': loading }"></i>
         </button>
-        <router-link to="/loket/pendaftaran" class="btn btn-primary btn-sm">
+        <router-link to="/admin/pendaftaran" class="btn btn-primary btn-sm">
           <i class="ki-outline ki-plus me-1"></i>Daftar Pasien
         </router-link>
       </div>
@@ -176,7 +176,7 @@ const statusBadge = (s: string) => ({
 async function fetchData() {
   loading.value = true
   try {
-    const res = await api.get('/loket/antrian', {
+    const res = await api.get('/admin/antrian', {
       params: { search: search.value, poli_id: filterPoli.value, status: filterStatus.value }
     })
     antrianList.value = res.data.data
@@ -186,14 +186,14 @@ async function fetchData() {
 }
 
 async function fetchSesi() {
-  const res  = await api.get('/loket/sesi')
+  const res  = await api.get('/admin/sesi')
   sesiList.value = res.data.data
 }
 
 async function batalkan(a: any) {
   if (!confirm(`Batalkan antrian ${a.nomor_display} — ${a.pasien}?`)) return
   try {
-    await api.patch(`/loket/antrian/${a.id}/batalkan`)
+    await api.patch(`/admin/antrian/${a.id}/batalkan`)
     alertMsg.value  = `Antrian ${a.nomor_display} berhasil dibatalkan.`
     alertType.value = 'success'
     fetchData()

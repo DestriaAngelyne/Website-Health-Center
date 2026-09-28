@@ -168,7 +168,7 @@ const statusBadge = (s: string) => ({
 async function fetchData() {
   loading.value = true
   try {
-    const res = await api.get('/admin/antrian/monitor', { params: { poli_id: poliFilter.value || undefined } })
+    const res = await api.get('/superadmin/antrian/monitor', { params: { poli_id: poliFilter.value || undefined } })
     // Handle both { data: { poli_list, ... } } and { poli_list, ... }
     const d = res.data?.data ?? res.data
     poliList.value    = d?.poli_list  ?? []
@@ -185,7 +185,7 @@ async function fetchData() {
 async function updateStatus(id: number, status: string) {
   if (!status) return
   try {
-    await api.patch(`/admin/antrian/${id}/status`, { status })
+    await api.patch(`/superadmin/antrian/${id}/status`, { status })
     fetchData()
   } catch (e) {
     console.error('[Monitor] updateStatus error:', e)

@@ -6,8 +6,8 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 
-// Admin
-use App\Http\Controllers\Api\Admin\DashboardController as AdminDashboardController;
+// Admin → Superadmin (mengurus sistem)
+use App\Http\Controllers\Api\Admin\DashboardController as SuperadminDashboardController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Admin\MonitorController;
 use App\Http\Controllers\Api\Admin\LaporanController;
@@ -17,13 +17,12 @@ use App\Http\Controllers\Api\Master\PoliController;
 use App\Http\Controllers\Api\Master\DokterController;
 use App\Http\Controllers\Api\Master\JadwalController;
 
-// Loket
-use App\Http\Controllers\Api\Loket\AntrianController as LoketAntrianController;
+// Loket → Admin Operasional (mengurus operasional)
+use App\Http\Controllers\Api\Loket\AntrianController as AdminAntrianController;
 
-// Perawat
-use App\Http\Controllers\Api\Perawat\DashboardController as PerawatDashboardController;
-use App\Http\Controllers\Api\Perawat\AntrianController as PerawatAntrianController;
-
+// Perawat → Admin Operasional (mengurus operasional)
+use App\Http\Controllers\Api\Perawat\DashboardController as AdminDashboardOperasionalController;
+use App\Http\Controllers\Api\Perawat\AntrianController as AdminAntrianPoliController;
 // Pasien
 use App\Http\Controllers\Api\Pasien\ProfilController;
 use App\Http\Controllers\Api\Pasien\PendaftaranController;
@@ -66,11 +65,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('me',      [LogoutController::class, 'me']);
     });
 
-    // ── Admin ─────────────────────────────────────────────────────────────────
-    Route::middleware('role:admin')->prefix('admin')->group(function () {
+    // ── Superadmin ─────────────────────────────────────────────────────────────────
+    Route::middleware('role:superadmin')->prefix('superadmin')->group(function () {
 
         // Dashboard
-        Route::get('dashboard', [AdminDashboardController::class, 'index']);
+        Route::get('dashboard', [SuperadminDashboardController::class, 'index']);
 
         // Users
         Route::get   ('users',                     [UserController::class, 'index']);
@@ -113,28 +112,31 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get   ('laporan/bulanan',           [LaporanController::class, 'bulanan']);
     });
 
-    // ── Loket ─────────────────────────────────────────────────────────────────
-    Route::middleware('role:loket')->prefix('loket')->group(function () {
-        Route::get  ('dashboard',             [LoketAntrianController::class, 'dashboard']);
-        Route::get  ('sesi',                  [LoketAntrianController::class, 'getSesi']);
-        Route::post ('sesi/buka',             [LoketAntrianController::class, 'bukaSesi']);
-        Route::post ('sesi/buka-semua',       [LoketAntrianController::class, 'bukaSesiOtomatis']);
-        Route::patch('sesi/{id}/tutup',       [LoketAntrianController::class, 'tutupSesi']);
-        Route::get  ('antrian',               [LoketAntrianController::class, 'getAntrian']);
-        Route::post ('antrian/daftar',        [LoketAntrianController::class, 'daftarManual']);
-        Route::patch('antrian/{id}/batalkan', [LoketAntrianController::class, 'batalkan']);
-        Route::get  ('pasien/cari',           [LoketAntrianController::class, 'cariPasien']);
-    });
+    // ── Admin Operasional (gabungan loket + perawat) ───────────────────────────
+    Route::middleware('role:admin')->prefix('admin')->group(function () {
 
-    // ── Perawat ───────────────────────────────────────────────────────────────
-    Route::middleware('role:perawat')->prefix('perawat')->group(function () {
-        Route::get  ('dashboard',              [PerawatDashboardController::class, 'index']);
-        Route::get  ('antrian',                [PerawatAntrianController::class,   'index']);
-        Route::get  ('antrian/panggil/{id?}',  [PerawatAntrianController::class,   'panggilDetail']);
-        Route::patch('antrian/{id}/panggil',   [PerawatAntrianController::class,   'panggil']);
-        Route::post ('antrian/mulai/{id}',     [PerawatAntrianController::class,   'mulai']);
-        Route::patch('antrian/{id}/selesai',   [PerawatAntrianController::class,   'selesai']);
-        Route::post ('antrian/tutup-sesi',     [PerawatAntrianController::class,   'tutupSesi']);
+        // Dashboard Operasional
+        Route::get('dashboard', [AdminDashboardOperasionalController::class, 'index']);
+
+        // Pendaftaran
+        Route::get  ('pendaftaran',             [AdminAntrianController::class, 'dashboard']);
+        Route::get  ('sesi',                    [AdminAntrianController::class, 'getSesi']);
+        Route::post ('sesi/buka',               [AdminAntrianController::class, 'bukaSesi']);
+        Route::post ('sesi/buka-semua',         [AdminAntrianController::class, 'bukaSesiOtomatis']);
+        Route::patch('sesi/{id}/tutup',         [AdminAntrianController::class, 'tutupSesi']);
+        Route::get  ('antrian',                 [AdminAntrianController::class, 'getAntrian']);
+        Route::post ('antrian/daftar',          [AdminAntrianController::class, 'daftarManual']);
+        Route::post ('pendaftaran/pasien-baru', [AdminAntrianController::class, 'pasienBaru']);
+        Route::patch('antrian/{id}/batalkan',  [AdminAntrianController::class, 'batalkan']);
+        Route::get  ('pasien/cari',             [AdminAntrianController::class, 'cariPasien']);
+
+        // Antrian Poli (former perawat)
+        Route::get  ('antrian/poli',              [AdminAntrianPoliController::class, 'index']);
+        Route::get  ('antrian/panggil/{id?}',   [AdminAntrianPoliController::class, 'panggilDetail']);
+        Route::patch('antrian/{id}/panggil',    [AdminAntrianPoliController::class, 'panggil']);
+        Route::post ('antrian/mulai/{id}',      [AdminAntrianPoliController::class, 'mulai']);
+        Route::patch('antrian/{id}/selesai',    [AdminAntrianPoliController::class, 'selesai']);
+        Route::post ('antrian/tutup-sesi',      [AdminAntrianPoliController::class, 'tutupSesi']);
     });
 
     // ── Pasien ────────────────────────────────────────────────────────────────

@@ -55,12 +55,11 @@ class LoginController extends Controller
     private function getRedirectByRole(string $role): string
     {
         return match($role) {
-            'admin'   => '/admin/dashboard',
-            'loket'   => '/loket/dashboard',
-            'perawat' => '/perawat/dashboard',
-            'dokter'  => '/dokter/dashboard',
-            'pasien'  => '/pasien/dashboard',
-            default   => '/',
+            'superadmin' => '/superadmin/dashboard',
+            'admin'     => '/admin/dashboard',
+            'dokter'    => '/dokter/dashboard',
+            'pasien'    => '/pasien/dashboard',
+            default     => '/',
         };
     }
 }

@@ -34,9 +34,8 @@ class User extends Authenticatable
         'is_active'         => 'boolean',
     ];
 
+    public function isSuperadmin(): bool { return $this->role === 'superadmin'; }
     public function isAdmin(): bool   { return $this->role === 'admin'; }
-    public function isLoket(): bool   { return $this->role === 'loket'; }
-    public function isPerawat(): bool { return $this->role === 'perawat'; }
     public function isDokter(): bool  { return $this->role === 'dokter'; }
     public function isPasien(): bool  { return $this->role === 'pasien'; }
 

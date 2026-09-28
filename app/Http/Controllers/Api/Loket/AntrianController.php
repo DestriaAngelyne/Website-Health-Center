@@ -56,6 +56,8 @@ class AntrianController extends Controller
                 $terpakai = $s->antrian()->whereNotIn('status', ['batal'])->count();
                 return [
                     'id'          => $s->id,
+                    'poli_id'     => $s->poli_id,
+                    'dokter_id'   => $s->dokter_id,
                     'poli'        => $s->poli?->nama,
                     'dokter'      => $s->dokter?->nama,
                     'jam_buka'    => substr($s->jam_buka,  0, 5),
@@ -299,5 +301,97 @@ class AntrianController extends Controller
             ]);
 
         return response()->json(['data' => $pasien]);
+    }
+
+    // POST /api/admin/pendaftaran/pasien-baru
+    // Daftar pasien baru (data belum ada) + langsung daftarkan ke antrian
+    public function pasienBaru(Request $request)
+    {
+        $request->validate([
+            'nama'            => 'required|string|max:255',
+            'nik'            => 'nullable|string|max:16',
+            'tanggal_lahir'  => 'nullable|date',
+            'jenis_kelamin'  => 'nullable|in:L,P',
+            'no_hp'          => 'nullable|string|max:20',
+            'no_bpjs'        => 'nullable|string|max:20',
+            'alamat'         => 'nullable|string',
+            'sesi_id'        => 'required|exists:sesi_antrian,id',
+            'poli_id'        => 'nullable|exists:poli,id',
+            'dokter_id'      => 'nullable|exists:dokter,id',
+            'jenis_pasien'   => 'nullable|in:bpjs,umum',
+        ]);
+
+        return DB::transaction(function () use ($request) {
+            $sesi = SesiAntrian::with(['poli', 'dokter'])->findOrFail($request->sesi_id);
+
+            if (!in_array($sesi->status, ['aktif', 'buka'])) {
+                return response()->json(['message' => 'Sesi antrian sudah ditutup.'], 422);
+            }
+
+            // Cek kuota
+            $terpakai = $sesi->antrian()->whereNotIn('status', ['batal'])->count();
+            if ($terpakai >= $sesi->kuota) {
+                return response()->json(['message' => 'Kuota antrian sudah penuh.'], 422);
+            }
+
+            // Cek NIK dobel
+            if ($request->filled('nik')) {
+                $existing = Pasien::where('nik', $request->nik)->first();
+                if ($existing) {
+                    return response()->json([
+                        'message' => "Pasien dengan NIK {$request->nik} sudah terdaftar (No. RM: {$existing->no_rm}).",
+                    ], 422);
+                }
+            }
+
+            // Generate no_rm: Ymd + 4 digit random
+            $noRm = date('Ymd') . '-' . str_pad(random_int(1, 9999), 4, '0', STR_PAD_LEFT);
+
+            // Buat data pasien
+            $pasien = Pasien::create([
+                'no_rm'          => $noRm,
+                'nik'            => $request->nik,
+                'nama'           => $request->nama,
+                'tanggal_lahir'  => $request->tanggal_lahir,
+                'jenis_kelamin'  => $request->jenis_kelamin,
+                'alamat'         => $request->alamat,
+                'no_hp'          => $request->no_hp,
+                'no_bpjs'        => $request->no_bpjs,
+                'jenis_pasien'   => $request->jenis_pasien ?? 'umum',
+            ]);
+
+            // Daftarkan ke antrian
+            $nomorUrut   = $sesi->nomor_terakhir + 1;
+            $kodeAntrian = strtoupper($sesi->poli->singkatan ?? $sesi->poli->kode ?? 'A');
+            $sesi->increment('nomor_terakhir');
+
+            $antrian = Antrian::create([
+                'sesi_antrian_id' => $sesi->id,
+                'pasien_id'       => $pasien->id,
+                'poli_id'         => $sesi->poli_id,
+                'dokter_id'       => $sesi->dokter_id,
+                'loket_user_id'   => Auth::id(),
+                'kode_antrian'    => $kodeAntrian,
+                'nomor_antrian'   => $nomorUrut,
+                'tanggal'         => today(),
+                'jenis_kunjungan' => 'baru',
+                'jenis_pasien'    => $pasien->jenis_pasien,
+                'status'          => 'menunggu',
+                'waktu_daftar'    => now(),
+            ]);
+
+            return response()->json([
+                'message' => 'Pasien berhasil didaftarkan.',
+                'antrian' => [
+                    'id'            => $antrian->id,
+                    'no_rm'         => $pasien->no_rm,
+                    'nomor_display' => $kodeAntrian . '-' . str_pad($nomorUrut, 3, '0', STR_PAD_LEFT),
+                    'pasien'        => $pasien->nama,
+                    'poli'          => $sesi->poli->nama,
+                    'dokter'        => $sesi->dokter->nama,
+                    'status'        => 'menunggu',
+                ],
+            ], 201);
+        });
     }
 }

@@ -174,11 +174,7 @@
                       @focus="focusedField = 'role'" @blur="focusedField = ''" @change="errors.role = ''">
                       <option value="" disabled>Pilih jabatan</option>
                       <option value="dokter">Dokter</option>
-                      <option value="perawat">Perawat</option>
                       <option value="admin">Admin</option>
-                      <option value="farmasi">Farmasi</option>
-                      <option value="laboratorium">Laboratorium</option>
-                      <option value="kasir">Kasir</option>
                     </select>
                     <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M6 9l6 6 6-6"/>

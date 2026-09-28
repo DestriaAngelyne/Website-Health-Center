@@ -2,7 +2,7 @@
   <div class="d-flex flex-column gap-7" style="max-width: 720px;">
 
     <div class="d-flex align-items-center gap-3">
-      <router-link to="/loket/pendaftaran" class="btn btn-icon btn-light btn-sm">
+      <router-link to="/admin/pendaftaran" class="btn btn-icon btn-light btn-sm">
         <i class="ki-outline ki-arrow-left fs-4"></i>
       </router-link>
       <div>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="d-flex gap-3">
-          <router-link :to="`/loket/antrian/tiket?id=${tiket.id}`" class="btn btn-light-primary">
+          <router-link :to="`/admin/antrian/tiket?id=${tiket.id}`" class="btn btn-light-primary">
             <i class="ki-outline ki-printer me-1"></i>Cetak Tiket
           </router-link>
           <button class="btn btn-primary" @click="resetForm">
@@ -183,7 +183,7 @@
               </div>
             </div>
             <div class="card-footer d-flex justify-content-end gap-3 py-4">
-              <router-link to="/loket/pendaftaran" class="btn btn-light">Batal</router-link>
+              <router-link to="/admin/pendaftaran" class="btn btn-light">Batal</router-link>
               <button class="btn btn-primary" @click="daftarkan"
                 :disabled="loading || !pasienDipilih || !form.sesi_id">
                 <span v-if="!loading"><i class="ki-outline ki-check me-1"></i>Daftarkan</span>
@@ -224,7 +224,7 @@ function cariPasien() {
   cariTimer = setTimeout(async () => {
     loadingCari.value = true
     try {
-      const res = await api.get('/loket/pasien/cari', { params: { q: searchPasien.value } })
+      const res = await api.get('/admin/pasien/cari', { params: { q: searchPasien.value } })
       hasilCari.value = res.data.data
     } finally { loadingCari.value = false }
   }, 400)
@@ -243,7 +243,7 @@ async function daftarkan() {
   loading.value  = true
   const sesi = sesiAktif.value.find(s => s.id === form.value.sesi_id)
   try {
-    const res = await api.post('/loket/antrian/daftar', {
+    const res = await api.post('/admin/antrian/daftar', {
       pasien_id   : pasienDipilih.value.id,
       sesi_id     : form.value.sesi_id,
       poli_id     : sesi?.poli_id,
@@ -261,7 +261,7 @@ async function daftarkan() {
 async function fetchSesi() {
   loadingSesi.value = true
   try {
-    const res = await api.get('/loket/sesi')
+    const res = await api.get('/admin/sesi')
     sesiList.value = res.data.data
   } finally { loadingSesi.value = false }
 }

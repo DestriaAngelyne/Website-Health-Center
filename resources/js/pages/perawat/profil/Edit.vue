@@ -52,7 +52,7 @@
 
             <div class="fw-bold fs-4 text-gray-900">{{ form.nama_lengkap }}</div>
             <div class="text-muted fs-6 mb-3">{{ form.email }}</div>
-            <span class="badge badge-light-primary fw-semibold px-4 py-2">Pasien</span>
+            <span class="badge badge-light-primary fw-semibold px-4 py-2">{{ roleLabel }}</span>
 
             <div class="separator separator-dashed my-6 w-100"></div>
 
@@ -350,11 +350,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, reactive, computed } from "vue";
+import { useAuthStore } from "@/stores/auth.store";
 
 export default defineComponent({
-  name: "pasien-edit-profil",
+  name: "admin-edit-profil",
   setup() {
+    const authStore = useAuthStore()
+    const roleLabel = computed(() => {
+      const m: Record<string, string> = { superadmin: 'Superadmin', admin: 'Administrator', dokter: 'Dokter', pasien: 'Pasien' }
+      return m[authStore.user?.role ?? ''] ?? 'Petugas'
+    })
     // Data form profil
     const form = reactive({
       nama_lengkap: "Destria Angelyne",
@@ -459,6 +465,7 @@ export default defineComponent({
     return {
       form,
       errors,
+      roleLabel,
       successMessage,
       loadingSimpan,
       previewPhoto,

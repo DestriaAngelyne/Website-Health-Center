@@ -358,7 +358,7 @@ async function fetchData() {
   loading.value = true
   destroyCharts()
   try {
-    const res  = await api.get('/admin/laporan/harian', { params: { tanggal: tanggal.value } })
+    const res  = await api.get('/superadmin/laporan/harian', { params: { tanggal: tanggal.value } })
     data.value = res.data?.data ?? res.data
     await nextTick()
     await loadChart()

@@ -70,7 +70,7 @@
                 <td class="text-end">
                   <div class="d-flex justify-content-end gap-2">
                     <router-link
-                    :to="`/perawat/antrian/panggil/${antrian.id}`"
+                    :to="`/admin/antrian/panggil/${antrian.id}`"
                     class="btn btn-icon btn-sm btn-light-dark"
                     >
                     <i class="ki-outline ki-notification-on fs-5"></i>
@@ -108,7 +108,7 @@ const loading = ref(false)
 const fetchAntrian = async () => {
   loading.value = true
   try {
-    const res = await api.get('/perawat/antrian')
+    const res = await api.get('/admin/antrian/poli')
     // Data dari backend dimasukkan ke daftarAntrian
     daftarAntrian.value = res.data.data
     dataSesi.value = {
@@ -141,7 +141,7 @@ const formatJam = (timeString) => {
 const handleTutupSesi = async () => {
   if (confirm('Apakah Anda yakin ingin menutup sesi poli ini? Sisa antrian yang masih menunggu akan dibatalkan otomatis.')) {
     try {
-      const res = await api.post('/perawat/antrian/tutup-sesi')
+      const res = await api.post('/admin/antrian/tutup-sesi')
       alert(res.data.message)
       fetchAntrian()
     } catch (err) {

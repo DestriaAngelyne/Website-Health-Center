@@ -2,7 +2,7 @@
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
-        <router-link to="/admin/master/dokter" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
+        <router-link to="/superadmin/master/dokter" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
         <div><h1 class="page-title">Edit Dokter</h1><p class="page-sub">Ubah data dokter</p></div>
       </div>
 
@@ -27,7 +27,7 @@
           <div class="field" style="max-width:200px"><label class="label">Status</label><select v-model="form.is_active" class="input"><option :value="true">Aktif</option><option :value="false">Nonaktif</option></select></div>
         </div>
         <div class="footer">
-          <router-link to="/admin/master/dokter" class="btn-ghost">Batal</router-link>
+          <router-link to="/superadmin/master/dokter" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving"><span v-if="saving" class="btn-spin"></span>{{ saving ? 'Menyimpan...' : 'Update Dokter' }}</button>
         </div>
       </form>
@@ -43,14 +43,14 @@ const form = ref({ nip: '', nama: '', spesialis: '', poli_id: '', no_hp: '', str
 const errors = ref({}), saving = ref(false), loadingData = ref(true), poliList = ref([])
 onMounted(async () => {
   try {
-    const [pr, dr] = await Promise.all([api.get('/admin/poli', { params: { per_page: 100 } }), api.get(`/admin/dokter/${route.params.id}`)])
+    const [pr, dr] = await Promise.all([api.get('/superadmin/poli', { params: { per_page: 100 } }), api.get(`/superadmin/dokter/${route.params.id}`)])
     poliList.value = pr.data.data; const d = dr.data.data
     form.value = { nip: d.nip ?? '', nama: d.nama, spesialis: d.spesialis ?? '', poli_id: d.poli_id, no_hp: d.no_hp ?? '', str_number: d.str_number ?? '', is_active: d.is_active }
   } catch { alert('Gagal memuat data') } finally { loadingData.value = false }
 })
 async function submit() {
   saving.value = true; errors.value = {}
-  try { await api.put(`/admin/dokter/${route.params.id}`, form.value); router.push('/admin/master/dokter') }
+  try { await api.put(`/superadmin/dokter/${route.params.id}`, form.value); router.push('/superadmin/master/dokter') }
   catch (e) { if (e.response?.status === 422) errors.value = e.response.data.errors; else alert(e.response?.data?.message ?? 'Terjadi kesalahan') }
   finally { saving.value = false }
 }

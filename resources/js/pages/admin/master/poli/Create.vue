@@ -2,7 +2,7 @@
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
-        <router-link to="/admin/master/poli" class="back-btn">
+        <router-link to="/superadmin/master/poli" class="back-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
         </router-link>
         <div>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="footer">
-          <router-link to="/admin/master/poli" class="btn-ghost">Batal</router-link>
+          <router-link to="/superadmin/master/poli" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving">
             <span v-if="saving" class="btn-spin"></span>
             {{ saving ? 'Menyimpan...' : 'Simpan Poli' }}
@@ -68,7 +68,7 @@ const form = ref({ kode: '', nama_poli: '', singkatan: '', keterangan: '', is_ac
 const errors = ref({}), saving = ref(false)
 async function submit() {
   saving.value = true; errors.value = {}
-  try { await api.post('/admin/poli', form.value); router.push('/admin/master/poli') }
+  try { await api.post('/superadmin/poli', form.value); router.push('/superadmin/master/poli') }
   catch (e) { if (e.response?.status === 422) errors.value = e.response.data.errors; else alert(e.response?.data?.message ?? 'Terjadi kesalahan') }
   finally { saving.value = false }
 }

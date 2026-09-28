@@ -8,7 +8,7 @@ interface User {
     name: string
     email: string
     username: string | null
-    role: 'admin' | 'loket' | 'perawat' | 'dokter' | 'pasien'
+    role: 'superadmin' | 'admin' | 'dokter' | 'pasien'
     foto: string | null
     foto_url: string | null   // ← URL lengkap foto profil dari backend
     no_hp: string | null
@@ -19,9 +19,8 @@ export const useAuthStore = defineStore('auth', () => {
     const token = ref<string | null>(localStorage.getItem('auth_token'))
 
     const isLoggedIn = computed(() => !!token.value)
+    const isSuperadmin = computed(() => user.value?.role === 'superadmin')
     const isAdmin    = computed(() => user.value?.role === 'admin')
-    const isLoket    = computed(() => user.value?.role === 'loket')
-    const isPerawat  = computed(() => user.value?.role === 'perawat')
     const isDokter   = computed(() => user.value?.role === 'dokter')
     const isPasien   = computed(() => user.value?.role === 'pasien')
 
@@ -82,9 +81,8 @@ export const useAuthStore = defineStore('auth', () => {
         fotoUrl,
         fotoKey,
         isLoggedIn,
+        isSuperadmin,
         isAdmin,
-        isLoket,
-        isPerawat,
         isDokter,
         isPasien,
         login,

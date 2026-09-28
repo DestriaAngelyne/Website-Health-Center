@@ -165,33 +165,20 @@ export default defineComponent({
 
     const userRole = computed(() => {
       const roles: Record<string, string> = {
-        admin  : "Administrator",
-        loket  : "Petugas Loket",
-        perawat: "Perawat",
-        dokter : "Dokter",
-        pasien : "Pasien",
+        superadmin: "Superadmin",
+        admin    : "Administrator",
+        dokter   : "Dokter",
+        pasien   : "Pasien",
       };
       return roles[authStore.user?.role ?? ""] ?? authStore.user?.role ?? "-";
     });
 
-    const profileRoute = computed(() => {
-      const routes: Record<string, string> = {
-        admin  : "/admin/profil",
-        loket  : "/loket/profil",
-        perawat: "/perawat/profil",
-        dokter : "/dokter/profil",
-        pasien : "/pasien/profil",
-      };
-      return routes[authStore.user?.role ?? ""] ?? "/";
-    });
-
     const editProfileRoute = computed(() => {
       const routes: Record<string, string> = {
-        admin  : "/admin/profil/edit",
-        loket  : "/loket/profil/edit",
-        perawat: "/perawat/profil/edit",
-        dokter : "/dokter/profil/edit",
-        pasien : "/pasien/profil/edit",
+        superadmin: "/superadmin/profil/edit",
+        admin    : "/admin/profil/edit",
+        dokter   : "/dokter/profil/edit",
+        pasien   : "/pasien/profil/edit",
       };
       return routes[authStore.user?.role ?? ""] ?? "/";
     });
@@ -206,7 +193,6 @@ export default defineComponent({
       userName,
       userInitial,
       userRole,
-      profileRoute,
       editProfileRoute,
       handleLogout,
     };

@@ -7,7 +7,7 @@
       </div>
       <div class="topbar-right">
 
-        <router-link to="/admin/master/poli/create" class="btn-primary">
+        <router-link to="/superadmin/master/poli/create" class="btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Tambah Poli
         </router-link>
@@ -51,7 +51,7 @@
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
               <td>
                 <div class="actions">
-                  <router-link :to="`/admin/master/poli/${item.id}/edit`" class="act act-edit" title="Edit">
+                  <router-link :to="`/superadmin/master/poli/${item.id}/edit`" class="act act-edit" title="Edit">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
                   </router-link>
                   <button @click="toggleActive(item)" class="act act-neutral" :title="item.is_active ? 'Nonaktifkan' : 'Aktifkan'">
@@ -94,7 +94,7 @@ const pages = computed(() => {
 async function loadData() {
   loading.value = true
   try {
-    const res = await api.get('/admin/poli', { params: { search: search.value, page: page.value } })
+    const res = await api.get('/superadmin/poli', { params: { search: search.value, page: page.value } })
     data.value = res.data.data
     lastPage.value = res.data.meta?.last_page ?? 1
     perPage.value  = res.data.meta?.per_page  ?? 15
@@ -104,13 +104,13 @@ async function loadData() {
 function onSearch() { clearTimeout(t); t = setTimeout(() => { page.value = 1; loadData() }, 400) }
 
 async function toggleActive(item) {
-  try { await api.patch(`/admin/poli/${item.id}/toggle-active`); item.is_active = !item.is_active }
+  try { await api.patch(`/superadmin/poli/${item.id}/toggle-active`); item.is_active = !item.is_active }
   catch { alert('Gagal mengubah status') }
 }
 
 async function hapus(item) {
   if (!confirm(`Hapus poli "${item.nama_poli}"?`)) return
-  try { await api.delete(`/admin/poli/${item.id}`); loadData() }
+  try { await api.delete(`/superadmin/poli/${item.id}`); loadData() }
   catch (e) { alert(e.response?.data?.message ?? 'Gagal menghapus') }
 }
 

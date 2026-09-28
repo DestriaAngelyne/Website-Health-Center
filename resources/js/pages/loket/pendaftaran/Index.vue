@@ -6,7 +6,7 @@
         <h1 class="page-heading fw-bold text-gray-900 fs-3 my-0">Pendaftaran Manual</h1>
         <span class="text-gray-500 fw-semibold fs-7">Daftarkan pasien ke antrian poli</span>
       </div>
-      <router-link to="/loket/dashboard" class="btn btn-light btn-sm">
+      <router-link to="/admin/dashboard" class="btn btn-light btn-sm">
         <i class="ki-outline ki-arrow-left fs-4 me-1"></i>Kembali
       </router-link>
     </div>
@@ -138,7 +138,7 @@
               </div>
               <div v-else-if="sesiAktif.length === 0" class="alert alert-warning py-3 fs-7">
                 Tidak ada sesi aktif. Buka sesi terlebih dahulu di
-                <router-link to="/loket/dashboard" class="fw-bold text-warning">Dashboard</router-link>.
+                <router-link to="/admin/dashboard" class="fw-bold text-warning">Dashboard</router-link>.
               </div>
               <div v-else class="d-flex flex-column gap-2 mb-5">
                 <div v-for="s in sesiAktif" :key="s.id"
@@ -235,7 +235,7 @@ function cariPasien() {
   cariTimer = setTimeout(async () => {
     loadingCari.value = true
     try {
-      const res = await api.get('/loket/pasien/cari', { params: { q: searchPasien.value } })
+      const res = await api.get('/admin/pasien/cari', { params: { q: searchPasien.value } })
       hasilCari.value = res.data.data
     } finally {
       loadingCari.value = false
@@ -263,7 +263,7 @@ async function daftarkan() {
   const sesi = sesiAktif.value.find(s => s.id === form.value.sesi_id)
 
   try {
-    const res = await api.post('/loket/antrian/daftar', {
+    const res = await api.post('/admin/antrian/daftar', {
       pasien_id   : pasienDipilih.value.id,
       sesi_id     : form.value.sesi_id,
       poli_id     : sesi?.poli_id,
@@ -284,7 +284,7 @@ async function daftarkan() {
 async function fetchSesi() {
   loadingSesi.value = true
   try {
-    const res = await api.get('/loket/sesi')
+    const res = await api.get('/admin/sesi')
     sesiList.value = res.data.data
   } finally {
     loadingSesi.value = false

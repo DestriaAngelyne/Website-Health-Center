@@ -2,7 +2,7 @@
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
-        <router-link to="/admin/users" class="back-btn">
+        <router-link to="/superadmin/users" class="back-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
         </router-link>
         <div>
@@ -26,9 +26,8 @@
               <label class="label">Role <span class="req">*</span></label>
               <select v-model="form.role" class="input" :class="{ err: errors.role }">
                 <option value="">— Pilih Role —</option>
-                <option value="admin">Admin</option>
-                <option value="loket">Loket</option>
-                <option value="perawat">Perawat</option>
+                <option value="superadmin">Superadmin</option>
+                <option value="admin">Administrator</option>
                 <option value="dokter">Dokter</option>
                 <option value="pasien">Pasien</option>
               </select>
@@ -64,7 +63,7 @@
         </div>
 
         <div class="footer">
-          <router-link to="/admin/users" class="btn-ghost">Batal</router-link>
+          <router-link to="/superadmin/users" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving">
             <span v-if="saving" class="btn-spin"></span>
             {{ saving ? 'Menyimpan...' : 'Simpan User' }}
@@ -87,8 +86,8 @@ const saving = ref(false)
 async function submit() {
   saving.value = true; errors.value = {}
   try {
-    await api.post('/admin/users', form.value)
-    router.push('/admin/users')
+    await api.post('/superadmin/users', form.value)
+    router.push('/superadmin/users')
   } catch (e) {
     if (e.response?.status === 422) errors.value = e.response.data.errors
     else alert(e.response?.data?.message ?? 'Terjadi kesalahan')

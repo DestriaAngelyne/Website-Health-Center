@@ -100,22 +100,20 @@ export default defineComponent({
 
     const avatarBg = computed(() => {
       const map: Record<string, string> = {
-        admin  : '#7239ea',
-        loket  : '#0d6efd',
-        perawat: '#20c997',
-        dokter : '#0dcaf0',
-        pasien : '#1B84FF',
+        superadmin: '#7239ea',
+        admin    : '#7239ea',
+        dokter   : '#0dcaf0',
+        pasien   : '#1B84FF',
       };
       return map[authStore.user?.role ?? ''] ?? '#1B84FF';
     });
 
     const roleLabel = computed(() => {
       const map: Record<string, string> = {
-        admin  : 'Administrator',
-        loket  : 'Petugas Loket',
-        perawat: 'Perawat',
-        dokter : 'Dokter',
-        pasien : 'Pasien',
+        superadmin: 'Superadmin',
+        admin    : 'Administrator',
+        dokter   : 'Dokter',
+        pasien   : 'Pasien',
       };
       return map[authStore.user?.role ?? ''] ?? '-';
     });
@@ -123,11 +121,10 @@ export default defineComponent({
     // Route edit profil berdasarkan role
     const editProfilRoute = computed(() => {
       const map: Record<string, string> = {
-        admin  : '/admin/profil/edit',
-        loket  : '/loket/profil/edit',
-        perawat: '/perawat/profil/edit',
-        dokter : '/dokter/profil/edit',
-        pasien : '/pasien/profil/edit',
+        superadmin: '/superadmin/profil/edit',
+        admin    : '/admin/profil/edit',
+        dokter   : '/dokter/profil/edit',
+        pasien   : '/pasien/profil/edit',
       };
       return map[authStore.user?.role ?? ''] ?? '/';
     });

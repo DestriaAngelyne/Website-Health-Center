@@ -2,7 +2,7 @@
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
-        <router-link to="/admin/master/jadwal" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
+        <router-link to="/superadmin/master/jadwal" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></router-link>
         <div><h1 class="page-title">Tambah Jadwal</h1><p class="page-sub">Tambah jadwal praktik dokter</p></div>
       </div>
     </div>
@@ -22,7 +22,7 @@
           <div class="field" style="max-width:200px"><label class="label">Status</label><select v-model="form.is_active" class="input"><option :value="true">Aktif</option><option :value="false">Nonaktif</option></select></div>
         </div>
         <div class="footer">
-          <router-link to="/admin/master/jadwal" class="btn-ghost">Batal</router-link>
+          <router-link to="/superadmin/master/jadwal" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving"><span v-if="saving" class="btn-spin"></span>{{ saving ? 'Menyimpan...' : 'Simpan Jadwal' }}</button>
         </div>
       </form>
@@ -37,10 +37,10 @@ const router = useRouter()
 const hariList = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']
 const form = ref({ dokter_id: '', hari: '', jam_buka: '08:00', jam_tutup: '12:00', kuota: 20, is_active: true })
 const errors = ref({}), saving = ref(false), dokterList = ref([])
-onMounted(async () => { const r = await api.get('/admin/dokter', { params: { per_page: 100 } }); dokterList.value = r.data.data })
+onMounted(async () => { const r = await api.get('/superadmin/dokter', { params: { per_page: 100 } }); dokterList.value = r.data.data })
 async function submit() {
   saving.value = true; errors.value = {}
-  try { await api.post('/admin/jadwal', form.value); router.push('/admin/master/jadwal') }
+  try { await api.post('/superadmin/jadwal', form.value); router.push('/superadmin/master/jadwal') }
   catch (e) { if (e.response?.status === 422) errors.value = e.response.data.errors; else alert(e.response?.data?.message ?? 'Terjadi kesalahan') }
   finally { saving.value = false }
 }

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="d-flex flex-column gap-7">
 
     <!-- Header -->
@@ -6,7 +6,7 @@
       <div>
         <h1 class="page-heading fw-bold text-gray-900 fs-3 my-0">Dashboard Loket</h1>
         <span class="text-gray-500 fw-semibold fs-7">
-          {{ hariIni }} — Selamat datang, {{ authStore.user?.name }}
+          {{ hariIni }} â€” Selamat datang, {{ authStore.user?.name }}
         </span>
       </div>
       <div class="d-flex gap-2">
@@ -14,7 +14,7 @@
           <span v-if="!loadingBuka"><i class="ki-outline ki-calendar-add fs-4 me-1"></i>Buka Semua Sesi</span>
           <span v-else><span class="spinner-border spinner-border-sm me-2"></span>Membuka...</span>
         </button>
-        <router-link to="/loket/pendaftaran" class="btn btn-primary btn-sm">
+        <router-link to="/admin/pendaftaran" class="btn btn-primary btn-sm">
           <i class="ki-outline ki-plus fs-4 me-1"></i>Daftar Pasien
         </router-link>
       </div>
@@ -83,7 +83,7 @@
                 <i class="ki-outline ki-profile-user fs-7 me-1"></i>{{ s.dokter }}
               </div>
               <div class="text-gray-500 fs-8 mb-3">
-                <i class="ki-outline ki-time fs-7 me-1"></i>{{ s.jam_buka }} – {{ s.jam_tutup }}
+                <i class="ki-outline ki-time fs-7 me-1"></i>{{ s.jam_buka }} â€“ {{ s.jam_tutup }}
               </div>
               <!-- Kuota bar -->
               <div class="d-flex align-items-center gap-2 mb-3">
@@ -166,7 +166,7 @@ const kuotaColor = (s: any) => {
 }
 
 async function fetchDashboard() {
-  const res = await api.get('/loket/dashboard')
+  const res = await api.get('/admin/pendaftaran')
   statistik.value    = res.data.statistik
   antrianPerPoli.value = res.data.antrian_per_poli
   hariIni.value      = res.data.hari_ini
@@ -175,7 +175,7 @@ async function fetchDashboard() {
 async function fetchSesi() {
   loadingSesi.value = true
   try {
-    const res = await api.get('/loket/sesi')
+    const res = await api.get('/admin/sesi')
     sesiList.value = res.data.data
   } finally {
     loadingSesi.value = false
@@ -189,7 +189,7 @@ async function fetchAll() {
 async function bukaSesiOtomatis() {
   loadingBuka.value = true
   try {
-    const res = await api.post('/loket/sesi/buka-semua')
+    const res = await api.post('/admin/sesi/buka-semua')
     alertMsg.value  = res.data.message
     alertType.value = 'success'
     fetchAll()
@@ -204,7 +204,7 @@ async function bukaSesiOtomatis() {
 async function tutupSesi(id: number) {
   if (!confirm('Tutup sesi ini? Sisa antrian yang masih menunggu akan dibatalkan otomatis.')) return
   try {
-    const res = await api.patch(`/loket/sesi/${id}/tutup`)
+    const res = await api.patch(`/admin/sesi/${id}/tutup`)
     alertMsg.value  = res.data.message
     alertType.value = 'success'
     fetchAll()
@@ -216,3 +216,4 @@ async function tutupSesi(id: number) {
 
 onMounted(fetchAll)
 </script>
+

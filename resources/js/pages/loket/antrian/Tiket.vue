@@ -3,7 +3,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3">
-        <router-link to="/loket/antrian" class="btn btn-icon btn-light btn-sm">
+        <router-link to="/admin/antrian" class="btn btn-icon btn-light btn-sm">
           <i class="ki-outline ki-arrow-left fs-4"></i>
         </router-link>
         <div>
@@ -24,7 +24,7 @@
       <div class="card-body text-center py-15 text-gray-400">
         <i class="ki-outline ki-notepad-edit fs-5x mb-3"></i>
         <p class="fw-semibold">Antrian tidak ditemukan</p>
-        <router-link to="/loket/antrian" class="btn btn-light-primary btn-sm mt-2">
+        <router-link to="/admin/antrian" class="btn btn-light-primary btn-sm mt-2">
           Kembali ke Antrian
         </router-link>
       </div>
@@ -115,7 +115,7 @@ async function fetchAntrian() {
   if (!id) return
   loading.value = true
   try {
-    const res = await api.get(`/loket/antrian/${id}`)
+    const res = await api.get(`/admin/antrian/${id}`)
     antrian.value = res.data.data
   } catch {
     antrian.value = null

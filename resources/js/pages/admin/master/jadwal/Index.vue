@@ -3,7 +3,7 @@
     <div class="topbar">
       <div class="topbar-left"><h1 class="page-title">Jadwal Dokter</h1><p class="page-sub">Kelola jadwal praktik dokter</p></div>
       <div class="topbar-right">
-        <router-link to="/admin/master/jadwal/create" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Tambah Jadwal</router-link>
+        <router-link to="/superadmin/master/jadwal/create" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Tambah Jadwal</router-link>
       </div>
     </div>
     <div class="filter-bar">
@@ -27,7 +27,7 @@
               <td><span class="time-tag">{{ item.jam_tutup }}</span></td>
               <td class="center bold">{{ item.kuota }}</td>
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
-              <td><div class="actions"><router-link :to="`/admin/master/jadwal/${item.id}/edit`" class="act act-edit" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></router-link><button @click="hapus(item)" class="act act-danger" title="Hapus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+              <td><div class="actions"><router-link :to="`/superadmin/master/jadwal/${item.id}/edit`" class="act act-edit" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></router-link><button @click="hapus(item)" class="act act-danger" title="Hapus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
             </tr>
           </tbody>
         </table>
@@ -41,15 +41,15 @@ import api from '@/services/api'
 const data = ref([]), loading = ref(false), dokterFilter = ref(''), poliFilter = ref(''), dokterList = ref([]), poliList = ref([])
 async function loadData() {
   loading.value = true
-  try { const r = await api.get('/admin/jadwal', { params: { dokter_id: dokterFilter.value, poli_id: poliFilter.value } }); data.value = r.data.data }
+  try { const r = await api.get('/superadmin/jadwal', { params: { dokter_id: dokterFilter.value, poli_id: poliFilter.value } }); data.value = r.data.data }
   catch (e) { console.error(e) } finally { loading.value = false }
 }
 async function hapus(item) {
   if (!confirm(`Hapus jadwal ${item.hari} - ${item.dokter?.nama}?`)) return
-  try { await api.delete(`/admin/jadwal/${item.id}`); loadData() } catch (e) { alert(e.response?.data?.message ?? 'Gagal') }
+  try { await api.delete(`/superadmin/jadwal/${item.id}`); loadData() } catch (e) { alert(e.response?.data?.message ?? 'Gagal') }
 }
 onMounted(async () => {
-  const [dr, pr] = await Promise.all([api.get('/admin/dokter', { params: { per_page: 100 } }), api.get('/admin/poli', { params: { per_page: 100 } })])
+  const [dr, pr] = await Promise.all([api.get('/superadmin/dokter', { params: { per_page: 100 } }), api.get('/superadmin/poli', { params: { per_page: 100 } })])
   dokterList.value = dr.data.data; poliList.value = pr.data.data; loadData()
 })
 </script>
