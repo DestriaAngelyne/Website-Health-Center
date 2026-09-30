@@ -354,7 +354,7 @@ import { defineComponent, ref, reactive, computed } from "vue";
 import { useAuthStore } from "@/stores/auth.store";
 
 export default defineComponent({
-  name: "superadmin-edit-profil",
+  name: "admin-edit-profil",
   setup() {
     const authStore = useAuthStore()
     const roleLabel = computed(() => {

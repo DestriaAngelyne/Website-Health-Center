@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+﻿import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import { useAuthStore } from "@/stores/auth.store";
 
 
 const routes: Array<RouteRecordRaw> = [
 
-    // ── Landing Page ──────────────────────────────────────────────────────
+    // â”€â”€ Landing Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/",
         name: "landing",
@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: { pageTitle: "Selamat Datang" },
     },
 
-    // ── Pendaftaran Poli Online (Public) ──────────────────────────────────
+    // â”€â”€ Pendaftaran Poli Online (Public) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/pendaftaran-poli",
         name: "pendaftaran-poli",
@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: { pageTitle: "Daftar Poli Online" },
     },
 
-    // ── Status Antrian Publik (bisa diakses siapa saja, termasuk scan QR) ─
+    // â”€â”€ Status Antrian Publik (bisa diakses siapa saja, termasuk scan QR) â”€
     {
         path: "/antrian/status",
         name: "antrian-status-publik",
@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: { pageTitle: "Status Antrian" },
     },
 
-    // ── Auth Routes (tanpa layout) ────────────────────────────────────────
+    // â”€â”€ Auth Routes (tanpa layout) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/login",
         name: "login",
@@ -54,54 +54,54 @@ const routes: Array<RouteRecordRaw> = [
         meta: { guest: true, pageTitle: "Reset Password" },
     },
 
-    // ── Superadmin Routes (mengurus sistem) ─────────────────────────────────
+    // â”€â”€ Superadmin Routes (mengurus sistem) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/superadmin",
         redirect: "/superadmin/dashboard",
         component: () => import("@/layouts/default-layout/DefaultLayout.vue"),
         meta: { requiresAuth: true, role: "superadmin" },
         children: [
-            { path: "dashboard",                name: "superadmin-dashboard",        component: () => import("@/pages/admin/Dashboard.vue"),                     meta: { pageTitle: "Dashboard Superadmin" } },
-            { path: "users",                    name: "superadmin-users",            component: () => import("@/pages/admin/users/Index.vue"),                   meta: { pageTitle: "Kelola User" } },
-            { path: "users/create",             name: "superadmin-users-create",     component: () => import("@/pages/admin/users/Create.vue"),                  meta: { pageTitle: "Tambah User" } },
-            { path: "users/:id/edit",           name: "superadmin-users-edit",       component: () => import("@/pages/admin/users/Edit.vue"),                    meta: { pageTitle: "Edit User" } },
-            { path: "master/poli",              name: "superadmin-poli",             component: () => import("@/pages/admin/master/poli/Index.vue"),             meta: { pageTitle: "Master Poli" } },
-            { path: "master/poli/create",       name: "superadmin-poli-create",      component: () => import("@/pages/admin/master/poli/Create.vue"),            meta: { pageTitle: "Tambah Poli" } },
-            { path: "master/poli/:id/edit",     name: "superadmin-poli-edit",        component: () => import("@/pages/admin/master/poli/Edit.vue"),              meta: { pageTitle: "Edit Poli" } },
-            { path: "master/dokter",            name: "superadmin-dokter",           component: () => import("@/pages/admin/master/dokter/Index.vue"),           meta: { pageTitle: "Master Dokter" } },
-            { path: "master/dokter/create",     name: "superadmin-dokter-create",    component: () => import("@/pages/admin/master/dokter/Create.vue"),          meta: { pageTitle: "Tambah Dokter" } },
-            { path: "master/dokter/:id/edit",   name: "superadmin-dokter-edit",      component: () => import("@/pages/admin/master/dokter/Edit.vue"),            meta: { pageTitle: "Edit Dokter" } },
-            { path: "master/jadwal",            name: "superadmin-jadwal",           component: () => import("@/pages/admin/master/jadwal/Index.vue"),           meta: { pageTitle: "Jadwal Dokter" } },
-            { path: "master/jadwal/create",     name: "superadmin-jadwal-create",    component: () => import("@/pages/admin/master/jadwal/Create.vue"),          meta: { pageTitle: "Tambah Jadwal" } },
-            { path: "master/jadwal/:id/edit",   name: "superadmin-jadwal-edit",      component: () => import("@/pages/admin/master/jadwal/Edit.vue"),            meta: { pageTitle: "Edit Jadwal" } },
-            { path: "antrian/monitor",          name: "superadmin-monitor",          component: () => import("@/pages/admin/antrian/Monitor.vue"),               meta: { pageTitle: "Monitor Antrian" } },
-            { path: "laporan/harian",           name: "superadmin-laporan-harian",   component: () => import("@/pages/admin/laporan/Harian.vue"),                meta: { pageTitle: "Laporan Harian" } },
-            { path: "laporan/bulanan",          name: "superadmin-laporan-bulanan",  component: () => import("@/pages/admin/laporan/Bulanan.vue"),               meta: { pageTitle: "Laporan Bulanan" } },
-            { path: "profil/edit",              name: "superadmin-profil-edit",      component: () => import("@/pages/admin/profil/Edit.vue"),                   meta: { pageTitle: "Edit Profil" } },
+            { path: "dashboard",                name: "superadmin-dashboard",        component: () => import("@/pages/superadmin/Dashboard.vue"),                     meta: { pageTitle: "Dashboard Superadmin" } },
+            { path: "users",                    name: "superadmin-users",            component: () => import("@/pages/superadmin/users/Index.vue"),                   meta: { pageTitle: "Kelola User" } },
+            { path: "users/create",             name: "superadmin-users-create",     component: () => import("@/pages/superadmin/users/Create.vue"),                  meta: { pageTitle: "Tambah User" } },
+            { path: "users/:id/edit",           name: "superadmin-users-edit",       component: () => import("@/pages/superadmin/users/Edit.vue"),                    meta: { pageTitle: "Edit User" } },
+            { path: "master/poli",              name: "superadmin-poli",             component: () => import("@/pages/superadmin/master/poli/Index.vue"),             meta: { pageTitle: "Master Poli" } },
+            { path: "master/poli/create",       name: "superadmin-poli-create",      component: () => import("@/pages/superadmin/master/poli/Create.vue"),            meta: { pageTitle: "Tambah Poli" } },
+            { path: "master/poli/:id/edit",     name: "superadmin-poli-edit",        component: () => import("@/pages/superadmin/master/poli/Edit.vue"),              meta: { pageTitle: "Edit Poli" } },
+            { path: "master/dokter",            name: "superadmin-dokter",           component: () => import("@/pages/superadmin/master/dokter/Index.vue"),           meta: { pageTitle: "Master Dokter" } },
+            { path: "master/dokter/create",     name: "superadmin-dokter-create",    component: () => import("@/pages/superadmin/master/dokter/Create.vue"),          meta: { pageTitle: "Tambah Dokter" } },
+            { path: "master/dokter/:id/edit",   name: "superadmin-dokter-edit",      component: () => import("@/pages/superadmin/master/dokter/Edit.vue"),            meta: { pageTitle: "Edit Dokter" } },
+            { path: "master/jadwal",            name: "superadmin-jadwal",           component: () => import("@/pages/superadmin/master/jadwal/Index.vue"),           meta: { pageTitle: "Jadwal Dokter" } },
+            { path: "master/jadwal/create",     name: "superadmin-jadwal-create",    component: () => import("@/pages/superadmin/master/jadwal/Create.vue"),          meta: { pageTitle: "Tambah Jadwal" } },
+            { path: "master/jadwal/:id/edit",   name: "superadmin-jadwal-edit",      component: () => import("@/pages/superadmin/master/jadwal/Edit.vue"),            meta: { pageTitle: "Edit Jadwal" } },
+            { path: "antrian/monitor",          name: "superadmin-monitor",          component: () => import("@/pages/superadmin/antrian/Monitor.vue"),               meta: { pageTitle: "Monitor Antrian" } },
+            { path: "laporan/harian",           name: "superadmin-laporan-harian",   component: () => import("@/pages/superadmin/laporan/Harian.vue"),                meta: { pageTitle: "Laporan Harian" } },
+            { path: "laporan/bulanan",          name: "superadmin-laporan-bulanan",  component: () => import("@/pages/superadmin/laporan/Bulanan.vue"),               meta: { pageTitle: "Laporan Bulanan" } },
+            { path: "profil/edit",              name: "superadmin-profil-edit",      component: () => import("@/pages/superadmin/profil/Edit.vue"),                   meta: { pageTitle: "Edit Profil" } },
         ],
     },
 
-    // ── Admin Routes (mengurus operasional: loket + perawat gabungan) ──────
+    // â”€â”€ Admin Routes (mengurus operasional: loket + perawat gabungan) â”€â”€â”€â”€â”€â”€
     {
         path: "/admin",
         redirect: "/admin/dashboard",
         component: () => import("@/layouts/default-layout/DefaultLayout.vue"),
         meta: { requiresAuth: true, role: "admin" },
         children: [
-            { path: "dashboard",                name: "admin-dashboard",        component: () => import("@/pages/loket/Dashboard.vue"),                     meta: { pageTitle: "Dashboard Admin Operasional" } },
-            { path: "pendaftaran",              name: "admin-pendaftaran",     component: () => import("@/pages/loket/pendaftaran/Index.vue"),              meta: { pageTitle: "Pendaftaran" } },
-            { path: "pendaftaran/baru",         name: "admin-pasien-baru",     component: () => import("@/pages/loket/pendaftaran/PasienBaru.vue"),        meta: { pageTitle: "Pasien Baru" } },
-            { path: "pendaftaran/lama",         name: "admin-pasien-lama",     component: () => import("@/pages/loket/pendaftaran/PasienLama.vue"),        meta: { pageTitle: "Pasien Lama" } },
-            { path: "antrian",                  name: "admin-antrian",         component: () => import("@/pages/loket/antrian/Index.vue"),                  meta: { pageTitle: "Antrian Hari Ini" } },
-            { path: "antrian/tiket",            name: "admin-tiket",           component: () => import("@/pages/loket/antrian/Tiket.vue"),                  meta: { pageTitle: "Cetak Tiket" } },
-            { path: "antrian/poli",             name: "admin-antrian-poli",    component: () => import("@/pages/perawat/antrian/Index.vue"),                meta: { pageTitle: "Antrian Poli" } },
-            { path: "antrian/panggil/:id?",     name: "admin-panggil",         component: () => import("@/pages/perawat/antrian/Panggil.vue"),                meta: { pageTitle: "Panggil Pasien" } },
-            { path: "pasien",                   name: "admin-pasien",          component: () => import("@/pages/loket/pasien/Index.vue"),                  meta: { pageTitle: "Data Pasien" } },
-            { path: "profil/edit",              name: "admin-profil-edit",     component: () => import("@/pages/loket/profil/Edit.vue"),                    meta: { pageTitle: "Edit Profil" } },
+            { path: "dashboard",                name: "admin-dashboard",        component: () => import("@/pages/admin/Dashboard.vue"),                     meta: { pageTitle: "Dashboard Admin Operasional" } },
+            { path: "pendaftaran",              name: "admin-pendaftaran",     component: () => import("@/pages/admin/pendaftaran/Index.vue"),              meta: { pageTitle: "Pendaftaran" } },
+            { path: "pendaftaran/baru",         name: "admin-pasien-baru",     component: () => import("@/pages/admin/pendaftaran/PasienBaru.vue"),        meta: { pageTitle: "Pasien Baru" } },
+            { path: "pendaftaran/lama",         name: "admin-pasien-lama",     component: () => import("@/pages/admin/pendaftaran/PasienLama.vue"),        meta: { pageTitle: "Pasien Lama" } },
+            { path: "antrian",                  name: "admin-antrian",         component: () => import("@/pages/admin/antrian/Index.vue"),                  meta: { pageTitle: "Antrian Hari Ini" } },
+            { path: "antrian/tiket",            name: "admin-tiket",           component: () => import("@/pages/admin/antrian/Tiket.vue"),                  meta: { pageTitle: "Cetak Tiket" } },
+            { path: "antrian/poli",             name: "admin-antrian-poli",    component: () => import("@/pages/admin/antrian-poli/Index.vue"),                meta: { pageTitle: "Antrian Poli" } },
+            { path: "antrian/panggil/:id?",     name: "admin-panggil",         component: () => import("@/pages/admin/antrian-poli/Panggil.vue"),                meta: { pageTitle: "Panggil Pasien" } },
+            { path: "pasien",                   name: "admin-pasien",          component: () => import("@/pages/admin/pasien/Index.vue"),                  meta: { pageTitle: "Data Pasien" } },
+            { path: "profil/edit",              name: "admin-profil-edit",     component: () => import("@/pages/admin/profil/Edit.vue"),                    meta: { pageTitle: "Edit Profil" } },
         ],
     },
 
-    // ── Pasien Routes ─────────────────────────────────────────────────────
+    // â”€â”€ Pasien Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/pasien",
         redirect: "/pasien/dashboard",
@@ -118,7 +118,7 @@ const routes: Array<RouteRecordRaw> = [
         ],
     },
 
-    // ── Display Publik ────────────────────────────────────────────────────
+    // â”€â”€ Display Publik â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/display",
         name: "display",
@@ -126,7 +126,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: { pageTitle: "Display Antrian" },
     },
 
-    // ── Error Pages ───────────────────────────────────────────────────────
+    // â”€â”€ Error Pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/404",
         name: "404",
@@ -148,7 +148,7 @@ const router = createRouter({
     },
 });
 
-// ── Navigation Guard ──────────────────────────────────────────────────────
+// â”€â”€ Navigation Guard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
 
@@ -203,3 +203,4 @@ router.beforeEach(async (to, from, next) => {
 });
 
 export default router;
+
