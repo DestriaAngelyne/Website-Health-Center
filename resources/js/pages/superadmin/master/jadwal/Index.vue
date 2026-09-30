@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page">
     <div class="topbar">
       <div class="topbar-left"><h1 class="page-title">Jadwal Dokter</h1><p class="page-sub">Kelola jadwal praktik dokter</p></div>
@@ -20,8 +20,8 @@
           <tbody>
             <tr v-for="(item, i) in data" :key="item.id">
               <td class="center muted">{{ i + 1 }}</td>
-              <td class="bold">{{ item.dokter?.nama ?? 'â€”' }}</td>
-              <td class="muted">{{ item.dokter?.poli?.nama_poli ?? 'â€”' }}</td>
+              <td class="bold">{{ item.dokter?.nama ?? '—' }}</td>
+              <td class="muted">{{ item.dokter?.poli?.nama_poli ?? '—' }}</td>
               <td><span class="hari-tag" :class="'h-' + (item.hari ?? '').toLowerCase()">{{ item.hari }}</span></td>
               <td><span class="time-tag">{{ item.jam_buka }}</span></td>
               <td><span class="time-tag">{{ item.jam_tutup }}</span></td>

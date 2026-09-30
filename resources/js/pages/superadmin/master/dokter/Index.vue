@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
@@ -47,7 +47,7 @@
           <tbody>
             <tr v-for="(item, i) in data" :key="item.id">
               <td class="center muted">{{ i + 1 }}</td>
-              <td><span class="code-tag">{{ item.nip ?? 'â€”' }}</span></td>
+              <td><span class="code-tag">{{ item.nip ?? '—' }}</span></td>
               <td>
                 <div style="display:flex;align-items:center;gap:.55rem">
                   <div class="av">{{ item.nama?.charAt(0) }}</div>
@@ -57,8 +57,8 @@
                   </div>
                 </div>
               </td>
-              <td><span class="sp-tag">{{ item.spesialis ?? 'â€”' }}</span></td>
-              <td class="muted" style="font-weight: 500;">{{ item.poli?.nama ?? 'â€”' }}</td>
+              <td><span class="sp-tag">{{ item.spesialis ?? '—' }}</span></td>
+              <td class="muted" style="font-weight: 500;">{{ item.poli?.nama ?? '—' }}</td>
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
               <td>
                 <div class="actions">

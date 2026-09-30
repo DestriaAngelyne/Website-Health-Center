@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="d-flex flex-column gap-7">
 
     <!-- Header -->
@@ -6,7 +6,7 @@
       <div>
         <h1 class="page-heading fw-bold text-gray-900 fs-3 my-0">Dashboard Loket</h1>
         <span class="text-gray-500 fw-semibold fs-7">
-          {{ hariIni }} â€” Selamat datang, {{ authStore.user?.name }}
+          {{ hariIni }} — Selamat datang, {{ authStore.user?.name }}
         </span>
       </div>
       <div class="d-flex gap-2">
@@ -83,7 +83,7 @@
                 <i class="ki-outline ki-profile-user fs-7 me-1"></i>{{ s.dokter }}
               </div>
               <div class="text-gray-500 fs-8 mb-3">
-                <i class="ki-outline ki-time fs-7 me-1"></i>{{ s.jam_buka }} â€“ {{ s.jam_tutup }}
+                <i class="ki-outline ki-time fs-7 me-1"></i>{{ s.jam_buka }} – {{ s.jam_tutup }}
               </div>
               <!-- Kuota bar -->
               <div class="d-flex align-items-center gap-2 mb-3">

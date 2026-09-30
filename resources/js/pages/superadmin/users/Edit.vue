@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
@@ -30,7 +30,7 @@
             <div class="field">
               <label class="label">Role <span class="req">*</span></label>
               <select v-model="form.role" class="input">
-                <option value="">â€” Pilih Role â€”</option>
+                <option value="">— Pilih Role —</option>
                 <option value="superadmin">Superadmin</option>
                 <option value="admin">Administrator</option>
                 <option value="dokter">Dokter</option>
