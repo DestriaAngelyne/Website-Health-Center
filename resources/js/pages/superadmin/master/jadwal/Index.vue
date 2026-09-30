@@ -8,7 +8,7 @@
     </div>
     <div class="filter-bar">
       <select v-model="dokterFilter" class="filter-select" @change="loadData"><option value="">Semua Dokter</option><option v-for="d in dokterList" :key="d.id" :value="d.id">{{ d.nama }}</option></select>
-      <select v-model="poliFilter" class="filter-select" @change="loadData"><option value="">Semua Poli</option><option v-for="p in poliList" :key="p.id" :value="p.id">{{ p.nama_poli }}</option></select>
+      <select v-model="poliFilter" class="filter-select" @change="loadData"><option value="">Semua Poli</option><option v-for="p in poliList" :key="p.id" :value="p.id">{{ p.nama }}</option></select>
       <span class="count-tag" v-if="!loading">{{ data.length }} jadwal</span>
     </div>
     <div class="card">
@@ -20,8 +20,8 @@
           <tbody>
             <tr v-for="(item, i) in data" :key="item.id">
               <td class="center muted">{{ i + 1 }}</td>
-              <td class="bold">{{ item.dokter?.nama ?? '—' }}</td>
-              <td class="muted">{{ item.dokter?.poli?.nama_poli ?? '—' }}</td>
+              <td class="bold">{{ item.dokter ?? '—' }}</td>
+              <td class="muted">{{ item.poli ?? '—' }}</td>
               <td><span class="hari-tag" :class="'h-' + (item.hari ?? '').toLowerCase()">{{ item.hari }}</span></td>
               <td><span class="time-tag">{{ item.jam_buka }}</span></td>
               <td><span class="time-tag">{{ item.jam_tutup }}</span></td>
@@ -45,7 +45,7 @@ async function loadData() {
   catch (e) { console.error(e) } finally { loading.value = false }
 }
 async function hapus(item) {
-  if (!confirm(`Hapus jadwal ${item.hari} - ${item.dokter?.nama}?`)) return
+  if (!confirm(`Hapus jadwal ${item.hari} - ${item.dokter}?`)) return
   try { await api.delete(`/superadmin/jadwal/${item.id}`); loadData() } catch (e) { alert(e.response?.data?.message ?? 'Gagal') }
 }
 onMounted(async () => {

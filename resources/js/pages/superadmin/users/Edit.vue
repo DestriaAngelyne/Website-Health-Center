@@ -176,6 +176,7 @@ async function submit() {
 .field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem;}.field:last-child{margin-bottom:0;}
 .label{font-size:.875rem;font-weight:700;color:var(--text);}.req{color:#ef4444;}.hint{font-weight:400;color:var(--text3);font-size:.8rem;}
 .input{padding:.7rem .95rem;border:1.5px solid var(--border);border-radius:10px;font-size:.9rem;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;transition:all .18s;width:100%;}
+ .input option{color:#1e1e2d;background:#fff}
 .input:focus{border-color:#14b8a6;background:var(--surface);box-shadow:0 0 0 3px rgba(20,184,166,.12);}.input::placeholder{color:var(--text3);}.input.err{border-color:#ef4444;}
 .err-msg{font-size:.8rem;color:#ef4444;margin:0;font-weight:500;}
 

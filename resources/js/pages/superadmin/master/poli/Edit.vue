@@ -14,7 +14,7 @@
           <p class="sec-title">Informasi Poli</p>
           <div class="grid2">
             <div class="field"><label class="label">Kode Poli <span class="req">*</span></label><input v-model="form.kode" type="text" class="input" :class="{ err: errors.kode }" /><p v-if="errors.kode" class="err-msg">{{ errors.kode[0] }}</p></div>
-            <div class="field"><label class="label">Nama Poli <span class="req">*</span></label><input v-model="form.nama_poli" type="text" class="input" :class="{ err: errors.nama_poli }" /><p v-if="errors.nama_poli" class="err-msg">{{ errors.nama_poli[0] }}</p></div>
+            <div class="field"><label class="label">Nama Poli <span class="req">*</span></label><input v-model="form.nama" type="text" class="input" :class="{ err: errors.nama }" /><p v-if="errors.nama" class="err-msg">{{ errors.nama[0] }}</p></div>
           </div>
           <div class="grid2">
             <div class="field"><label class="label">Singkatan</label><input v-model="form.singkatan" type="text" class="input" /></div>
@@ -35,10 +35,10 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 const route = useRoute(), router = useRouter()
-const form = ref({ kode: '', nama_poli: '', singkatan: '', keterangan: '', is_active: true })
+const form = ref({ kode: '', nama: '', singkatan: '', keterangan: '', is_active: true })
 const errors = ref({}), saving = ref(false), loadingData = ref(true)
 onMounted(async () => {
-  try { const r = await api.get(`/superadmin/poli/${route.params.id}`); const d = r.data.data; form.value = { kode: d.kode, nama_poli: d.nama_poli, singkatan: d.singkatan ?? '', keterangan: d.keterangan ?? '', is_active: d.is_active } }
+  try { const r = await api.get(`/superadmin/poli/${route.params.id}`); const d = r.data.data; form.value = { kode: d.kode, nama: d.nama, singkatan: d.singkatan ?? '', keterangan: d.keterangan ?? '', is_active: d.is_active } }
   catch { alert('Gagal memuat data') } finally { loadingData.value = false }
 })
 async function submit() {
@@ -71,6 +71,7 @@ async function submit() {
 .field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:1rem}.field:last-child{margin-bottom:0}
 .label{font-size:.875rem;font-weight:700;color:var(--text)}.req{color:#ef4444}
 .input{padding:.7rem .95rem;border:1.5px solid var(--border);border-radius:10px;font-size:.9rem;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;transition:all .18s;width:100%;box-sizing:border-box}
+.input option{color:#1e1e2d;background:#fff}
 .input:focus{border-color:#14b8a6;background:var(--surface);box-shadow:0 0 0 3px rgba(20,184,166,.1)}.input::placeholder{color:var(--text3)}.input.err{border-color:#ef4444}
 .textarea{resize:vertical;min-height:80px}.err-msg{font-size:.8rem;color:#ef4444;margin:0}
 .footer{display:flex;align-items:center;justify-content:flex-end;gap:.65rem;padding:1.25rem 2rem;border-top:1px solid var(--border);background:var(--surface2)}

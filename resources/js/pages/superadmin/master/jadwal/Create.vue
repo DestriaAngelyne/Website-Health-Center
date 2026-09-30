@@ -11,7 +11,7 @@
         <div class="section">
           <p class="sec-title">Informasi Jadwal</p>
           <div class="grid2">
-            <div class="field"><label class="label">Dokter <span class="req">*</span></label><select v-model="form.dokter_id" class="input" :class="{ err: errors.dokter_id }"><option value="">— Pilih Dokter —</option><option v-for="d in dokterList" :key="d.id" :value="d.id">{{ d.nama }} ({{ d.poli?.nama_poli }})</option></select><p v-if="errors.dokter_id" class="err-msg">{{ errors.dokter_id[0] }}</p></div>
+            <div class="field"><label class="label">Dokter <span class="req">*</span></label><select v-model="form.dokter_id" class="input" :class="{ err: errors.dokter_id }"><option value="">— Pilih Dokter —</option><option v-for="d in dokterList" :key="d.id" :value="d.id">{{ d.nama }} ({{ d.poli?.nama }})</option></select><p v-if="errors.dokter_id" class="err-msg">{{ errors.dokter_id[0] }}</p></div>
             <div class="field"><label class="label">Hari <span class="req">*</span></label><select v-model="form.hari" class="input" :class="{ err: errors.hari }"><option value="">— Pilih Hari —</option><option v-for="h in hariList" :key="h" :value="h">{{ h }}</option></select><p v-if="errors.hari" class="err-msg">{{ errors.hari[0] }}</p></div>
           </div>
           <div class="grid3">
@@ -69,6 +69,7 @@ async function submit() {
 .label{font-size:.85rem;font-weight:700;color:var(--text)}
 .req{color:#ef4444}
 .input{padding:.6rem .85rem;border:1.5px solid var(--border);border-radius:.55rem;font-size:.88rem;font-weight:500;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;transition:all .18s;width:100%;box-sizing:border-box}
+.input option{color:#1e1e2d;background:#fff}
 .input:focus{border-color:#14b8a6;background:var(--surface);box-shadow:0 0 0 3px rgba(20,184,166,.1)}
 .input::placeholder{color:var(--text3)}
 .input.err{border-color:#ef4444}

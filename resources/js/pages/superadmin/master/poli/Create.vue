@@ -25,8 +25,8 @@
             </div>
             <div class="field">
               <label class="label">Nama Poli <span class="req">*</span></label>
-              <input v-model="form.nama_poli" type="text" class="input" :class="{ err: errors.nama_poli }" placeholder="Contoh: Poli Umum" />
-              <p v-if="errors.nama_poli" class="err-msg">{{ errors.nama_poli[0] }}</p>
+              <input v-model="form.nama" type="text" class="input" :class="{ err: errors.nama }" placeholder="Contoh: Poli Umum" />
+              <p v-if="errors.nama" class="err-msg">{{ errors.nama[0] }}</p>
             </div>
           </div>
           <div class="grid2">
@@ -64,7 +64,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
 const router = useRouter()
-const form = ref({ kode: '', nama_poli: '', singkatan: '', keterangan: '', is_active: true })
+const form = ref({ kode: '', nama: '', singkatan: '', keterangan: '', is_active: true })
 const errors = ref({}), saving = ref(false)
 async function submit() {
   saving.value = true; errors.value = {}
@@ -98,6 +98,7 @@ async function submit() {
 .field:last-child{margin-bottom:0}
 .label{font-size:.875rem;font-weight:700;color:var(--text)}.req{color:#ef4444}
 .input{padding:.7rem .95rem;border:1.5px solid var(--border);border-radius:10px;font-size:.9rem;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;transition:all .18s;width:100%;box-sizing:border-box}
+.input option{color:#1e1e2d;background:#fff}
 .input:focus{border-color:#14b8a6;background:var(--surface);box-shadow:0 0 0 3px rgba(20,184,166,.1)}
 .input::placeholder{color:var(--text3)}.input.err{border-color:#ef4444}
 .textarea{resize:vertical;min-height:80px}

@@ -21,7 +21,7 @@
             <div class="field"><label class="label">Spesialis</label><input v-model="form.spesialis" type="text" class="input" /></div>
           </div>
           <div class="grid2">
-            <div class="field"><label class="label">Poli <span class="req">*</span></label><select v-model="form.poli_id" class="input" :class="{ err: errors.poli_id }"><option value="">— Pilih Poli —</option><option v-for="p in poliList" :key="p.id" :value="p.id">{{ p.nama_poli }}</option></select><p v-if="errors.poli_id" class="err-msg">{{ errors.poli_id[0] }}</p></div>
+            <div class="field"><label class="label">Poli <span class="req">*</span></label><select v-model="form.poli_id" class="input" :class="{ err: errors.poli_id }"><option value="">— Pilih Poli —</option><option v-for="p in poliList" :key="p.id" :value="p.id">{{ p.nama }}</option></select><p v-if="errors.poli_id" class="err-msg">{{ errors.poli_id[0] }}</p></div>
             <div class="field"><label class="label">No HP</label><input v-model="form.no_hp" type="text" class="input" /></div>
           </div>
           <div class="field" style="max-width:200px"><label class="label">Status</label><select v-model="form.is_active" class="input"><option :value="true">Aktif</option><option :value="false">Nonaktif</option></select></div>
@@ -79,6 +79,7 @@ async function submit() {
 .field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:1rem}.field:last-child{margin-bottom:0}
 .label{font-size:.875rem;font-weight:700;color:var(--text)}.req{color:#ef4444}.hint{font-weight:400;color:var(--text3);font-size:.74rem}
 .input{padding:.7rem .95rem;border:1.5px solid var(--border);border-radius:10px;font-size:.9rem;font-family:inherit;background:var(--surface2);color:var(--text);outline:none;transition:all .18s;width:100%;box-sizing:border-box}
+.input option{color:#1e1e2d;background:#fff}
 .input:focus{border-color:#14b8a6;background:var(--surface);box-shadow:0 0 0 3px rgba(20,184,166,.1)}.input::placeholder{color:var(--text3)}.input.err{border-color:#ef4444}
 .textarea{resize:vertical;min-height:80px}.err-msg{font-size:.8rem;color:#ef4444;margin:0;font-weight:500}
 .loading-state{display:flex;align-items:center;gap:.75rem;padding:3rem;color:var(--text3)}

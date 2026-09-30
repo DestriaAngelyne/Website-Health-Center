@@ -45,7 +45,7 @@
             <tr v-for="(item, i) in data" :key="item.id">
               <td class="center muted">{{ (page - 1) * perPage + i + 1 }}</td>
               <td><span class="code-tag">{{ item.kode }}</span></td>
-              <td class="bold">{{ item.nama_poli }}</td>
+              <td class="bold">{{ item.nama }}</td>
               <td class="muted">{{ item.singkatan ?? '—' }}</td>
               <td class="muted sm">{{ item.keterangan ?? '—' }}</td>
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
@@ -109,7 +109,7 @@ async function toggleActive(item) {
 }
 
 async function hapus(item) {
-  if (!confirm(`Hapus poli "${item.nama_poli}"?`)) return
+  if (!confirm(`Hapus poli "${item.nama}"?`)) return
   try { await api.delete(`/superadmin/poli/${item.id}`); loadData() }
   catch (e) { alert(e.response?.data?.message ?? 'Gagal menghapus') }
 }
