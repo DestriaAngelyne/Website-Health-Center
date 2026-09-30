@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
@@ -47,7 +47,7 @@
           <tbody>
             <tr v-for="(item, i) in data" :key="item.id">
               <td class="center muted">{{ i + 1 }}</td>
-              <td><span class="code-tag">{{ item.nip ?? '—' }}</span></td>
+              <td><span class="code-tag">{{ item.nip ?? 'â€”' }}</span></td>
               <td>
                 <div style="display:flex;align-items:center;gap:.55rem">
                   <div class="av">{{ item.nama?.charAt(0) }}</div>
@@ -57,8 +57,8 @@
                   </div>
                 </div>
               </td>
-              <td><span class="sp-tag">{{ item.spesialis ?? '—' }}</span></td>
-              <td class="muted" style="font-weight: 500;">{{ item.poli?.nama ?? '—' }}</td>
+              <td><span class="sp-tag">{{ item.spesialis ?? 'â€”' }}</span></td>
+              <td class="muted" style="font-weight: 500;">{{ item.poli?.nama ?? 'â€”' }}</td>
               <td><span class="pill" :class="item.is_active ? 'pill-green' : 'pill-red'">{{ item.is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
               <td>
                 <div class="actions">
@@ -178,6 +178,7 @@ onMounted(async () => {
 .search-box input:focus{border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.1)}.search-box input::placeholder{color:var(--text3)}
 .filter-select{height:42px;padding:0 1rem;border:1.5px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.84rem;font-family:inherit;outline:none;cursor:pointer}
 .filter-select:focus{border-color:#14b8a6}
+ .filter-select option{color:#1e1e2d;background:#fff}
 .count-tag{font-size:.85rem;color:var(--text3);font-weight:600}
 .card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
 .loading-row{display:flex;align-items:center;justify-content:center;gap:.75rem;padding:3rem;color:var(--text3);font-size:.85rem}
@@ -209,3 +210,4 @@ onMounted(async () => {
 .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#0d9488);color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sp-tag{background:var(--surface2);border:1px solid var(--border);padding:.25rem .65rem;border-radius:7px;font-size:.8rem;font-weight:600;color:var(--text2)}
 </style>
+

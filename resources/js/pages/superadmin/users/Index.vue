@@ -235,6 +235,7 @@ onMounted(loadData)
 .search-box input:focus{border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.12);}.search-box input::placeholder{color:var(--text3);}
 .filter-select{height:42px;padding:0 1rem;border:1.5px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.9rem;font-family:inherit;outline:none;cursor:pointer;box-shadow:var(--shadow);}
 .filter-select:focus{border-color:#14b8a6;}
+ .filter-select option{color:#1e1e2d;background:#fff}
 .count-tag{font-size:.85rem;color:var(--text3);font-weight:600;}
 
 /* Card */

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="page">
     <div class="topbar">
       <div class="topbar-left"><h1 class="page-title">Jadwal Dokter</h1><p class="page-sub">Kelola jadwal praktik dokter</p></div>
@@ -20,8 +20,8 @@
           <tbody>
             <tr v-for="(item, i) in data" :key="item.id">
               <td class="center muted">{{ i + 1 }}</td>
-              <td class="bold">{{ item.dokter?.nama ?? '—' }}</td>
-              <td class="muted">{{ item.dokter?.poli?.nama_poli ?? '—' }}</td>
+              <td class="bold">{{ item.dokter?.nama ?? 'â€”' }}</td>
+              <td class="muted">{{ item.dokter?.poli?.nama_poli ?? 'â€”' }}</td>
               <td><span class="hari-tag" :class="'h-' + (item.hari ?? '').toLowerCase()">{{ item.hari }}</span></td>
               <td><span class="time-tag">{{ item.jam_buka }}</span></td>
               <td><span class="time-tag">{{ item.jam_tutup }}</span></td>
@@ -71,6 +71,7 @@ onMounted(async () => {
 .filter-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}
 .filter-select{padding:.55rem .9rem;border:1.5px solid var(--border);border-radius:.55rem;background:var(--surface);color:var(--text);font-size:.88rem;font-weight:500;font-family:inherit;outline:none;cursor:pointer}
 .filter-select:focus{border-color:#14b8a6}
+ .filter-select option{color:#1e1e2d;background:#fff}
 .count-tag{font-size:.8rem;color:var(--text3);font-weight:600}
 .card{background:var(--surface);border:1.5px solid var(--border);border-radius:.875rem;box-shadow:var(--shadow);overflow:hidden}
 .loading-row{display:flex;align-items:center;justify-content:center;gap:.75rem;padding:3rem;color:var(--text3);font-size:.9rem;font-weight:500}
@@ -107,3 +108,4 @@ onMounted(async () => {
 .time-tag{font-variant-numeric:tabular-nums;font-size:.83rem;font-weight:600;color:var(--text2);background:var(--surface2);padding:.2rem .55rem;border-radius:.35rem;border:1px solid var(--border)}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
+
