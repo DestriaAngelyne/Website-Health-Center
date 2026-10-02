@@ -167,20 +167,47 @@
                   </div>
                 </div>
 
-                <div class="input-group" :class="{ focused: focusedField === 'role', error: errors.role }">
-                  <label>Jabatan / Role</label>
-                  <div class="input-wrap select-wrap">
-                    <select v-model="form.role"
-                      @focus="focusedField = 'role'" @blur="focusedField = ''" @change="errors.role = ''">
-                      <option value="" disabled>Pilih jabatan</option>
-                      <option value="dokter">Dokter</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M6 9l6 6 6-6"/>
-                    </svg>
+
+                <div class="input-row">
+
+                  <div class="input-group" :class="{ error: errors.tanggal_lahir }">
+                    <label>Tanggal Lahir</label>
+                    <div class="input-wrap">
+                      <el-date-picker
+                        v-model="form.tanggal_lahir"
+                        type="date"
+                        placeholder="Pilih tanggal lahir"
+                        format="DD/MM/YYYY"
+                        value-format="YYYY-MM-DD"
+                        :disabled-date="(d) => d.getTime() > Date.now()"
+                        :default-value="new Date(2000, 0, 1)"
+                        :clearable="false"
+                        popper-class="dp-register"
+                        style="width: 100%"
+                        @change="errors.tanggal_lahir = ''"
+                      />
+                      <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                      </svg>
+                    </div>
+                    <span class="err-msg" v-if="errors.tanggal_lahir">{{ errors.tanggal_lahir }}</span>
                   </div>
-                  <span class="err-msg" v-if="errors.role">{{ errors.role }}</span>
+
+                  <div class="input-group" :class="{ focused: focusedField === 'jenis_kelamin', error: errors.jenis_kelamin }">
+                    <label>Jenis Kelamin</label>
+                    <div class="input-wrap select-wrap">
+                      <select v-model="form.jenis_kelamin"
+                        @focus="focusedField = 'jenis_kelamin'" @blur="focusedField = ''" @change="errors.jenis_kelamin = ''">
+                        <option value="" disabled>Pilih jenis kelamin</option>
+                        <option value="L">Laki-laki</option>
+                        <option value="P">Perempuan</option>
+                      </select>
+                      <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </div>
+                    <span class="err-msg" v-if="errors.jenis_kelamin">{{ errors.jenis_kelamin }}</span>
+                  </div>
                 </div>
 
                 <div class="input-group" :class="{ focused: focusedField === 'address', error: errors.address }">
@@ -291,7 +318,8 @@ export default defineComponent({
       confirmPassword: "",
       nik: "",
       phone: "",
-      role: "",
+      tanggal_lahir: "",
+      jenis_kelamin: "",
       address: "",
       agreeTerms: false,
     });
@@ -303,7 +331,8 @@ export default defineComponent({
       confirmPassword: "",
       nik: "",
       phone: "",
-      role: "",
+      tanggal_lahir: "",
+      jenis_kelamin: "",
       address: "",
       agreeTerms: "",
     });
@@ -347,7 +376,8 @@ export default defineComponent({
       if (!form.nik) { errors.nik = "NIK wajib diisi"; valid = false; }
       else if (form.nik.length !== 16) { errors.nik = "NIK harus 16 digit"; valid = false; }
       if (!form.phone) { errors.phone = "No. telepon wajib diisi"; valid = false; }
-      if (!form.role) { errors.role = "Jabatan wajib dipilih"; valid = false; }
+      if (!form.tanggal_lahir) { errors.tanggal_lahir = "Tanggal lahir wajib diisi"; valid = false; }
+      if (!form.jenis_kelamin) { errors.jenis_kelamin = "Jenis kelamin wajib dipilih"; valid = false; }
       if (!form.address.trim()) { errors.address = "Alamat wajib diisi"; valid = false; }
       if (!form.agreeTerms) { errors.agreeTerms = "Kamu harus menyetujui syarat & ketentuan"; valid = false; }
       return valid;
@@ -364,20 +394,21 @@ export default defineComponent({
       isLoading.value = true;
 
       try {
-        await ApiService.post("register", {
+        await ApiService.post("auth/register", {
           name: form.name,
           email: form.email,
           password: form.password,
           password_confirmation: form.confirmPassword,
           nik: form.nik,
-          phone: form.phone,
-          role: form.role,
+          no_hp: form.phone,
+          tanggal_lahir: form.tanggal_lahir,
+          jenis_kelamin: form.jenis_kelamin,
           address: form.address,
         });
 
         state.value = "confirmed";
         setTimeout(() => {
-          router.push({ name: "sign-in" });
+          router.push({ name: "login" });
         }, 2200);
       } catch (err: any) {
         state.value = "form";
@@ -772,6 +803,34 @@ export default defineComponent({
 }
 .select-wrap .input-icon { pointer-events: none; }
 
+/* Samakan el-date-picker dengan input lain */
+.input-group :deep(.el-input__wrapper) {
+  width: 100%;
+  padding: 0 14px;
+  height: 46px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  box-shadow: none !important;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.input-group :deep(.el-input__wrapper.is-focus) {
+  border-color: #3b6bf5;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 107, 245, 0.1) !important;
+}
+.input-group.error :deep(.el-input__wrapper) {
+  border-color: #ef4444;
+}
+.input-group :deep(.el-input__inner) {
+  font-size: 0.875rem;
+  color: #0f172a;
+  font-family: inherit;
+}
+.input-group :deep(.el-input__inner::placeholder) {
+  color: #94a3b8;
+}
+
 /* Textarea icon handled by no padding-right, no icon shown */
 
 /* Password toggle button */
@@ -1073,4 +1132,36 @@ export default defineComponent({
   .panel-right { padding: 32px 20px; }
   .input-row { grid-template-columns: 1fr; }
 }
+
+/* Perbaikan el-date-picker: satu ikon (kanan), tinggi sama dengan input lain */
+.input-group :deep(.el-date-editor.el-input) {
+  --el-component-size: 46px;
+  height: 46px;
+  width: 100%;
+}
+.input-group :deep(.el-input__prefix) { display: none; }
+.input-group :deep(.el-input__wrapper) { padding: 0 44px 0 14px; }
+</style>
+
+<style>
+.dp-register.el-picker__popper {
+  --el-bg-color-overlay: #ffffff;
+  --el-text-color-primary: #0f172a;
+  --el-text-color-regular: #334155;
+  --el-text-color-placeholder: #94a3b8;
+  --el-border-color-light: #e2e8f0;
+  --el-fill-color-light: #f1f5f9;
+  --el-color-primary: #3b6bf5;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  font-family: inherit;
+}
+.dp-register .el-popper__arrow::before { background: #ffffff; border-color: #e2e8f0; }
+.dp-register .el-date-picker__header-label { font-weight: 700; color: #0f172a; }
+.dp-register .el-date-table th { color: #64748b; font-weight: 600; }
+.dp-register .el-date-table td.today .el-date-table-cell__text { color: #3b6bf5; font-weight: 700; }
+.dp-register .el-date-table td.current:not(.disabled) .el-date-table-cell__text { background: #3b6bf5; color: #ffffff; }
+.dp-register .el-date-table td.available:hover { color: #3b6bf5; }
+.dp-register .el-date-table td.disabled .el-date-table-cell { background: transparent; }
 </style>
