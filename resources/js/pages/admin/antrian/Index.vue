@@ -120,6 +120,12 @@
                   <span class="badge fs-8" :class="statusBadge(a.status)">{{ a.status }}</span>
                 </td>
                 <td class="text-center">
+                  <router-link
+                    :to="{ path: '/admin/antrian/tiket', query: { id: a.id } }"
+                    class="btn btn-icon btn-sm btn-light-primary me-2"
+                    title="Cetak tiket">
+                    <i class="ki-outline ki-printer fs-5"></i>
+                  </router-link>
                   <button v-if="a.status === 'menunggu'"
                     class="btn btn-icon btn-light-danger btn-sm"
                     @click="batalkan(a)"

@@ -127,24 +127,34 @@ async function fetchAntrian() {
 function cetakTiket() {
   const el = document.getElementById('tiket-print')
   if (!el) return
-  const win = window.open('', '_blank', 'width=400,height=600')
+  const win = window.open('', '_blank', 'width=400,height=700')
   if (!win) return
-  win.document.write(`
-    <html>
-    <head>
-      <title>Tiket Antrian</title>
-      <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: white; display: flex; justify-content: center; padding: 20px; }
-        ${document.querySelector('style')?.textContent ?? ''}
-      </style>
-    </head>
-    <body>${el.outerHTML}</body>
-    </html>
-  `)
+  const css = `
+    @page { size: 80mm auto; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #fff; }
+    body { font-family: Arial, sans-serif; width: 80mm; margin: 0 auto; color: #1e293b; }
+    .tiket-wrap { width: 100%; background: #fff; }
+    .tiket-header { background: #009ef7; padding: 14px 16px; display: flex; align-items: center; gap: 10px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tiket-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .tiket-faskes { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: 1px; }
+    .tiket-sub { font-size: 10px; color: rgba(255,255,255,0.85); margin-top: 2px; }
+    .tiket-body { text-align: center; padding: 18px 12px 12px; }
+    .tiket-label-kecil { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #64748b; text-transform: uppercase; }
+    .tiket-nomor { font-size: 64px; font-weight: 800; color: #009ef7; line-height: 1; margin: 6px 0 10px; font-family: serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tiket-poli-nama { font-size: 13px; font-weight: 700; color: #374151; display: inline-block; padding: 4px 14px; border: 1px solid #cbd5e1; border-radius: 100px; }
+    .tiket-dashed { border-top: 2px dashed #94a3b8; margin: 8px 12px; }
+    .tiket-info { padding: 8px 16px 12px; }
+    .tiket-row-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; font-size: 12px; }
+    .tiket-key { color: #64748b; font-weight: 500; white-space: nowrap; }
+    .tiket-val { font-weight: 700; color: #1e293b; text-align: right; }
+    .tiket-badge { display: inline-block; padding: 2px 10px; border: 1px solid #94a3b8; border-radius: 100px; font-size: 11px; }
+    .tiket-footer { text-align: center; font-size: 10px; color: #475569; padding: 10px 16px 16px; border-top: 2px dashed #94a3b8; margin: 0 12px; }
+  `
+  win.document.write(`<html><head><title>Tiket Antrian</title><style>${css}</style></head><body>${el.outerHTML}</body></html>`)
   win.document.close()
   win.focus()
-  setTimeout(() => { win.print(); win.close() }, 500)
+  setTimeout(() => { win.print(); win.close() }, 600)
 }
 
 onMounted(fetchAntrian)
