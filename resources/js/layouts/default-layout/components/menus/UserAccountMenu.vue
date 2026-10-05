@@ -112,7 +112,6 @@ export default defineComponent({
       const map: Record<string, string> = {
         superadmin: 'Superadmin',
         admin    : 'Administrator',
-        dokter   : 'Dokter',
         pasien   : 'Pasien',
       };
       return map[authStore.user?.role ?? ''] ?? '-';
@@ -123,7 +122,6 @@ export default defineComponent({
       const map: Record<string, string> = {
         superadmin: '/superadmin/profil/edit',
         admin    : '/admin/profil/edit',
-        dokter   : '/dokter/profil/edit',
         pasien   : '/pasien/profil/edit',
       };
       return map[authStore.user?.role ?? ''] ?? '/';

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page">
     <div class="topbar">
       <div class="topbar-left">
@@ -22,7 +22,6 @@
         <option value="">Semua Role</option>
         <option value="superadmin">Superadmin</option>
         <option value="admin">Administrator</option>
-        <option value="dokter">Dokter</option>
         <option value="pasien">Pasien</option>
       </select>
       <span class="count-tag" v-if="!loading">{{ data.length }} pengguna</span>

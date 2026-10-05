@@ -46,7 +46,7 @@ class UserController extends Controller
             'email'     => 'required|email|unique:users,email',
             'username'  => 'nullable|string|unique:users,username',
             'password'  => 'required|string|min:6',
-            'role'      => 'required|in:admin,loket,perawat,dokter,pasien',
+            'role'      => 'required|in:superadmin,admin,pasien',
             'no_hp'     => 'nullable|string|max:20',
             'is_active' => 'boolean',
         ]);
@@ -77,7 +77,7 @@ class UserController extends Controller
         $request->validate([
             'name'      => 'required|string|max:100',
             'email'     => 'required|email|unique:users,email,' . $id,
-            'role'      => 'required|in:admin,loket,perawat,dokter,pasien',
+            'role'      => 'required|in:superadmin,admin,pasien',
             'no_hp'     => 'nullable|string|max:20',
             'is_active' => 'boolean',
         ]);

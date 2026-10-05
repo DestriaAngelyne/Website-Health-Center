@@ -462,11 +462,11 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 
 const userInitial   = computed(() => authStore.user?.name?.charAt(0).toUpperCase() ?? 'U')
 const userRoleLabel = computed(() => {
-  const map: Record<string, string> = { superadmin: 'Superadmin', admin: 'Administrator', dokter: 'Dokter', pasien: 'Pasien' }
+  const map: Record<string, string> = { superadmin: 'Superadmin', admin: 'Administrator', pasien: 'Pasien' }
   return map[authStore.user?.role ?? ''] ?? '-'
 })
 const dashboardRoute = computed(() => {
-  const map: Record<string, string> = { superadmin: '/superadmin/dashboard', admin: '/admin/dashboard', dokter: '/dokter/dashboard', pasien: '/pasien/dashboard' }
+  const map: Record<string, string> = { superadmin: '/superadmin/dashboard', admin: '/admin/dashboard', pasien: '/pasien/dashboard' }
   return map[authStore.user?.role ?? ''] ?? '/'
 })
 const handleLogout = async () => {

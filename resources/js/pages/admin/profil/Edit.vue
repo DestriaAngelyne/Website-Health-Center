@@ -358,7 +358,7 @@ export default defineComponent({
   setup() {
     const authStore = useAuthStore()
     const roleLabel = computed(() => {
-      const m: Record<string, string> = { superadmin: 'Superadmin', admin: 'Administrator', dokter: 'Dokter', pasien: 'Pasien' }
+      const m: Record<string, string> = { superadmin: 'Superadmin', admin: 'Administrator', pasien: 'Pasien' }
       return m[authStore.user?.role ?? ''] ?? 'Petugas'
     })
     // Data form profil

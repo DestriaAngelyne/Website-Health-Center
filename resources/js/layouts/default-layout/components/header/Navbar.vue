@@ -167,7 +167,6 @@ export default defineComponent({
       const roles: Record<string, string> = {
         superadmin: "Superadmin",
         admin    : "Administrator",
-        dokter   : "Dokter",
         pasien   : "Pasien",
       };
       return roles[authStore.user?.role ?? ""] ?? authStore.user?.role ?? "-";
@@ -177,7 +176,6 @@ export default defineComponent({
       const routes: Record<string, string> = {
         superadmin: "/superadmin/profil/edit",
         admin    : "/admin/profil/edit",
-        dokter   : "/dokter/profil/edit",
         pasien   : "/pasien/profil/edit",
       };
       return routes[authStore.user?.role ?? ""] ?? "/";

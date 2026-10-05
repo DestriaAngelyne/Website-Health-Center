@@ -57,7 +57,6 @@ class LoginController extends Controller
         return match($role) {
             'superadmin' => '/superadmin/dashboard',
             'admin'     => '/admin/dashboard',
-            'dokter'    => '/dokter/dashboard',
             'pasien'    => '/pasien/dashboard',
             default     => '/',
         };

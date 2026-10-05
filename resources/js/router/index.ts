@@ -1,4 +1,4 @@
-﻿import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import { useAuthStore } from "@/stores/auth.store";
 
 
@@ -157,7 +157,6 @@ router.beforeEach(async (to, from, next) => {
     const roleRedirect: Record<string, string> = {
         superadmin: '/superadmin/dashboard',
         admin   : '/admin/dashboard',
-        dokter  : '/dokter/dashboard',
         pasien  : '/pasien/dashboard',
     };
 
