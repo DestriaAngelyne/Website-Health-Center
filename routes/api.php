@@ -36,7 +36,7 @@ use App\Http\Controllers\Api\Publik\AntrianStatusController;
 use App\Http\Controllers\Api\Display\DisplayController;
 
 // ── Public Routes ─────────────────────────────────────────────────────────────
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->middleware('throttle:10,1')->group(function () {
     Route::post('login',        [LoginController::class,          'login']);
     Route::post('register',     [RegisterController::class,       'register']);
     Route::post('send-otp',     [ForgotPasswordController::class, 'sendOtp']);     // Step 1: kirim OTP ke email
@@ -125,6 +125,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post ('sesi/buka-semua',         [AdminAntrianController::class, 'bukaSesiOtomatis']);
         Route::patch('sesi/{id}/tutup',         [AdminAntrianController::class, 'tutupSesi']);
         Route::get  ('antrian',                 [AdminAntrianController::class, 'getAntrian']);
+        Route::get  ('antrian/{id}',            [AdminAntrianController::class, 'show'])->whereNumber('id');
         Route::post ('antrian/daftar',          [AdminAntrianController::class, 'daftarManual']);
         Route::post ('pendaftaran/pasien-baru', [AdminAntrianController::class, 'pasienBaru']);
         Route::patch('antrian/{id}/batalkan',  [AdminAntrianController::class, 'batalkan']);

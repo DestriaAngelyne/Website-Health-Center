@@ -200,6 +200,26 @@ class AntrianController extends Controller
         return response()->json(['data' => $antrian]);
     }
 
+    // GET /api/admin/antrian/{id} - detail satu antrian (untuk cetak tiket)
+    public function show($id)
+    {
+        $a = Antrian::with(['pasien', 'poli', 'dokter', 'sesiAntrian'])->findOrFail($id);
+
+        return response()->json(['data' => [
+            'id'            => $a->id,
+            'nomor_display' => $a->kode_antrian . '-' . str_pad($a->nomor_antrian, 3, '0', STR_PAD_LEFT),
+            'pasien'        => $a->pasien?->nama,
+            'no_rm'         => $a->pasien?->no_rm,
+            'poli'          => $a->poli?->nama,
+            'dokter'        => $a->dokter?->nama,
+            'status'        => $a->status,
+            'jenis_pasien'  => $a->jenis_pasien,
+            'jam_buka'      => $a->sesiAntrian?->jam_buka  ? substr($a->sesiAntrian->jam_buka, 0, 5)  : null,
+            'jam_tutup'     => $a->sesiAntrian?->jam_tutup ? substr($a->sesiAntrian->jam_tutup, 0, 5) : null,
+            'tanggal_fmt'   => $a->tanggal ? \Carbon\Carbon::parse($a->tanggal)->format('d/m/Y') : null,
+            'waktu_daftar'  => $a->waktu_daftar?->format('H:i'),
+        ]]);
+    }
     // POST /api/loket/antrian/daftar - daftarkan pasien manual
     public function daftarManual(Request $request)
     {
