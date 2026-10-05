@@ -44,12 +44,6 @@ const AdminMenuConfig: Array<MenuItem> = [
         keenthemesIcon : "screen",
         bootstrapIcon  : "bi-display",
       },
-      {
-        heading        : "Cetak Tiket",
-        route          : "/admin/antrian/tiket",
-        keenthemesIcon : "printer",
-        bootstrapIcon  : "bi-printer",
-      },
     ],
   },
   {
