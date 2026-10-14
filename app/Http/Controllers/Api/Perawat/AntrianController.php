@@ -188,4 +188,24 @@ class AntrianController extends Controller
             ]);
         });
     }
+
+    // PATCH /api/admin/antrian/{id}/lewati - pasien dipanggil tapi tidak hadir
+    public function lewati($id)
+    {
+        $antrian = Antrian::findOrFail($id);
+
+        if ($antrian->status !== 'dipanggil') {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Hanya antrian berstatus dipanggil yang bisa dilewati.',
+            ], 422);
+        }
+
+        $antrian->update(['status' => 'dilewati']);
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Pasien dilewati.',
+        ]);
+    }
 }

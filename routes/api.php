@@ -135,6 +135,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get  ('antrian/poli',              [AdminAntrianPoliController::class, 'index']);
         Route::get  ('antrian/panggil/{id?}',   [AdminAntrianPoliController::class, 'panggilDetail']);
         Route::patch('antrian/{id}/panggil',    [AdminAntrianPoliController::class, 'panggil']);
+        Route::patch('antrian/{id}/lewati',    [AdminAntrianPoliController::class, 'lewati']);
         Route::post ('antrian/mulai/{id}',      [AdminAntrianPoliController::class, 'mulai']);
         Route::patch('antrian/{id}/selesai',    [AdminAntrianPoliController::class, 'selesai']);
         Route::post ('antrian/tutup-sesi',      [AdminAntrianPoliController::class, 'tutupSesi']);

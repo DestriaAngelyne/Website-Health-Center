@@ -128,6 +128,7 @@ const statusBadge = (status) => {
   if (status === 'dipanggil') return base + 'badge-light-warning text-warning'
   if (status === 'menunggu') return base + 'badge-light-primary text-primary'
   if (status === 'selesai') return base + 'badge-light-success text-success'
+  if (status === 'dilewati') return base + 'badge-light-danger text-danger'
   return base + 'badge-light-dark text-gray-600'
 }
 

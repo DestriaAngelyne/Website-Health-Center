@@ -20,6 +20,9 @@
             <button @click="ulangiSuara" class="btn btn-outline btn-outline-primary">
               <i class="bi bi-volume-up-fill fs-3"></i> Ulangi Panggilan
             </button>
+            <button @click="handleLewati" class="btn btn-light-warning">
+              Pasien Tidak Hadir (Lewati)
+            </button>
             <button @click="handleMulaiPeriksa" class="btn btn-success">
               Mulai Periksa
             </button>
@@ -77,7 +80,7 @@ const getDetailPasien = async () => {
     // Begitu data pasien didapat dan statusnya masih "menunggu", ini artinya
     // pasien BELUM benar-benar dipanggil di backend. Panggil sekarang juga
     // (ubah status jadi 'dipanggil') + bunyikan suara otomatis, sekali saja.
-    if (antrian.value && antrian.value.status === 'menunggu') {
+    if (antrian.value && ['menunggu', 'dilewati'].includes(antrian.value.status)) {
       try {
         await api.patch(`/admin/antrian/${antrian.value.id}/panggil`)
         antrian.value.status = 'dipanggil'
@@ -111,6 +114,24 @@ const handleMulaiPeriksa = async () => {
     router.push('/admin/antrian')
   } catch (error) {
     Swal.fire('Gagal', 'Gagal memperbarui status', 'error')
+  }
+}
+
+const handleLewati = async () => {
+  const ok = await Swal.fire({
+    icon: 'question',
+    title: 'Lewati pasien ini?',
+    text: 'Pasien bisa dipanggil ulang dari daftar Antrian Poli.',
+    showCancelButton: true,
+    confirmButtonText: 'Ya, lewati',
+    cancelButtonText: 'Batal'
+  })
+  if (!ok.isConfirmed) return
+  try {
+    await api.patch(`/admin/antrian/${antrian.value.id}/lewati`)
+    router.push('/admin/antrian/poli')
+  } catch (error) {
+    Swal.fire('Gagal', error.response?.data?.message ?? 'Gagal melewati pasien', 'error')
   }
 }
 
