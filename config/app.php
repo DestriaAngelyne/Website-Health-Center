@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     // ✅ TAMBAHAN: URL frontend Vue untuk link reset password di email
     'frontend_url' => env('FRONTEND_URL', 'http://localhost:5173'),
