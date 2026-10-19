@@ -48,7 +48,7 @@
                         </div>
                         <div class="text-end">
                             <p class="text-white opacity-75 fs-7 mb-1">No. Antrian</p>
-                            <div class="display-6 fw-bolder text-white">{{ kunjungan.nomor_antrian ?? '-' }}</div>
+                            <div class="display-6 fw-bolder text-white">{{ kunjungan.nomor_display ?? '-' }}</div>
                         </div>
                     </div>
                 </div>
