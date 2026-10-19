@@ -139,6 +139,17 @@ const formatJam = (timeString) => {
   return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
 }
 
+const handleSelesai = async (id) => {
+  if (!confirm('Tandai pasien ini selesai diperiksa?')) return
+  try {
+    await api.patch(`/admin/antrian/${id}/selesai`)
+    await fetchAntrian()
+  } catch (err) {
+    console.error('Gagal menyelesaikan antrian:', err)
+    alert('Gagal menyelesaikan antrian')
+  }
+}
+
 const handleTutupSesi = async () => {
   if (confirm('Apakah Anda yakin ingin menutup sesi poli ini? Sisa antrian yang masih menunggu akan dibatalkan otomatis.')) {
     try {
