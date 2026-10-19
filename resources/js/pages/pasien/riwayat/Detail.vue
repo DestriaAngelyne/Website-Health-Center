@@ -59,7 +59,7 @@
             <div class="row g-5 g-xl-10">
 
                 <!--begin::Info Kunjungan-->
-                <div class="col-xl-6">
+                <div class="col-12">
                     <div class="card card-flush h-100">
                         <div class="card-header pt-7">
                             <h3 class="card-title">
@@ -118,7 +118,7 @@
                 <!--end::Info Kunjungan-->
 
                 <!--begin::Tanda Vital-->
-                <div class="col-xl-6">
+                <div v-if="kunjungan.vital && Object.values(kunjungan.vital).some(v => v !== null && v !== undefined)" class="col-xl-6">
                     <div class="card card-flush h-100">
                         <div class="card-header pt-7">
                             <h3 class="card-title">
