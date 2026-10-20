@@ -375,7 +375,7 @@ async function daftar() {
             dokter_id       : selectedDokter.value.id,
             sesi_antrian_id : selectedSesi.value.id,
             jenis_kunjungan : 'baru',
-            catatan         : catatan.value,
+            keluhan         : catatan.value,
         })
         const data     = res.data?.antrian
         nomorAntrian.value = data?.kode_antrian + '-' + String(data?.nomor_antrian).padStart(3, '0')
