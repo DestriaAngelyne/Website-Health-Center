@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\Perawat\DashboardController as AdminDashboardOperas
 use App\Http\Controllers\Api\Perawat\AntrianController as AdminAntrianPoliController;
 // Pasien
 use App\Http\Controllers\Api\Pasien\ProfilController;
+use App\Http\Controllers\Api\Staff\ProfilController as StaffProfilController;
 use App\Http\Controllers\Api\Pasien\PendaftaranController;
 use App\Http\Controllers\Api\Pasien\DaftarAntrianController;
 use App\Http\Controllers\Api\Pasien\AntrianController as PasienAntrianController;
@@ -70,6 +71,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // Dashboard
         Route::get('dashboard', [SuperadminDashboardController::class, 'index']);
+
+        // Profil
+        Route::get('profil',          [StaffProfilController::class, 'show']);
+        Route::put('profil',          [StaffProfilController::class, 'update']);
+        Route::put('profil/password', [StaffProfilController::class, 'gantiPassword']);
 
         // Users
         Route::get   ('users',                     [UserController::class, 'index']);
@@ -117,6 +123,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // Dashboard Operasional
         Route::get('dashboard', [AdminDashboardOperasionalController::class, 'index']);
+
+        // Profil
+        Route::get('profil',          [StaffProfilController::class, 'show']);
+        Route::put('profil',          [StaffProfilController::class, 'update']);
+        Route::put('profil/password', [StaffProfilController::class, 'gantiPassword']);
 
         // Pendaftaran
         Route::get  ('pendaftaran',             [AdminAntrianController::class, 'dashboard']);
