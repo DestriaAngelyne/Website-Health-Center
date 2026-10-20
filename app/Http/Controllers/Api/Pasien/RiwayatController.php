@@ -83,6 +83,7 @@ class RiwayatController extends Controller
                 'dokter'       => $antrian->dokter->nama  ?? '-',
                 'jam_buka'     => $antrian->sesiAntrian?->jam_buka    ? substr($antrian->sesiAntrian->jam_buka, 0, 5)  : '-',
                 'jam_tutup'    => $antrian->sesiAntrian?->jam_tutup   ? substr($antrian->sesiAntrian->jam_tutup, 0, 5) : '-',
+                'keluhan'      => $antrian->catatan       ?? null,
                 'diagnosa'     => $antrian->diagnosa      ?? null,
                 'catatan'      => $antrian->catatan       ?? null,
                 'resep'        => $antrian->resep         ?? null,
