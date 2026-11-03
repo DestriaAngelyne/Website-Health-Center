@@ -13,6 +13,7 @@
         <select v-model="tahun" class="form-select form-select-sm form-select-solid w-auto">
           <option v-for="t in tahunList" :key="t" :value="t">{{ t }}</option>
         </select>
+        <button class="btn btn-light-success btn-sm" :disabled="!data" @click="exportCsv"><i class="ki-outline ki-file-down me-1"></i>Export CSV</button>
         <button class="btn btn-primary btn-sm" @click="fetchData">
           <i class="ki-outline ki-magnifier me-1"></i>Tampilkan
         </button>
@@ -208,6 +209,7 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { downloadCsv } from '@/services/exportCsv'
 import api from '@/services/api'
 
 const COLORS = {
@@ -391,6 +393,32 @@ function renderBarDokter() {
       animation: { duration: 500 },
     },
   })
+}
+
+function exportCsv() {
+  const d = data.value
+  if (!d) return
+  const s = d.statistik ?? {}
+  downloadCsv(`laporan-bulanan-${d.tahun}-${String(d.bulan).padStart(2, '0')}.csv`, [
+    ['Laporan Bulanan', d.bulan_fmt],
+    [],
+    ['Total', 'Selesai', 'Batal', 'BPJS', 'Umum', 'Pasien Baru'],
+    [s.total, s.selesai, s.batal, s.bpjs, s.umum, s.pasienBaru],
+    [],
+    ['Hari Tersibuk', d.hari_tersibuk?.label ?? '-', d.hari_tersibuk?.total ?? ''],
+    [],
+    ['Per Poli'],
+    ['Poli', 'Total', 'Selesai', 'BPJS', 'Umum'],
+    ...(d.per_poli ?? []).map((p: any) => [p.poli, p.total, p.selesai, p.bpjs, p.umum]),
+    [],
+    ['Top Dokter'],
+    ['Dokter', 'Total'],
+    ...(d.top_dokter ?? []).map((x: any) => [x.dokter, x.total]),
+    [],
+    ['Rekap Harian'],
+    ['Tanggal', 'Total', 'Selesai', 'Batal'],
+    ...(d.grafik_harian ?? []).map((g: any) => [g.tanggal, g.total, g.selesai, g.batal]),
+  ])
 }
 
 async function fetchData() {

@@ -8,6 +8,7 @@
       </div>
       <div class="d-flex gap-2 align-items-center">
         <input v-model="tanggal" type="date" class="form-control form-control-sm form-control-solid w-auto" @change="fetchData"/>
+        <button class="btn btn-light-success btn-sm" :disabled="!data" @click="exportCsv"><i class="ki-outline ki-file-down me-1"></i>Export CSV</button>
         <button class="btn btn-primary btn-sm" @click="fetchData">
           <i class="ki-outline ki-magnifier me-1"></i>Tampilkan
         </button>
@@ -208,6 +209,7 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { downloadCsv } from '@/services/exportCsv'
 import api from '@/services/api'
 
 const COLORS = {
@@ -352,6 +354,30 @@ function renderBarDokter() {
       },
     },
   })
+}
+
+function exportCsv() {
+  const d = data.value
+  if (!d) return
+  const s = d.statistik ?? {}
+  downloadCsv(`laporan-harian-${d.tanggal}.csv`, [
+    ['Laporan Harian', d.tanggal_fmt],
+    [],
+    ['Total', 'Selesai', 'Batal', 'Menunggu', 'BPJS', 'Umum'],
+    [s.total, s.selesai, s.batal, s.menunggu, s.bpjs, s.umum],
+    [],
+    ['Per Poli'],
+    ['Poli', 'Total', 'Selesai', 'Batal', 'BPJS', 'Umum'],
+    ...(d.per_poli ?? []).map((p: any) => [p.poli, p.total, p.selesai, p.batal, p.bpjs, p.umum]),
+    [],
+    ['Per Dokter'],
+    ['Dokter', 'Total', 'Selesai'],
+    ...(d.per_dokter ?? []).map((x: any) => [x.dokter, x.total, x.selesai]),
+    [],
+    ['Detail Antrian'],
+    ['Nomor', 'Pasien', 'No RM', 'Poli', 'Dokter', 'Jenis Pasien', 'Status', 'Waktu Daftar', 'Waktu Selesai'],
+    ...(d.detail ?? []).map((a: any) => [a.nomor, a.pasien, a.no_rm, a.poli, a.dokter, a.jenis_pasien, a.status, a.waktu_daftar, a.waktu_selesai]),
+  ])
 }
 
 async function fetchData() {
