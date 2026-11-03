@@ -554,6 +554,12 @@ export default defineComponent({
     // ══════════════════════════════════════════════════════════════
     const simpanProfil = async () => {
       Object.keys(errors).forEach((k) => delete errors[k]);
+      if (!form.nama_lengkap?.trim()) errors.nama_lengkap = "Nama lengkap wajib diisi";
+      if (!form.jenis_kelamin) errors.jenis_kelamin = "Jenis kelamin wajib dipilih";
+      if (!form.no_telepon?.trim()) errors.no_telepon = "Nomor telepon wajib diisi";
+      if (!form.email?.trim()) errors.email = "Email wajib diisi";
+      if (!form.alamat?.trim()) errors.alamat = "Alamat lengkap wajib diisi";
+      if (Object.keys(errors).length) return;
       loadingSimpan.value = true;
       try {
         const payload = {

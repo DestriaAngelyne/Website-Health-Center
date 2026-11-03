@@ -43,14 +43,17 @@ class ProfilController extends Controller
         $userId   = $user->id;
 
         $request->validate([
-            'nama'          => 'required|string|max:255',
+            'nama_lengkap'  => 'required|string|max:255',
             'nik'           => [
                 'required',
                 'digits:16',
                 Rule::unique('pasien', 'nik')->ignore($pasienId),
             ],
             'jenis_kelamin' => 'required|in:L,P',
-            'no_hp'         => 'required|string|max:20',
+            'no_telepon'    => 'required|string|max:20',
+            'alamat'        => 'required|string|max:500',
+            'tanggal_lahir' => 'nullable|date|before_or_equal:today',
+            'golongan_darah'=> 'nullable|in:A,B,AB,O',
             'email'         => [
                 'required',
                 'email',
@@ -67,12 +70,13 @@ class ProfilController extends Controller
                     ->where(fn($q) => $q->where('no_bpjs', '!=', '')),
             ],
         ], [
-            'nama.required'          => 'Nama lengkap wajib diisi.',
+            'nama_lengkap.required'  => 'Nama lengkap wajib diisi.',
             'nik.required'           => 'NIK wajib diisi.',
             'nik.digits'             => 'NIK harus 16 digit.',
             'nik.unique'             => 'NIK sudah terdaftar di akun lain.',
             'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
-            'no_hp.required'         => 'Nomor telepon wajib diisi.',
+            'no_telepon.required'    => 'Nomor telepon wajib diisi.',
+            'alamat.required'        => 'Alamat lengkap wajib diisi.',
             'email.required'         => 'Email wajib diisi.',
             'email.email'            => 'Format email tidak valid.',
             'email.unique'           => 'Email sudah digunakan akun lain.',
@@ -81,17 +85,20 @@ class ProfilController extends Controller
 
         // Update tabel users
         $user->update([
-            'name'  => $request->nama,
+            'name'  => $request->nama_lengkap,
             'email' => $request->email,
         ]);
 
         // Update tabel pasien
         if ($pasien) {
             $pasien->update([
-                'nama'          => $request->nama,
+                'nama'          => $request->nama_lengkap,
                 'nik'           => $request->nik,
                 'jenis_kelamin' => $request->jenis_kelamin,
-                'no_hp'         => $request->no_hp,
+                'no_hp'         => $request->no_telepon,
+                'alamat'        => $request->alamat,
+                'tanggal_lahir' => $request->tanggal_lahir ?: null,
+                'golongan_darah'=> $request->golongan_darah ?: null,
                 'no_bpjs'       => $request->no_bpjs ?: null,
                 'jenis_pasien'  => $request->jenis_jaminan ?: $pasien->jenis_pasien,
             ]);
