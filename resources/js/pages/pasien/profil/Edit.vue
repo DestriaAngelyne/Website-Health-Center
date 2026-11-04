@@ -164,7 +164,7 @@
                 <div class="col-md-6">
                   <label class="form-label fw-semibold">No. BPJS</label>
                   <input v-model="form.no_bpjs" type="text" class="form-control form-control-solid"
-                    placeholder="Nomor BPJS (jika ada)" />
+                    placeholder="Nomor BPJS (jika ada)" autocomplete="off" :class="{ 'is-invalid': errors.no_bpjs }" /><div v-if="errors.no_bpjs" class="invalid-feedback">{{ errors.no_bpjs }}</div>
                 </div>
               </div>
 
@@ -198,7 +198,7 @@
                 <label class="form-label required fw-semibold">Password Lama</label>
                 <div class="position-relative">
                   <input v-model="passwordForm.password_lama" :type="showPasswordLama ? 'text' : 'password'"
-                    class="form-control form-control-solid pe-12" placeholder="Masukkan password lama"
+                    class="form-control form-control-solid pe-12" placeholder="Masukkan password lama" autocomplete="new-password"
                     :class="{ 'is-invalid': passwordErrors.password_lama }" />
                   <button type="button" class="btn btn-icon position-absolute end-0 top-0 h-100"
                     @click="showPasswordLama = !showPasswordLama">
@@ -215,7 +215,7 @@
                 <label class="form-label required fw-semibold">Password Baru</label>
                 <div class="position-relative">
                   <input v-model="passwordForm.password_baru" :type="showPasswordBaru ? 'text' : 'password'"
-                    class="form-control form-control-solid pe-12" placeholder="Minimal 8 karakter"
+                    class="form-control form-control-solid pe-12" placeholder="Minimal 8 karakter" autocomplete="new-password"
                     :class="{ 'is-invalid': passwordErrors.password_baru }" />
                   <button type="button" class="btn btn-icon position-absolute end-0 top-0 h-100"
                     @click="showPasswordBaru = !showPasswordBaru">
@@ -232,7 +232,7 @@
                 <label class="form-label required fw-semibold">Konfirmasi Password Baru</label>
                 <div class="position-relative">
                   <input v-model="passwordForm.konfirmasi_password" :type="showKonfirmasi ? 'text' : 'password'"
-                    class="form-control form-control-solid pe-12" placeholder="Ulangi password baru"
+                    class="form-control form-control-solid pe-12" placeholder="Ulangi password baru" autocomplete="new-password"
                     :class="{ 'is-invalid': passwordErrors.konfirmasi_password }" />
                   <button type="button" class="btn btn-icon position-absolute end-0 top-0 h-100"
                     @click="showKonfirmasi = !showKonfirmasi">
