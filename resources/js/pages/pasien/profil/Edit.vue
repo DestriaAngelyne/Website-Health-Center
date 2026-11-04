@@ -100,9 +100,9 @@
                   <div v-if="errors.nama_lengkap" class="invalid-feedback">{{ errors.nama_lengkap }}</div>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label fw-semibold">NIK</label>
+                  <label class="form-label required fw-semibold">NIK</label>
                   <input v-model="form.nik" type="text" class="form-control form-control-solid"
-                    placeholder="16 digit NIK (opsional)" maxlength="16" :class="{ 'is-invalid': errors.nik }" />
+                    placeholder="16 digit NIK" maxlength="16" :class="{ 'is-invalid': errors.nik }" />
                   <div v-if="errors.nik" class="invalid-feedback">{{ errors.nik }}</div>
                 </div>
               </div>

@@ -45,7 +45,7 @@ class ProfilController extends Controller
         $request->validate([
             'nama_lengkap'  => 'required|string|max:255',
             'nik'           => [
-                'nullable',
+                'required',
                 'digits:16',
                 Rule::unique('pasien', 'nik')->ignore($pasienId),
             ],
