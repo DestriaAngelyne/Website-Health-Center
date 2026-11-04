@@ -428,6 +428,7 @@ async function fetchData() {
   try {
     const res  = await api.get('/superadmin/laporan/bulanan', { params: { bulan: bulan.value, tahun: tahun.value } })
     data.value = res.data.data
+    loading.value = false
     await nextTick()
     await loadChart()
     renderLine()

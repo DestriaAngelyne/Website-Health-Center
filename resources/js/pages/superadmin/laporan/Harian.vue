@@ -386,6 +386,7 @@ async function fetchData() {
   try {
     const res  = await api.get('/superadmin/laporan/harian', { params: { tanggal: tanggal.value } })
     data.value = res.data?.data ?? res.data
+    loading.value = false
     await nextTick()
     await loadChart()
     renderDonut()
