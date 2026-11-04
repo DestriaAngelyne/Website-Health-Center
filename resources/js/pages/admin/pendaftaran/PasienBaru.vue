@@ -74,7 +74,7 @@
               <div class="invalid-feedback">{{ errors.nama }}</div>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-semibold required">NIK</label>
+              <label class="form-label fw-semibold">NIK</label>
               <input v-model="form.nik" type="text" class="form-control form-control-solid"
                 :class="{ 'is-invalid': errors.nik }" placeholder="16 digit NIK"
                 maxlength="16" @input="form.nik = form.nik.replace(/\D/g,'')"/>
