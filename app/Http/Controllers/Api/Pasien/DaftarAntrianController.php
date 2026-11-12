@@ -131,13 +131,23 @@ class DaftarAntrianController extends Controller
                     ->first();
 
                 if (!$sesi) {
+                    $hari   = Carbon::parse($tanggal)->locale('id')->isoFormat('dddd');
+                    $jadwal = \App\Models\JadwalDokter::where('dokter_id', $request->dokter_id)
+                        ->where('hari', $hari)
+                        ->where('is_active', true)
+                        ->first();
+                    
+                    if (!$jadwal) {
+                        return response()->json(['message' => 'Dokter tidak memiliki jadwal praktik pada tanggal tersebut.'], 422);
+                    }
+                    
                     $sesi = SesiAntrian::create([
                         'dokter_id'      => $request->dokter_id,
                         'poli_id'        => $request->poli_id,
                         'tanggal'        => $tanggal,
-                        'jam_buka'       => '08:00:00',
-                        'jam_tutup'      => '14:00:00',
-                        'kuota'          => 20,
+                        'jam_buka'       => $jadwal->jam_mulai,
+                        'jam_tutup'      => $jadwal->jam_selesai,
+                        'kuota'          => $jadwal->kuota,
                         'nomor_terakhir' => 0,
                         'status'         => 'aktif',
                     ]);
@@ -222,6 +232,7 @@ class DaftarAntrianController extends Controller
 
         return response()->json([
             'has_antrian' => !is_null($antrian),
+            'data'        => $antrian,
             'antrian'     => $antrian ? [
                 'id'            => $antrian->id,
                 'nomor_display' => $antrian->kode_antrian . '-' . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT),
@@ -248,7 +259,6 @@ class DaftarAntrianController extends Controller
         }
 
         $antrian->update(['status' => 'batal']);
-        $antrian->sesiAntrian?->decrement('nomor_terakhir');
 
         return response()->json(['message' => 'Antrian berhasil dibatalkan.']);
     }
