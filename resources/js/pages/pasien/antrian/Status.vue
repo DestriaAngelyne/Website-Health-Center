@@ -181,6 +181,15 @@
                     <span class="text-gray-700">Silakan menuju <strong>{{ antrian.poli }}</strong> untuk diperiksa oleh <strong>{{ antrian.dokter }}</strong></span>
                 </div>
             </div>
+            <!--begin::Batalkan-->
+            <div v-if="antrian.status === 'menunggu'" class="d-flex justify-content-center mt-5">
+                <button class="btn btn-light-danger" @click="batalkanAntrian" :disabled="loadingBatal">
+                    <span v-if="loadingBatal" class="spinner-border spinner-border-sm me-1"></span>
+                    Batalkan Antrian
+                </button>
+            </div>
+            <!--end::Batalkan-->
+
             <!--end::Alert-->
 
         </template>
@@ -253,6 +262,22 @@ async function loadData() {
         antrian.value = null
     } finally {
         isLoading.value = false
+    }
+}
+
+const loadingBatal = ref(false)
+
+async function batalkanAntrian() {
+    if (!antrian.value?.id) return
+    if (!window.confirm('Yakin ingin membatalkan antrian ini?')) return
+    loadingBatal.value = true
+    try {
+        await PasienService.batalkanAntrian(antrian.value.id)
+        await loadData()
+    } catch (e: any) {
+        window.alert(e?.response?.data?.message ?? 'Gagal membatalkan antrian.')
+    } finally {
+        loadingBatal.value = false
     }
 }
 
