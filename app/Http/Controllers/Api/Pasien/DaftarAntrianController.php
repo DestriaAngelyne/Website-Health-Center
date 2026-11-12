@@ -155,6 +155,8 @@ class DaftarAntrianController extends Controller
                 }
             }
 
+            $sesi = SesiAntrian::with(['poli', 'dokter'])->lockForUpdate()->findOrFail($sesi->id);
+
             if (!in_array($sesi->status, ['aktif', 'buka'])) {
                 return response()->json([
                     'message' => 'Sesi antrian sudah ditutup.',
