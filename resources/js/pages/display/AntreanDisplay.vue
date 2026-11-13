@@ -64,6 +64,7 @@
                                 <div>
                                     <div class="text-white fw-bold fs-5">{{ item.nomor }}</div>
                                     <div class="text-slate-400 fs-7">{{ item.poli }}</div>
+                                    <div v-if="item.dokter" class="text-slate-400 fs-8">{{ item.dokter }}</div>
                                 </div>
                             </div>
                             <span v-if="i === 0" class="badge" style="background:#0ea5e9;color:white;font-size:11px;">

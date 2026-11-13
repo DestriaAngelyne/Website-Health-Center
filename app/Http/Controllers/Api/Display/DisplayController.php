@@ -27,13 +27,14 @@ class DisplayController extends Controller
         // 5 antrian berikutnya yang masih menunggu, urut nomor
         $berikutnya = Antrian::whereDate('tanggal', $today)
             ->where('status', 'menunggu')
-            ->with('poli')
+            ->with(['poli', 'dokter'])
             ->orderBy('nomor_antrian')
             ->take(5)
             ->get()
             ->map(fn ($a) => [
                 'nomor' => $this->nomorDisplay($a),
                 'poli'  => $a->poli?->nama,
+                'dokter' => $a->dokter?->nama,
             ]);
 
         $stats = [
