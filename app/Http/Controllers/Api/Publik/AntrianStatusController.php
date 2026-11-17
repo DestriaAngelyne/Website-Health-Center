@@ -24,6 +24,7 @@ class AntrianStatusController extends Controller
 
         // Cari antrian berdasarkan nomor_display atau gabungan kode+nomor
         $antrian = Antrian::with(['sesiAntrian.dokter', 'sesiAntrian.poli', 'pasien'])
+            ->whereDate('tanggal', today())
             ->where(function ($q) use ($nomor) {
                 // Format: F-001 → kode_antrian=F, nomor_antrian=1
                 $q->whereRaw("CONCAT(kode_antrian, '-', LPAD(nomor_antrian, 3, '0')) = ?", [$nomor]);
