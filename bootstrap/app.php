@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
