@@ -123,9 +123,9 @@
             <div class="text-white fs-7 opacity-90 text-nowrap">
                 Harap perhatikan nomor antrian Anda. Jika tidak hadir saat dipanggil 3x, nomor antrian akan hangus.
                 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                Jam Pelayanan: Senin - Jumat 08.00 - 14.00 WIB
+                Jam Pelayanan: Senin - Jumat 08.00 - 12.00 WIB
                 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                Sabtu 08.00 - 11.00 WIB
+                Sabtu 08.00 - 12.00 WIB, Poli Anak sampai 17.00 WIB
             </div>
         </div>
         <!--end::Ticker-->

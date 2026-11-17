@@ -4,7 +4,7 @@
     <!-- Header -->
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
       <div>
-        <h1 class="page-heading fw-bold text-gray-900 fs-3 my-0">Dashboard Loket</h1>
+        <h1 class="page-heading fw-bold text-gray-900 fs-3 my-0">Dashboard Admin</h1>
         <span class="text-gray-500 fw-semibold fs-7">
           {{ hariIni }} — Selamat datang, {{ authStore.user?.name }}
         </span>
