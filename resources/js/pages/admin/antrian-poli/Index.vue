@@ -4,7 +4,7 @@
       <div>
         <h3 class="text-white fw-bold mb-1">Antrian Poli</h3>
         <div class="d-flex align-items-center gap-3">
-          <h1 class="text-white fw-bold mb-0">Antrean {{ dataSesi.nama_poli || '...' }}</h1>
+          <h1 class="text-white fw-bold mb-0">Antrean {{ judulPoli }}</h1>
           <span class="badge badge-light-success border border-success px-3 py-2 fw-bold">
             {{ dataSesi.sesi || 'Memuat Sesi...' }}
           </span>
@@ -37,7 +37,7 @@
               <tr v-for="antrian in daftarAntrian" :key="antrian.id">
                 <td>
                   <span class="text-white fw-bold fs-4">
-                    {{ antrian.kode_antrian }}-{{ antrian.nomor_antrian }}
+                    {{ antrian.nomor_display }}</span><span class="d-block text-gray-600 fs-8">{{ antrian.dokter }}
                   </span>
                 </td>
 
@@ -95,7 +95,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
 
 const daftarAntrian = ref([])
@@ -104,6 +104,13 @@ const dataSesi = ref({
   sesi: ''
 })
 const loading = ref(false)
+
+const judulPoli = computed(() => {
+  const poli = [...new Set(daftarAntrian.value.map(a => a.poli).filter(p => p && p !== '-'))]
+  if (poli.length === 1) return poli[0]
+  if (poli.length > 1) return 'Semua Poli'
+  return dataSesi.value.nama_poli || '...'
+})
 
 const fetchAntrian = async () => {
   loading.value = true

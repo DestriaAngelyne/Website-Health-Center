@@ -195,7 +195,7 @@ class DaftarAntrianController extends Controller
                 'nomor_antrian'   => $nomorUrut,
                 'tanggal'         => $sesi->tanggal,
                 'jenis_kunjungan' => 'baru',
-                'jenis_pasien'    => $pasien->jenis_pasien ?? 'umum',
+                'jenis_pasien'    => $request->jaminan ? strtolower($request->jaminan) : ($pasien->jenis_pasien ?? 'umum'),
                 'status'          => 'menunggu',
                 'waktu_daftar'    => now(),
                 'catatan'         => $request->keluhan,

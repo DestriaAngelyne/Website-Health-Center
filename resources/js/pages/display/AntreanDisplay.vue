@@ -43,6 +43,15 @@
                     {{ poliAktif }}
                 </div>
                 <p class="text-slate-400 fs-6">Dokter: <strong class="text-white">{{ dokterAktif }}</strong></p>
+                <div v-if="lainnyaDipanggil.length" class="mt-6 w-100" style="max-width: 520px;">
+                    <p class="text-slate-400 fs-7 text-uppercase mb-3 text-center">Juga sedang dipanggil</p>
+                    <div v-for="(item, i) in lainnyaDipanggil" :key="i"
+                        class="d-flex align-items-center justify-content-between rounded-3 px-5 py-3 mb-2"
+                        style="background:#1e3a5f;border:1px solid #0ea5e9;">
+                        <span class="text-white fw-bold fs-3">{{ item.nomor }}</span>
+                        <span class="text-slate-400 fs-6">{{ item.poli }} - <strong class="text-white">{{ item.dokter }}</strong></span>
+                    </div>
+                </div>
             </div>
             <!--end::Left-->
 
@@ -132,6 +141,7 @@ const nomorDipanggil    = ref('—')
 const poliAktif         = ref('—')
 const dokterAktif       = ref('—')
 const antrianBerikutnya = ref<any[]>([])
+const lainnyaDipanggil   = ref<any[]>([])
 const animate           = ref(false)
 const stats = ref({ total: 0, selesai: 0, menunggu: 0 })
 
@@ -157,6 +167,7 @@ async function loadData() {
             poliAktif.value         = data.sedang_dilayani?.poli          ?? '—'
             dokterAktif.value       = data.sedang_dilayani?.dokter        ?? '—'
             antrianBerikutnya.value = data.berikutnya ?? []
+            lainnyaDipanggil.value  = (data.sedang_dipanggil ?? []).slice(1)
             stats.value             = data.stats      ?? { total: 0, selesai: 0, menunggu: 0 }
 
             // Animasi saat nomor berubah

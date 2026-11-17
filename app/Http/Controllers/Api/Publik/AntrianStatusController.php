@@ -74,7 +74,7 @@ class AntrianStatusController extends Controller
                 'kode_antrian'   => $antrian->kode_antrian,
                 'nomor_display'  => $antrian->kode_antrian . '-' . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT),
                 'status'         => $antrian->status,
-                'jaminan'        => $antrian->jaminan,
+                'jaminan'        => $antrian->jenis_pasien === 'bpjs' ? 'BPJS' : 'Umum',
 
                 // Info pasien (nama saja, tidak expose data sensitif)
                 'nama_pasien'    => $pasien?->nama_lengkap ?? $pasien?->nama ?? '-',

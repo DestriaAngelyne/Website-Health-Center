@@ -37,6 +37,19 @@ class DisplayController extends Controller
                 'dokter' => $a->dokter?->nama,
             ]);
 
+        // Semua pasien yang sedang dipanggil/diperiksa (satu per dokter), terbaru dulu
+        $sedangDipanggil = Antrian::whereDate('tanggal', $today)
+            ->whereIn('status', ['dipanggil', 'skrining'])
+            ->with(['poli', 'dokter'])
+            ->orderByDesc('waktu_dipanggil')
+            ->get()
+            ->map(fn ($a) => [
+                'nomor'  => $this->nomorDisplay($a),
+                'poli'   => $a->poli?->nama,
+                'dokter' => $a->dokter?->nama,
+            ])
+            ->values();
+
         $stats = [
             'total'    => Antrian::whereDate('tanggal', $today)->count(),
             'selesai'  => Antrian::whereDate('tanggal', $today)->where('status', 'selesai')->count(),
@@ -51,6 +64,7 @@ class DisplayController extends Controller
                     'dokter'        => $sedangDilayani->dokter?->nama,
                 ] : null,
                 'berikutnya' => $berikutnya,
+                'sedang_dipanggil' => $sedangDipanggil,
                 'stats'      => $stats,
             ],
         ]);

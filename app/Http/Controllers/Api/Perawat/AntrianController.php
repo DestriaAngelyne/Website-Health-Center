@@ -43,6 +43,7 @@ class AntrianController extends Controller
                     'no_rm' => $a->pasien->no_rm,
                 ] : null,
                 'poli'          => $a->poli?->nama ?? '-',
+                'dokter'        => $a->dokter?->nama ?? '-',
             ]);
 
         return response()->json([
