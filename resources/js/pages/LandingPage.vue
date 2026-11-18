@@ -152,7 +152,7 @@
               </div>
               <div class="hf-text">
                 <span class="hf-title">Terpercaya</span>
-                <span class="hf-desc">98% kepuasan pasien</span>
+                <span class="hf-desc">Layanan resmi Puskesmas</span>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@
             Dengan visi <em>"Menjadi Puskesmas unggulan yang mampu memberikan pelayanan kesehatan paripurna bagi seluruh lapisan masyarakat"</em>, kami terus berinovasi dan meningkatkan mutu layanan — dari bayi hingga lansia, dari promotif hingga rehabilitatif.
           </p>
           <p class="tentang-desc">
-            Selama lebih dari <strong>14 tahun</strong> beroperasi, Graha Medika Prima telah melayani ribuan pasien setiap bulannya dengan dedikasi penuh dari tim tenaga kesehatan yang berpengalaman dan terlatih. Kami percaya bahwa kesehatan adalah hak setiap warga, sehingga seluruh layanan kami dirancang untuk dapat diakses oleh semua kalangan masyarakat tanpa terkecuali.
+            Selama lebih dari <strong>15 tahun</strong> beroperasi, Graha Medika Prima telah melayani ribuan pasien setiap bulannya dengan dedikasi penuh dari tim tenaga kesehatan yang berpengalaman dan terlatih. Kami percaya bahwa kesehatan adalah hak setiap warga, sehingga seluruh layanan kami dirancang untuk dapat diakses oleh semua kalangan masyarakat tanpa terkecuali.
           </p>
           <p class="tentang-desc">
             Sebagai fasilitas kesehatan tingkat pertama yang telah mendapatkan akreditasi <strong>PARIPURNA</strong>, kami berkomitmen untuk terus meningkatkan standar pelayanan, mengembangkan kompetensi tenaga medis, serta mengadopsi teknologi terkini — termasuk sistem pendaftaran online ini — demi memberikan pengalaman layanan kesehatan yang lebih nyaman, efisien, dan terdigitalisasi bagi seluruh pasien.
@@ -432,7 +432,7 @@
         </div>
         <div class="footer-divider"></div>
         <div class="footer-bar">
-          <span>© 2024 Puskesmas Graha Medika Prima · Sistem Informasi Antrean Digital. All Rights Reserved.</span>
+          <span>© 2026 Puskesmas Graha Medika Prima · Sistem Informasi Antrean Digital. All Rights Reserved.</span>
         </div>
       </div>
     </footer>
@@ -515,7 +515,7 @@ const tentangPoints = [
 ]
 
 const fiturList = [
-  { title: 'Pendaftaran Online', desc: 'Pasien dapat mendaftar layanan kesehatan melalui website kapan saja tanpa perlu mengunjungi loket pendaftaran rumah sakit.', bg: '#dbeafe', color: '#1d4ed8', icon: '<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>' },
+  { title: 'Pendaftaran Online', desc: 'Pasien dapat mendaftar layanan kesehatan melalui website kapan saja tanpa perlu mengunjungi loket pendaftaran puskesmas.', bg: '#dbeafe', color: '#1d4ed8', icon: '<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>' },
   { title: 'Pemantauan Jadwal', desc: 'Pantau nomor layanan yang sedang dipanggil, estimasi waktu tunggu, dan status dokter secara langsung.', bg: '#dcfce7', color: '#15803d', icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>' },
   { title: 'Jadwal Dokter Lengkap', desc: 'Informasi jadwal praktek dokter spesialis di setiap poli tersedia lengkap untuk membantu pasien memilih waktu kunjungan.', bg: '#fef3c7', color: '#b45309', icon: '<path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>' },
   { title: 'Dashboard Manajemen', desc: 'Petugas medis dan administrasi dapat mengelola data pasien, jadwal layanan, dan jadwal dokter melalui dashboard terpadu.', bg: '#ede9fe', color: '#6d28d9', icon: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>' },
