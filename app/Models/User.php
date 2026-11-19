@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;  // ← tambahkan ini
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -37,6 +37,7 @@ class User extends Authenticatable
     public function isSuperadmin(): bool { return $this->role === 'superadmin'; }
     public function isAdmin(): bool   { return $this->role === 'admin'; }
     public function isPasien(): bool  { return $this->role === 'pasien'; }
+    public function isDokter(): bool  { return $this->role === 'dokter'; }
 
     public function dokter()
     {

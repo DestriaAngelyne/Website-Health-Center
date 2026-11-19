@@ -14,11 +14,16 @@ class Dokter extends Model
     protected $table = 'dokter';
 
     protected $fillable = [
-        'poli_id', 'nip', 'nama',
+        'user_id', 'poli_id', 'nip', 'nama',
         'spesialis', 'str_number', 'no_hp', 'foto', 'is_active',
     ];
 
     protected $casts = ['is_active' => 'boolean'];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function poli(): BelongsTo
     {
