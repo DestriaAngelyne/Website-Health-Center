@@ -25,7 +25,7 @@ class KirimNotifikasiAntrian
         $this->notifikasi->kirim(
             user : $user,
             judul: 'Nomor Antrian Dipanggil',
-            pesan: "Nomor antrian {$antrian->kode_antrian} silakan menuju {$antrian->poli?->nama}.",
+            pesan: "Nomor antrian {$antrian->kode_antrian}-" . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT) . " silakan menuju {$antrian->poli?->nama}.",
             tipe : 'antrian',
             icon : 'notification-status',
             url  : '/pasien/antrian/status',
@@ -45,7 +45,7 @@ class KirimNotifikasiAntrian
         $this->notifikasi->kirim(
             user : $user,
             judul: 'Pemeriksaan Selesai',
-            pesan: "Antrian {$antrian->kode_antrian} di {$antrian->poli?->nama} telah selesai. Terima kasih atas kunjungan Anda.",
+            pesan: "Antrian {$antrian->kode_antrian}-" . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT) . " di {$antrian->poli?->nama} telah selesai. Terima kasih atas kunjungan Anda.",
             tipe : 'antrian',
             icon : 'notification-status',
             url  : '/pasien/riwayat',
@@ -65,7 +65,7 @@ class KirimNotifikasiAntrian
         $this->notifikasi->kirim(
             user : $user,
             judul: 'Nomor Antrian Dilewati',
-            pesan: "Nomor antrian {$antrian->kode_antrian} dilewati karena tidak hadir saat dipanggil. Silakan hubungi petugas.",
+            pesan: "Nomor antrian {$antrian->kode_antrian}-" . str_pad($antrian->nomor_antrian, 3, '0', STR_PAD_LEFT) . " dilewati karena tidak hadir saat dipanggil. Silakan hubungi petugas.",
             tipe : 'antrian',
             icon : 'notification-status',
             url  : '/pasien/antrian/status',
