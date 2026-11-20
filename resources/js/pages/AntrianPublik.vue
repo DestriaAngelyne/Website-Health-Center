@@ -212,10 +212,10 @@ const statusLabel = computed(() => {
   const map: Record<string, string> = {
     menunggu  : 'Menunggu',
     dipanggil : 'Dipanggil',
-    dilayani  : 'Sedang Dilayani',
+    skrining  : 'Sedang Skrining',
     selesai   : 'Selesai',
     batal     : 'Dibatalkan',
-    skip      : 'Dilewati',
+    dilewati  : 'Dilewati',
   }
   return map[hasil.value?.status ?? ''] ?? (hasil.value?.status ?? '-')
 })
@@ -224,10 +224,10 @@ const statusClass = computed(() => {
   const map: Record<string, string> = {
     menunggu  : 'status-menunggu',
     dipanggil : 'status-dipanggil',
-    dilayani  : 'status-dilayani',
+    skrining  : 'status-skrining',
     selesai   : 'status-selesai',
     batal     : 'status-batal',
-    skip      : 'status-batal',
+    dilewati  : 'status-batal',
   }
   return map[hasil.value?.status ?? ''] ?? 'status-menunggu'
 })
@@ -305,7 +305,7 @@ async function cariAntrian(silent = false) {
 .status-card { border-radius: 14px; padding: 28px; border: 2px solid; text-align: center; }
 .status-menunggu { background: #eff6ff; border-color: #bfdbfe; }
 .status-dipanggil { background: #f0fdf4; border-color: #86efac; animation: pulse-border 1.5s ease-in-out infinite; }
-.status-dilayani { background: #f0fdf4; border-color: #86efac; }
+.status-skrining { background: #f0fdf4; border-color: #86efac; }
 .status-selesai { background: #f8fafc; border-color: #e2e8f0; }
 .status-batal { background: #fef2f2; border-color: #fca5a5; }
 @keyframes pulse-border { 0%,100% { border-color: #86efac; } 50% { border-color: #16a34a; } }
@@ -315,7 +315,7 @@ async function cariAntrian(silent = false) {
 .status-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 800; }
 .status-menunggu .status-badge { background: #dbeafe; color: #1d4ed8; }
 .status-dipanggil .status-badge { background: #dcfce7; color: #15803d; }
-.status-dilayani .status-badge { background: #dcfce7; color: #15803d; }
+.status-skrining .status-badge { background: #dcfce7; color: #15803d; }
 .status-selesai .status-badge { background: #f1f5f9; color: #475569; }
 .status-batal .status-badge { background: #fee2e2; color: #dc2626; }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; display: inline-block; }
