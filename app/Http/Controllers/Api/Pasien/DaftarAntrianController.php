@@ -98,7 +98,9 @@ class DaftarAntrianController extends Controller
             'tanggal'   => 'nullable|date',
             'jaminan'   => 'nullable|string|in:BPJS,Umum',
             'no_bpjs'   => 'nullable|string',
-            'keluhan'   => 'nullable|string|max:500',
+            'keluhan'   => 'required|string|max:500',
+        ], [
+            'keluhan.required' => 'Keluhan wajib diisi.',
         ]);
 
         $user   = Auth::user();

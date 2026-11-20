@@ -305,8 +305,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Keluhan Utama</label>
-              <textarea v-model="form.keluhan" class="form-input" rows="3" placeholder="Tuliskan keluhan Anda (opsional)"></textarea>
+              <label for="keluhan" class="form-label required">Keluhan Utama</label>
+              <textarea id="keluhan" v-model="form.keluhan" class="form-input" :class="{ 'is-invalid': keluhanTouched && !(form.keluhan || '').trim() }" rows="3" maxlength="500" placeholder="Contoh: demam dan batuk sejak 2 hari" :aria-invalid="keluhanTouched && !(form.keluhan || '').trim()" aria-describedby="keluhan-note" @blur="keluhanTouched = true"></textarea>
+              <div id="keluhan-note" class="form-note" :class="{ 'is-invalid': keluhanTouched && !(form.keluhan || '').trim() }">
+                <span v-if="keluhanTouched && !(form.keluhan || '').trim()" class="form-note-text" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span><span class="form-note-sr">Kesalahan: </span>Keluhan belum diisi. Harap tuliskan keluhan Anda untuk melanjutkan pendaftaran.</span>
+                </span>
+                <span v-else class="form-note-text">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <span>Wajib diisi. Harap tuliskan keluhan atau gejala yang Anda rasakan.</span>
+                </span>
+                <span class="form-note-count">{{ (form.keluhan || '').length }}/500</span>
+              </div>
             </div>
           </div>
           <div class="step-nav">
@@ -314,7 +325,7 @@
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 10H4M10 16l-6-6 6-6"/></svg>
               Kembali
             </button>
-            <button class="btn-next" @click="step = 4" :disabled="!form.nama || !form.nik || !form.tgl_lahir || !form.jk || !form.telepon">
+            <button class="btn-next" @click="step = 4" :disabled="!(form.keluhan || '').trim() || !form.nama || !form.nik || !form.tgl_lahir || !form.jk || !form.telepon">
               Lanjut — Konfirmasi
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M10 4l6 6-6 6"/></svg>
             </button>
@@ -476,6 +487,7 @@ const handleLogout = async () => {
 
 // ── State ──────────────────────────────────────────────────────────────────
 const step         = ref(1)
+const keluhanTouched = ref(false)
 const loading      = ref(false)
 const loadingPdf   = ref(false)
 const submitted    = ref(false)
@@ -1032,6 +1044,14 @@ const downloadTiket = async () => {
 .form-input { width: 100%; padding: 10px 13px; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; outline: none; transition: all .18s; background: #fff; color: #0f172a; }
 .form-input:focus { border-color: #0f172a; box-shadow: 0 0 0 3px rgba(15,23,42,.06); }
 textarea.form-input { resize: vertical; }
+.form-note { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-top: 8px; font-size: 12px; line-height: 1.5; color: #4b5563; }
+.form-note-text { display: inline-flex; align-items: flex-start; gap: 6px; }
+.form-note-text svg { flex-shrink: 0; margin-top: 2px; }
+.form-note-count { flex-shrink: 0; color: #6b7280; font-variant-numeric: tabular-nums; }
+.form-note-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.form-note.is-invalid { color: #b91c1c; }
+textarea.form-input.is-invalid { border-color: #b91c1c; }
+textarea.form-input.is-invalid:focus { box-shadow: 0 0 0 3px rgba(185, 28, 28, .12); }
 .form-card { background: #fff; border-radius: 12px; padding: 26px; border: 1.5px solid #e5e7eb; margin-bottom: 24px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .radio-group { display: flex; gap: 8px; }
