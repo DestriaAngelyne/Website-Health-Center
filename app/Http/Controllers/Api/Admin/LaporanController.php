@@ -25,6 +25,7 @@ class LaporanController extends Controller
         $selesai  = (clone $antrian)->where('status', 'selesai')->count();
         $batal    = (clone $antrian)->where('status', 'batal')->count();
         $menunggu = (clone $antrian)->whereIn('status', ['menunggu', 'dipanggil', 'skrining'])->count();
+        $dilewati = (clone $antrian)->where('status', 'dilewati')->count();
         $bpjs     = (clone $antrian)->where('jenis_pasien', 'bpjs')->count();
         $umum     = (clone $antrian)->where('jenis_pasien', 'umum')->count();
 
@@ -85,7 +86,7 @@ class LaporanController extends Controller
             'data'    => [
                 'tanggal'       => $tanggal->format('Y-m-d'),
                 'tanggal_fmt'   => $tanggal->locale('id')->isoFormat('dddd, D MMMM Y'),
-                'statistik'     => compact('total', 'selesai', 'batal', 'menunggu', 'bpjs', 'umum'),
+                'statistik'     => compact('total', 'selesai', 'batal', 'menunggu', 'dilewati', 'bpjs', 'umum'),
                 'avg_tunggu'    => $avgTunggu ? round($avgTunggu) : null,
                 'per_poli'      => $perPoli,
                 'per_dokter'    => $perDokter,

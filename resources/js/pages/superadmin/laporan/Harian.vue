@@ -217,7 +217,7 @@ const COLORS = {
   selesai:  '#50cd89',
   menunggu: '#ffc700',
   batal:    '#f1416c',
-  dilayani: '#009ef7',
+  dilewati: '#a1a5b7',
   purple:   '#7239ea',
 }
 
@@ -252,12 +252,12 @@ const donutLegend = computed(() => [
   { label: 'Selesai',  value: data.value?.statistik?.selesai  ?? 0, color: COLORS.selesai  },
   { label: 'Menunggu', value: data.value?.statistik?.menunggu ?? 0, color: COLORS.menunggu },
   { label: 'Batal',    value: data.value?.statistik?.batal    ?? 0, color: COLORS.batal    },
-  { label: 'Dilayani', value: data.value?.statistik?.dilayani ?? 0, color: COLORS.dilayani },
+  { label: 'Dilewati', value: data.value?.statistik?.dilewati ?? 0, color: COLORS.dilewati },
 ])
 
 const statusBadge = (s: string) => ({
-  menunggu: 'badge-light-warning', dilayani: 'badge-light-primary',
-  selesai:  'badge-light-success', batal:    'badge-light-danger',
+  menunggu: 'badge-light-warning', dipanggil: 'badge-light-info', skrining: 'badge-light-primary',
+  selesai:  'badge-light-success', batal:    'badge-light-danger', dilewati: 'badge-light-dark',
 }[s] ?? 'badge-light-secondary')
 
 function destroyCharts() {
@@ -271,15 +271,15 @@ function renderDonut() {
   donutChart = new ChartJS(donutRef.value, {
     type: 'doughnut',
     data: {
-      labels: ['Selesai', 'Menunggu', 'Batal', 'Dilayani'],
+      labels: ['Selesai', 'Menunggu', 'Batal', 'Dilewati'],
       datasets: [{
         data: [
           data.value?.statistik?.selesai  ?? 0,
           data.value?.statistik?.menunggu ?? 0,
           data.value?.statistik?.batal    ?? 0,
-          data.value?.statistik?.dilayani ?? 0,
+          data.value?.statistik?.dilewati ?? 0,
         ],
-        backgroundColor: [COLORS.selesai, COLORS.menunggu, COLORS.batal, COLORS.dilayani],
+        backgroundColor: [COLORS.selesai, COLORS.menunggu, COLORS.batal, COLORS.dilewati],
         borderWidth: 3, borderColor: '#fff', hoverOffset: 8,
       }],
     },
