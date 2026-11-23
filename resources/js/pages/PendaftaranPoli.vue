@@ -310,11 +310,11 @@
               <div id="keluhan-note" class="form-note" :class="{ 'is-invalid': keluhanTouched && !(form.keluhan || '').trim() }">
                 <span v-if="keluhanTouched && !(form.keluhan || '').trim()" class="form-note-text" role="alert">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  <span><span class="form-note-sr">Kesalahan: </span>Keluhan belum diisi. Harap tuliskan keluhan Anda untuk melanjutkan pendaftaran.</span>
+                  <span><span class="form-note-sr">Kesalahan: </span>Mohon tuliskan keluhan atau gejala yang Anda alami sebelum melanjutkan.</span>
                 </span>
                 <span v-else class="form-note-text">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  <span>Wajib diisi. Harap tuliskan keluhan atau gejala yang Anda rasakan.</span>
+                  <span>Keluhan utama wajib diisi.</span>
                 </span>
                 <span class="form-note-count">{{ (form.keluhan || '').length }}/500</span>
               </div>
