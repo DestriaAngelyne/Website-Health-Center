@@ -26,6 +26,15 @@
           </div>
           <div class="field" style="max-width:200px"><label class="label">Status</label><select v-model="form.is_active" class="input"><option :value="true">Aktif</option><option :value="false">Nonaktif</option></select></div>
         </div>
+        <div class="section">
+          <p class="sec-title">Akun Login Dokter</p>
+          <p v-if="!punyaAkun" style="font-size:.82rem;color:var(--text2);margin:0 0 1rem">Dokter ini belum memiliki akun login. Isi username, email, dan password untuk membuatkan akunnya.</p>
+          <div class="grid2">
+            <div class="field"><label class="label">Username <span v-if="punyaAkun" class="req">*</span></label><input v-model="form.username" type="text" class="input" :class="{ err: errors.username }" placeholder="username" autocomplete="off" /><p v-if="errors.username" class="err-msg">{{ errors.username[0] }}</p></div>
+            <div class="field"><label class="label">Email <span v-if="punyaAkun" class="req">*</span></label><input v-model="form.email" type="email" class="input" :class="{ err: errors.email }" placeholder="email@domain.com" autocomplete="off" /><p v-if="errors.email" class="err-msg">{{ errors.email[0] }}</p></div>
+          </div>
+          <div class="field" style="max-width:360px"><label class="label">Password <span v-if="!punyaAkun && (form.username || form.email)" class="req">*</span></label><input v-model="form.password" type="password" class="input" :class="{ err: errors.password }" :placeholder="punyaAkun ? 'Kosongkan jika tidak diganti' : 'Min. 8 karakter'" autocomplete="new-password" /><p v-if="errors.password" class="err-msg">{{ errors.password[0] }}</p></div>
+        </div>
         <div class="footer">
           <router-link to="/superadmin/master/dokter" class="btn-ghost">Batal</router-link>
           <button type="submit" class="btn-save" :disabled="saving"><span v-if="saving" class="btn-spin"></span>{{ saving ? 'Menyimpan...' : 'Update Dokter' }}</button>
@@ -39,13 +48,13 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 const route = useRoute(), router = useRouter()
-const form = ref({ nip: '', nama: '', spesialis: '', poli_id: '', no_hp: '', str_number: '', is_active: true })
-const errors = ref({}), saving = ref(false), loadingData = ref(true), poliList = ref([])
+const form = ref({ nip: '', nama: '', spesialis: '', poli_id: '', no_hp: '', str_number: '', is_active: true, username: '', email: '', password: '' })
+const errors = ref({}), saving = ref(false), loadingData = ref(true), poliList = ref([]), punyaAkun = ref(false)
 onMounted(async () => {
   try {
     const [pr, dr] = await Promise.all([api.get('/superadmin/poli', { params: { per_page: 100 } }), api.get(`/superadmin/dokter/${route.params.id}`)])
     poliList.value = pr.data.data; const d = dr.data.data
-    form.value = { nip: d.nip ?? '', nama: d.nama, spesialis: d.spesialis ?? '', poli_id: d.poli_id, no_hp: d.no_hp ?? '', str_number: d.str_number ?? '', is_active: d.is_active }
+    form.value = { nip: d.nip ?? '', nama: d.nama, spesialis: d.spesialis ?? '', poli_id: d.poli_id, no_hp: d.no_hp ?? '', str_number: d.str_number ?? '', is_active: d.is_active, username: d.user?.username ?? '', email: d.user?.email ?? '', password: '' }; punyaAkun.value = !!d.user_id
   } catch { alert('Gagal memuat data') } finally { loadingData.value = false }
 })
 async function submit() {
