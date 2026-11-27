@@ -486,7 +486,7 @@ const roleLabel   = computed(() => {
   return m[authStore.user?.role ?? ''] ?? '-'
 })
 const dashRoute = computed(() => {
-  const m: Record<string,string> = { superadmin:'/superadmin/dashboard', admin:'/admin/dashboard', pasien:'/pasien/dashboard' }
+  const m: Record<string,string> = { superadmin:'/superadmin/dashboard', admin:'/admin/dashboard', dokter:'/dokter/dashboard', pasien:'/pasien/dashboard' }
   return m[authStore.user?.role ?? ''] ?? '/'
 })
 const doLogout = async () => { dropOpen.value = false; mobileOpen.value = false; await authStore.logout() }

@@ -101,6 +101,17 @@ const routes: Array<RouteRecordRaw> = [
         ],
     },
 
+    // Dokter Routes (melihat antrean pasien miliknya)
+    {
+        path: "/dokter",
+        redirect: "/dokter/dashboard",
+        component: () => import("@/layouts/default-layout/DefaultLayout.vue"),
+        meta: { requiresAuth: true, role: "dokter" },
+        children: [
+            { path: "dashboard", name: "dokter-dashboard", component: () => import("@/pages/dokter/Dashboard.vue"), meta: { pageTitle: "Dashboard Dokter" } },
+        ],
+    },
+
     // â”€â”€ Pasien Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     {
         path: "/pasien",
@@ -158,6 +169,7 @@ router.beforeEach(async (to, from, next) => {
         superadmin: '/superadmin/dashboard',
         admin   : '/admin/dashboard',
         pasien  : '/pasien/dashboard',
+        dokter  : '/dokter/dashboard',
     };
 
     if (to.meta.requiresAuth) {

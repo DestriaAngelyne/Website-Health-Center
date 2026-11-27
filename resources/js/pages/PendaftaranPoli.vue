@@ -477,7 +477,7 @@ const userRoleLabel = computed(() => {
   return map[authStore.user?.role ?? ''] ?? '-'
 })
 const dashboardRoute = computed(() => {
-  const map: Record<string, string> = { superadmin: '/superadmin/dashboard', admin: '/admin/dashboard', pasien: '/pasien/dashboard' }
+  const map: Record<string, string> = { superadmin: '/superadmin/dashboard', admin: '/admin/dashboard', dokter: '/dokter/dashboard', pasien: '/pasien/dashboard' }
   return map[authStore.user?.role ?? ''] ?? '/'
 })
 const handleLogout = async () => {

@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\Perawat\AntrianController as AdminAntrianPoliContro
 // Pasien
 use App\Http\Controllers\Api\Pasien\ProfilController;
 use App\Http\Controllers\Api\Staff\ProfilController as StaffProfilController;
+use App\Http\Controllers\Api\Dokter\DashboardController as DokterDashboardController;
 use App\Http\Controllers\Api\Pasien\PendaftaranController;
 use App\Http\Controllers\Api\Pasien\DaftarAntrianController;
 use App\Http\Controllers\Api\Pasien\AntrianController as PasienAntrianController;
@@ -47,7 +48,7 @@ Route::prefix('auth')->middleware('throttle:10,1')->group(function () {
 
 // Master Data (public)
 Route::get('poli',                         [PendaftaranController::class, 'getPoli']);
-Route::get('dokter/{poli_id}',             [PendaftaranController::class, 'getDokterByPoli']);
+Route::get('dokter/{poli_id}',             [PendaftaranController::class, 'getDokterByPoli'])->whereNumber('poli_id');
 Route::get('jadwal/{dokter_id}',           [PendaftaranController::class, 'getJadwalByDokter']);
 Route::get('tanggal-tersedia/{dokter_id}', [PendaftaranController::class, 'getTanggalTersedia']);
 
@@ -152,6 +153,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post ('antrian/tutup-sesi',      [AdminAntrianPoliController::class, 'tutupSesi']);
     });
 
+    // Dokter (tahap 1: melihat antrean pasien miliknya)
+    Route::middleware('role:dokter')->prefix('dokter')->group(function () {
+        Route::get('dashboard', [DokterDashboardController::class, 'index']);
+    });
+
     // ── Pasien ────────────────────────────────────────────────────────────────
     Route::middleware('role:pasien')->prefix('pasien')->group(function () {
 
@@ -164,7 +170,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Pendaftaran Antrian
         Route::prefix('pendaftaran')->group(function () {
             Route::get  ('poli',                 [DaftarAntrianController::class, 'getPoli']);
-            Route::get  ('dokter/{poliId}',      [DaftarAntrianController::class, 'getDokterByPoli']);
+            Route::get  ('dokter/{poliId}',      [DaftarAntrianController::class, 'getDokterByPoli'])->whereNumber('poliId');
             Route::get  ('sesi',                 [DaftarAntrianController::class, 'getSesi']);
             Route::post ('daftar',               [DaftarAntrianController::class, 'daftar']);
             Route::get  ('cek-antrian-aktif',    [DaftarAntrianController::class, 'cekAntrianAktif']);

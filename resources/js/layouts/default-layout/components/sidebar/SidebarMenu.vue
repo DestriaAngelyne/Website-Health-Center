@@ -94,6 +94,7 @@ import { sidebarMenuIcons } from "@/layouts/default-layout/config/helper";
 
 import SuperAdminMenuConfig from "@/layouts/default-layout/config/menu/SuperAdminMenuConfig";
 import AdminMenuConfig     from "@/layouts/default-layout/config/menu/AdminMenuConfig";
+import DokterMenuConfig     from "@/layouts/default-layout/config/menu/DokterMenuConfig";
 import PasienMenuConfig    from "@/layouts/default-layout/config/menu/PasienMenuConfig";
 
 export default defineComponent({
@@ -106,6 +107,7 @@ export default defineComponent({
       switch (authStore.user?.role) {
         case "superadmin": return SuperAdminMenuConfig;
         case "admin"    : return AdminMenuConfig;
+        case "dokter"   : return DokterMenuConfig;
         case "pasien"   : return PasienMenuConfig;
         default         : return [];
       }
