@@ -109,6 +109,8 @@ const routes: Array<RouteRecordRaw> = [
         meta: { requiresAuth: true, role: "dokter" },
         children: [
             { path: "dashboard", name: "dokter-dashboard", component: () => import("@/pages/dokter/Dashboard.vue"), meta: { pageTitle: "Dashboard Dokter" } },
+            { path: "pemeriksaan", name: "dokter-pemeriksaan", component: () => import("@/pages/dokter/pemeriksaan/Index.vue"), meta: { pageTitle: "Pemeriksaan" } },
+            { path: "pemeriksaan/:id", name: "dokter-pemeriksaan-detail", component: () => import("@/pages/dokter/pemeriksaan/Detail.vue"), meta: { pageTitle: "Pemeriksaan Pasien" } },
         ],
     },
 

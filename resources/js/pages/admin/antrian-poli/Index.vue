@@ -63,19 +63,19 @@
 
                 <td>
                   <span :class="statusBadge(antrian.status)">
-                    {{ antrian.status }}
+                    {{ statusLabel(antrian.status) }}
                   </span>
                 </td>
 
                 <td class="text-end">
                   <div class="d-flex justify-content-end gap-2">
-                    <router-link
+                    <router-link v-if="masihDiPerawat(antrian.status)"
                     :to="`/admin/antrian/panggil/${antrian.id}`"
                     class="btn btn-icon btn-sm btn-light-dark"
                     >
                     <i class="ki-outline ki-notification-on fs-5"></i>
                     </router-link>
-                    <button @click="handleSelesai(antrian.id)" class="btn btn-icon btn-sm btn-light-success" title="Selesai Periksa">
+                    <button v-if="masihDiPerawat(antrian.status)" @click="handleSelesai(antrian.id)" class="btn btn-icon btn-sm btn-light-success" title="Selesai Skrining">
                       <i class="ki-outline ki-check fs-5"></i>
                     </button>
                   </div>
@@ -129,10 +129,27 @@ const fetchAntrian = async () => {
   }
 }
 
+const statusLabel = (status) => ({
+  menunggu: 'Menunggu',
+  dipanggil: 'Dipanggil',
+  skrining: 'Sedang Skrining',
+  siap_diperiksa: 'Menunggu Dokter',
+  diperiksa: 'Sedang Diperiksa',
+  selesai: 'Selesai',
+  dilewati: 'Dilewati',
+  batal: 'Dibatalkan',
+}[status] ?? status)
+
+// Setelah skrining selesai, pasien menjadi tanggung jawab dokter
+const masihDiPerawat = (status) => !['siap_diperiksa', 'diperiksa'].includes(status)
+
 const statusBadge = (status) => {
   const base = 'badge fw-bold px-3 py-2 '
   // Menyesuaikan warna berdasarkan status di database
   if (status === 'dipanggil') return base + 'badge-light-warning text-warning'
+  if (status === 'skrining') return base + 'badge-light-info text-info'
+  if (status === 'siap_diperiksa') return base + 'badge-light-primary text-primary'
+  if (status === 'diperiksa') return base + 'badge-light-info text-info'
   if (status === 'menunggu') return base + 'badge-light-primary text-primary'
   if (status === 'selesai') return base + 'badge-light-success text-success'
   if (status === 'dilewati') return base + 'badge-light-danger text-danger'
@@ -147,7 +164,7 @@ const formatJam = (timeString) => {
 }
 
 const handleSelesai = async (id) => {
-  if (!confirm('Tandai pasien ini selesai diperiksa?')) return
+  if (!confirm('Tandai skrining pasien ini selesai dan teruskan ke dokter?')) return
   try {
     await api.patch(`/admin/antrian/${id}/selesai`)
     await fetchAntrian()

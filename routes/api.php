@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\Perawat\AntrianController as AdminAntrianPoliContro
 use App\Http\Controllers\Api\Pasien\ProfilController;
 use App\Http\Controllers\Api\Staff\ProfilController as StaffProfilController;
 use App\Http\Controllers\Api\Dokter\DashboardController as DokterDashboardController;
+use App\Http\Controllers\Api\Dokter\PemeriksaanController as DokterPemeriksaanController;
 use App\Http\Controllers\Api\Pasien\PendaftaranController;
 use App\Http\Controllers\Api\Pasien\DaftarAntrianController;
 use App\Http\Controllers\Api\Pasien\AntrianController as PasienAntrianController;
@@ -156,6 +157,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Dokter (tahap 1: melihat antrean pasien miliknya)
     Route::middleware('role:dokter')->prefix('dokter')->group(function () {
         Route::get('dashboard', [DokterDashboardController::class, 'index']);
+        Route::get('pemeriksaan/{id}', [DokterPemeriksaanController::class, 'show'])->whereNumber('id');
+        Route::patch('pemeriksaan/{id}/mulai', [DokterPemeriksaanController::class, 'mulai'])->whereNumber('id');
+        Route::patch('pemeriksaan/{id}/catatan', [DokterPemeriksaanController::class, 'catatan'])->whereNumber('id');
+        Route::patch('pemeriksaan/{id}/selesai', [DokterPemeriksaanController::class, 'selesai'])->whereNumber('id');
     });
 
     // ── Pasien ────────────────────────────────────────────────────────────────
