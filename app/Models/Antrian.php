@@ -13,7 +13,7 @@ class Antrian extends Model
         'loket_user_id', 'kode_antrian', 'nomor_antrian', 'tanggal',
         'jenis_kunjungan', 'jenis_pasien', 'status', 'waktu_daftar',
         'waktu_dipanggil', 'waktu_mulai_skrining', 'waktu_selesai_skrining',
-        'waktu_selesai', 'catatan',
+        'waktu_selesai', 'catatan', 'catatan_dokter', 'waktu_mulai_periksa',
     ];
 
     protected $casts = [
@@ -23,6 +23,7 @@ class Antrian extends Model
         'waktu_mulai_skrining'    => 'datetime',
         'waktu_selesai_skrining'  => 'datetime',
         'waktu_selesai'           => 'datetime',
+        'waktu_mulai_periksa'    => 'datetime',
     ];
 
     /**

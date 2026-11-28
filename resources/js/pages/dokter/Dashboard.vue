@@ -66,7 +66,7 @@ const loading = ref(false)
 const error = ref('')
 let timer = null
 
-const LABEL = { menunggu: 'Menunggu', dipanggil: 'Dipanggil', skrining: 'Skrining', selesai: 'Selesai', dilewati: 'Dilewati', batal: 'Dibatalkan' }
+const LABEL = { menunggu: 'Menunggu', dipanggil: 'Dipanggil', skrining: 'Skrining', siap_diperiksa: 'Siap Diperiksa', diperiksa: 'Diperiksa', selesai: 'Selesai', dilewati: 'Dilewati', batal: 'Dibatalkan' }
 const label = (s) => LABEL[s] ?? s
 
 const jam = (t) => {
@@ -78,7 +78,7 @@ const jam = (t) => {
 const kartu = computed(() => [
   { label: 'Total antrean', value: ringkasan.value.total ?? 0 },
   { label: 'Menunggu', value: ringkasan.value.menunggu ?? 0 },
-  { label: 'Sedang diproses', value: ringkasan.value.diproses ?? 0 },
+  { label: 'Di perawat', value: ringkasan.value.diproses ?? 0 }, { label: 'Siap diperiksa', value: ringkasan.value.siap_diperiksa ?? 0 }, { label: 'Sedang diperiksa', value: ringkasan.value.diperiksa ?? 0 },
   { label: 'Selesai', value: ringkasan.value.selesai ?? 0 },
   { label: 'Dilewati / batal', value: (ringkasan.value.dilewati ?? 0) + (ringkasan.value.batal ?? 0) },
 ])
@@ -128,7 +128,7 @@ onUnmounted(() => clearInterval(timer))
 .dk-keluhan { min-width: 220px; max-width: 420px; white-space: pre-wrap; }
 .dk-st { display: inline-block; padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 700; white-space: nowrap; }
 .dk-st-menunggu { background: rgba(245,158,11,.16); color: #d97706; }
-.dk-st-dipanggil, .dk-st-skrining { background: rgba(14,165,233,.16); color: #0ea5e9; }
+.dk-st-dipanggil, .dk-st-skrining, .dk-st-siap_diperiksa, .dk-st-diperiksa { background: rgba(14,165,233,.16); color: #0ea5e9; }
 .dk-st-selesai { background: rgba(34,197,94,.16); color: #16a34a; }
 .dk-st-dilewati, .dk-st-batal { background: rgba(239,68,68,.14); color: #ef4444; }
 .dk-empty { padding: 2rem; text-align: center; opacity: .7; margin: 0; }

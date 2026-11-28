@@ -55,6 +55,8 @@
               <option value="menunggu">Menunggu</option>
               <option value="dipanggil">Dipanggil</option>
               <option value="skrining">Skrining</option>
+              <option value="siap_diperiksa">Siap Diperiksa</option>
+              <option value="diperiksa">Diperiksa</option>
               <option value="selesai">Selesai</option>
               <option value="dilewati">Dilewati</option>
               <option value="batal">Batal</option>
@@ -166,6 +168,8 @@ const quickStats = computed(() => {
     { label: 'Semua',     val: '',          total: all.length,                                               color: 'text-gray-800' },
     { label: 'Menunggu',  val: 'menunggu',  total: all.filter(a => a.status === 'menunggu').length,          color: 'text-warning'  },
     { label: 'Skrining',  val: 'skrining',  total: all.filter(a => a.status === 'skrining').length,          color: 'text-primary'  },
+    { label: 'Siap Diperiksa', val: 'siap_diperiksa', total: all.filter(a => a.status === 'siap_diperiksa').length, color: 'text-primary' },
+    { label: 'Diperiksa', val: 'diperiksa', total: all.filter(a => a.status === 'diperiksa').length, color: 'text-primary' },
     { label: 'Selesai',   val: 'selesai',   total: all.filter(a => a.status === 'selesai').length,           color: 'text-success'  },
     { label: 'Dilewati', val: 'dilewati', total: all.filter(a => a.status === 'dilewati').length, color: 'text-warning' },
     { label: 'Batal',     val: 'batal',     total: all.filter(a => a.status === 'batal').length,             color: 'text-danger'   },
@@ -176,6 +180,8 @@ const statusBadge = (s: string) => ({
   menunggu : 'badge-light-warning',
   dipanggil: 'badge-light-info',
   skrining : 'badge-light-primary',
+  siap_diperiksa : 'badge-light-primary',
+  diperiksa : 'badge-light-primary',
   selesai  : 'badge-light-success',
   dilewati : 'badge-light-danger text-danger',
   batal    : 'badge-light-danger',

@@ -19,7 +19,7 @@ class DisplayController extends Controller
 
         // Nomor yang sedang dipanggil/diperiksa - ambil yang paling baru dipanggil
         $sedangDilayani = Antrian::whereDate('tanggal', $today)
-            ->whereIn('status', ['dipanggil', 'skrining'])
+            ->whereIn('status', ['dipanggil', 'skrining', 'siap_diperiksa', 'diperiksa'])
             ->with(['poli', 'dokter'])
             ->orderByDesc('waktu_dipanggil')
             ->first();
@@ -39,7 +39,7 @@ class DisplayController extends Controller
 
         // Semua pasien yang sedang dipanggil/diperiksa (satu per dokter), terbaru dulu
         $sedangDipanggil = Antrian::whereDate('tanggal', $today)
-            ->whereIn('status', ['dipanggil', 'skrining'])
+            ->whereIn('status', ['dipanggil', 'skrining', 'siap_diperiksa', 'diperiksa'])
             ->with(['poli', 'dokter'])
             ->orderByDesc('waktu_dipanggil')
             ->get()

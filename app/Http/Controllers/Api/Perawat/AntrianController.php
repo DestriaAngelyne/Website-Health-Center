@@ -149,13 +149,13 @@ class AntrianController extends Controller
     {
         $antrian = Antrian::findOrFail($id);
         $antrian->update([
-            'status'                 => 'selesai',
+            'status'                 => 'siap_diperiksa',
             'waktu_selesai_skrining' => now(),
         ]);
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Antrian selesai.',
+            'message' => 'Skrining selesai, pasien diteruskan ke dokter.',
             'data'    => $antrian,
         ]);
     }

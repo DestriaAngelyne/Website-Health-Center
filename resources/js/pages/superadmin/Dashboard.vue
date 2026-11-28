@@ -232,7 +232,7 @@ function barColor(total) {
 }
 
 function stCls(s) {
-  return { menunggu:'st-wait', dipanggil:'st-call', skrining:'st-serve', selesai:'st-done', batal:'st-cancel', dilewati:'st-cancel' }[s] ?? 'st-done'
+  return { menunggu:'st-wait', dipanggil:'st-call', skrining:'st-serve', siap_diperiksa:'st-serve', diperiksa:'st-serve', selesai:'st-done', batal:'st-cancel', dilewati:'st-cancel' }[s] ?? 'st-done'
 }
 
 onMounted(() => { loadData(); timer = setInterval(loadData, 60000) })

@@ -24,7 +24,7 @@ class LaporanController extends Controller
         $total    = (clone $antrian)->count();
         $selesai  = (clone $antrian)->where('status', 'selesai')->count();
         $batal    = (clone $antrian)->where('status', 'batal')->count();
-        $menunggu = (clone $antrian)->whereIn('status', ['menunggu', 'dipanggil', 'skrining'])->count();
+        $menunggu = (clone $antrian)->whereIn('status', ['menunggu', 'dipanggil', 'skrining', 'siap_diperiksa', 'diperiksa'])->count();
         $dilewati = (clone $antrian)->where('status', 'dilewati')->count();
         $bpjs     = (clone $antrian)->where('jenis_pasien', 'bpjs')->count();
         $umum     = (clone $antrian)->where('jenis_pasien', 'umum')->count();

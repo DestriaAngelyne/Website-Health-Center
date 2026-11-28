@@ -47,6 +47,8 @@ class DashboardController extends Controller
                     'total'    => $daftar->count(),
                     'menunggu' => $hitung(['menunggu']),
                     'diproses' => $hitung(['dipanggil', 'skrining']),
+                    'siap_diperiksa' => $hitung(['siap_diperiksa']),
+                    'diperiksa' => $hitung(['diperiksa']),
                     'selesai'  => $hitung(['selesai']),
                     'dilewati' => $hitung(['dilewati']),
                     'batal'    => $hitung(['batal']),

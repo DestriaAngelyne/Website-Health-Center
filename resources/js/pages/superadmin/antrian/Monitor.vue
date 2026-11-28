@@ -68,6 +68,8 @@
               <option value="menunggu">Menunggu</option>
               <option value="dipanggil">Dipanggil</option>
               <option value="skrining">Skrining</option>
+              <option value="siap_diperiksa">Siap Diperiksa</option>
+              <option value="diperiksa">Diperiksa</option>
               <option value="selesai">Selesai</option>
               <option value="batal">Batal</option>
             </select>
@@ -114,6 +116,8 @@
                     <option value="">Ubah Status</option>
                     <option value="dipanggil">Dipanggil</option>
                     <option value="skrining">Skrining</option>
+                    <option value="siap_diperiksa">Siap Diperiksa</option>
+                    <option value="diperiksa">Diperiksa</option>
                     <option value="selesai">Selesai</option>
                     <option value="batal">Batal</option>
                   </select>
@@ -152,6 +156,8 @@ const statList = computed(() => [
   { label: 'Menunggu',  value: statistik.value.menunggu  ?? 0, color: 'text-warning'  },
   { label: 'Dipanggil', value: statistik.value.dipanggil ?? 0, color: 'text-info'     },
   { label: 'Skrining',  value: statistik.value.skrining  ?? 0, color: 'text-primary'  },
+  { label: 'Siap Diperiksa', value: statistik.value.siap_diperiksa ?? 0, color: 'text-primary' },
+  { label: 'Diperiksa', value: statistik.value.diperiksa ?? 0, color: 'text-primary' },
   { label: 'Selesai',   value: statistik.value.selesai   ?? 0, color: 'text-success'  },
   { label: 'Batal',     value: statistik.value.batal     ?? 0, color: 'text-danger'   },
 ])
@@ -160,6 +166,8 @@ const statusBadge = (s: string) => ({
   menunggu  : 'badge-light-warning',
   dipanggil : 'badge-light-info',
   skrining  : 'badge-light-primary',
+  siap_diperiksa : 'badge-light-primary',
+  diperiksa : 'badge-light-primary',
   selesai   : 'badge-light-success',
   dilewati  : 'badge-light-secondary',
   batal     : 'badge-light-danger',

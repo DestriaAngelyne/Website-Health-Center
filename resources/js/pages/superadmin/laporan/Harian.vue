@@ -256,7 +256,7 @@ const donutLegend = computed(() => [
 ])
 
 const statusBadge = (s: string) => ({
-  menunggu: 'badge-light-warning', dipanggil: 'badge-light-info', skrining: 'badge-light-primary',
+  menunggu: 'badge-light-warning', dipanggil: 'badge-light-info', skrining: 'badge-light-primary', siap_diperiksa: 'badge-light-primary', diperiksa: 'badge-light-primary',
   selesai:  'badge-light-success', batal:    'badge-light-danger', dilewati: 'badge-light-dark',
 }[s] ?? 'badge-light-secondary')
 

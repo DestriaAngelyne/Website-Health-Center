@@ -385,7 +385,7 @@ class PendaftaranController extends Controller
 
         // Hitung posisi antrean saat ini
         $posisiSekarang = Antrian::where('sesi_antrian_id', $antrian->sesi_antrian_id)
-            ->whereIn('status', ['dipanggil', 'skrining'])
+            ->whereIn('status', ['dipanggil', 'skrining', 'siap_diperiksa', 'diperiksa'])
             ->max('nomor_antrian') ?? 0;
 
         return response()->json([
